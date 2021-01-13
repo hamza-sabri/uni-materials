@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function login_page() {
+export default function ExamsMainPage() {
     return (
         <div>
             
