@@ -1,0 +1,26 @@
+import * as axios from "axios";
+
+export type Credentials = {
+  email: string;
+  password: string;
+};
+
+export const onLogin = async (x: Credentials) => {
+
+  axios.default
+    .post(
+      "https://us-central1-uni-materials-412a2.cloudfunctions.net/webApi/users/signin",
+      {
+        email: x.email,
+        password: x.password,
+      }
+    )
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  console.log(x);
+};
