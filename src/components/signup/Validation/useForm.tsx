@@ -38,6 +38,10 @@ const useForm = (
   // Wrapped in useCallback to cached the function to avoid intensive memory leaked
   // in every re-render in component
 
+  const x = () => {
+    console.log("hamza");
+  };
+
   const handleOnChange = useCallback(
     (event) => {
       setIsDirty(true);
