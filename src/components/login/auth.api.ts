@@ -6,7 +6,7 @@ export type Credentials = {
 };
 
 export const onLogin = async (x: Credentials) => {
-
+  
   axios.default
     .post(
       "https://us-central1-uni-materials-412a2.cloudfunctions.net/webApi/users/signin",
@@ -17,6 +17,8 @@ export const onLogin = async (x: Credentials) => {
     )
     .then(function (response) {
       console.log(response);
+      const { token } = response.data;
+      localStorage.setItem("token", token);
     })
     .catch(function (error) {
       console.log(error);
