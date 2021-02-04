@@ -1,6 +1,3 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-
 const FormValidationRules = () => {
   const stateSchema = {
     email: { value: "", error: "" },
