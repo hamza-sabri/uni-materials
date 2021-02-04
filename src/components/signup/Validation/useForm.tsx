@@ -69,15 +69,18 @@ const useForm = (
     [validationSchema]
   );
 
-  const handleOnSubmit = useCallback((event) => {
-    event.preventDefault();
+  const handleOnSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    // Make sure that validateState returns false
-    // Before calling the submit callback function
-    if (!validateState()) {
-      callback(state);
-    }
-  }, []);
+      // Make sure that validateState returns false
+      // Before calling the submit callback function
+      if (!validateState()) {
+        callback(state);
+      }
+    },
+    [callback, state, validateState]
+  );
 
   return { state, disable, handleOnChange, handleOnSubmit };
 };

@@ -75,8 +75,8 @@ const FormValidationRules = () => {
         regEx: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/,
         error: (
           <ul>
-            {passwordValidation.map((e) => {
-              return <li>{e}</li>;
+            {passwordValidation.map((e, index) => {
+              return <li key={index}>{e}</li>;
             })}
           </ul>
         ),
@@ -93,8 +93,8 @@ const FormValidationRules = () => {
 
         error: (
           <ul>
-            {passwordValidation.map((e) => {
-              return <li>{e}</li>;
+            {passwordValidation.map((e, index) => {
+              return <li key={index}>{e}</li>;
             })}
           </ul>
         ),

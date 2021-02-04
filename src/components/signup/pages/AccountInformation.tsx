@@ -1,3 +1,4 @@
+import { useRef } from "react";
 type AccountInterface = {
   state: any;
   errorStyle: object;
@@ -9,15 +10,22 @@ const AccountInformation = ({
   handleOnChange,
   errorStyle,
 }: AccountInterface) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const handleEvent = () => {
+    const { current } = inputRef;
+    console.log(current?.value);
+  };
+
   return (
     <div className="form-card">
       <h2 className="b-form-title">Account Information</h2>
       <input
+        ref={inputRef}
         type="email"
         name="email"
         placeholder="Email"
         value={state.email.value}
-        onChange={handleOnChange}
+        onChange={handleEvent}
       />
       {state.email.error && <p style={errorStyle}>{state.email.error}</p>}
 

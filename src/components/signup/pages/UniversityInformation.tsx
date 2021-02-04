@@ -52,7 +52,7 @@ const UniversityInformation = ({
 
       <div className="row">
         <div className="col-2">
-          <label className="pay">UniversityInfo</label>
+          <label className="">UniversityInfo</label>
         </div>
         <div className="col-10">
           <select
