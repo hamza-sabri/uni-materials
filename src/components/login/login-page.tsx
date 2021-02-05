@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { onLogin } from "./auth.api";
 import "../../styles/logins/login.css";
+import ForgotPassword from "./forgotPassword";
+import SignUpButton from "./signUpButton";
 
 export default function LoginPage() {
   const [{ email, password }, setCredentials] = useState({
@@ -19,7 +21,7 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <form className="form1" onSubmit={login}>
-        <label htmlFor="email">Username</label>
+        <label htmlFor="email">Email</label>
         <input
           placeholder="Username"
           value={email}
@@ -30,6 +32,7 @@ export default function LoginPage() {
             })
           }
         />
+        <br/>
         <label htmlFor="password">Password</label>
         <input
           placeholder="Password"
@@ -42,8 +45,15 @@ export default function LoginPage() {
             })
           }
         />
+        <br/>
         <button type="submit">Login</button>
+        <br/>
+        <ForgotPassword />
+        <br/>
+        <SignUpButton />
+       
       </form>
     </div>
+    
   );
 }
