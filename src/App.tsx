@@ -1,5 +1,5 @@
 import { userCredentials } from './interfaces/user/credentials';
-import { getUserCredentials, signin, signup } from './requestes/user';
+import { getUserCredentials, signin, signup } from './requestes/user-requestes/user';
 
 function App() {
 	const test = async () => {

@@ -1,8 +1,8 @@
-import { userCredentials } from '../interfaces/user/credentials';
-import { urlConcatenator, signinRoute, signupRoute } from '../constants/urls';
-import { emailKey, IDTokenKey, passwordKey } from '../constants/local-storage-keys';
-import { CREATED, OK } from '../constants/status-codes';
-import { signinError, signUpError } from '../constants/messages';
+import { userCredentials } from '../../interfaces/user/credentials';
+import { urlConcatenator, signinRoute, signupRoute } from '../../constants/urls';
+import { emailKey, IDTokenKey, passwordKey } from '../../constants/local-storage-keys';
+import { CREATED, OK } from '../../constants/status-codes';
+import { signinError, signUpError } from '../../constants/messages';
 
 const axios = require('axios').default;
 
