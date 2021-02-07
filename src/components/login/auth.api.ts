@@ -17,6 +17,8 @@ export const onLogin = async (x: Credentials) => {
     )
     .then(function (response) {
       console.log(response);
+      const { token } = response.data;
+      localStorage.setItem("token", token);
     })
     .catch(function (error) {
       console.log(error);
