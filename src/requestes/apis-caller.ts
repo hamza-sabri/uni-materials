@@ -16,12 +16,13 @@ const APIsCaller = async (api: any, data?: any): Promise<any> => {
 		if (status >= OK && status <= ACCEPTED) return response;
 		if (status === UNAUTHORIZED) {
 			if ((await refreshIDToken()) && times < refreshTokenLimit) {
-				APIsCaller(api, data);
 				times++;
+				return APIsCaller(api, data);
 			} else times = 0;
 		}
 		return { status, data: {} };
 	} catch (err) {
+		console.log('this is the catch of the calling ');
 		console.log(err);
 		return { err };
 	}
@@ -33,8 +34,7 @@ const refreshIDToken = async (): Promise<boolean> => {
 	const { email, password } = getUserCredentials();
 	if (!email || !password) return false;
 	try {
-		await signin({ email, password });
-		return true;
+		return await signin({ email, password });
 	} catch (err) {
 		return false;
 	}
