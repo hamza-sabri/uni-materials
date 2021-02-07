@@ -3,8 +3,8 @@ import { urlConcatenator, signinRoute, signupRoute } from '../../constants/urls'
 import { emailKey, IDTokenKey, passwordKey } from '../../constants/local-storage-keys';
 import { CREATED, OK } from '../../constants/status-codes';
 import { signinError, signUpError } from '../../constants/messages';
+import axios from 'axios';
 
-const axios = require('axios').default;
 
 // this function is called if the user wants to signin or to refresh his IDToken if needed
 const signin = async (userData: userCredentials): Promise<boolean> => {
