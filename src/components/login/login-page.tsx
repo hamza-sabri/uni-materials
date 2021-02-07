@@ -23,7 +23,7 @@ export default function LoginPage() {
       <form className="form1" onSubmit={login}>
         <label htmlFor="email">Email</label>
         <input
-          placeholder="Username"
+          placeholder="Email"
           value={email}
           onChange={(event) =>
             setCredentials({

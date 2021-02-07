@@ -6,7 +6,7 @@ export type Credentials = {
 };
 
 export const onLogin = async (x: Credentials) => {
-  
+
   axios.default
     .post(
       "https://us-central1-uni-materials-412a2.cloudfunctions.net/webApi/users/signin",
