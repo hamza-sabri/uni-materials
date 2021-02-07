@@ -8,4 +8,15 @@ const BAD_REQUEST: number = 400;
 const UNAUTHORIZED: number = 401;
 const NOT_FOUND: number = 404;
 
-export { OK, CREATED, ACCEPTED, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND };
+// related constants
+const refreshTokenLimit: number = 2;
+
+// functions
+const getErrorStatusCode = (message: string): number => {
+	const currentStatus = Number(message.substr(message.length - 3));
+	if (currentStatus === BAD_REQUEST) return BAD_REQUEST;
+	if (currentStatus === UNAUTHORIZED) return UNAUTHORIZED;
+	return NOT_FOUND;
+};
+
+export { OK, CREATED, ACCEPTED, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND, getErrorStatusCode, refreshTokenLimit };
