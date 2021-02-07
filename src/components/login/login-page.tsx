@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { onLogin } from "./auth.api";
 import "../../styles/logins/login.css";
 import ForgotPassword from "./forgotPassword";
 import SignUpButton from "./signUpButton";
+import { signin } from "../../requestes/user-requestes/user";
+import { APIsCaller } from "../../requestes/apis-caller";
 
 export default function LoginPage() {
   const [{ email, password }, setCredentials] = useState({
@@ -10,14 +11,13 @@ export default function LoginPage() {
     password: "",
   });
 
-    
-    
   const login = async (event: React.FormEvent) => {
     event.preventDefault();
-    const response = await onLogin({
+    const response = await signin({
       email,
       password,
     });
+    console.log(response);
   };
 
   return (
@@ -34,7 +34,7 @@ export default function LoginPage() {
             })
           }
         />
-        <br/>
+        <br />
         <label htmlFor="password">Password</label>
         <input
           placeholder="Password"
@@ -47,15 +47,13 @@ export default function LoginPage() {
             })
           }
         />
-        <br/>
+        <br />
         <button type="submit">Login</button>
-        <br/>
+        <br />
         <ForgotPassword />
-        <br/>
+        <br />
         <SignUpButton />
-       
       </form>
     </div>
-    
   );
 }
