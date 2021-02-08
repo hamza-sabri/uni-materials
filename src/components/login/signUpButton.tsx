@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import "../../styles/logins/login.css";
 
 export default function SignUpButton() {
 
     return (
-        <button>
-           sign up
-        </button>
+        <a className="signup-btn ">
+           Sign up
+        </a>
     );
 }
