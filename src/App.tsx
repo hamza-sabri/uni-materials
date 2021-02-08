@@ -1,6 +1,7 @@
 import { APIsCaller } from './requestes/apis-caller';
 import { getAllUnis } from './requestes/uni-requests/university';
 import { signin, signup } from './requestes/user-requestes/user';
+import Signup from './pages/signup';
 
 function App() {
 	const test = async () => {
@@ -27,7 +28,8 @@ function App() {
 	};
 	return (
 		<div className="App">
-			<button onClick={test}>send data</button>
+			{/* <button onClick={test}>send data</button> */}
+			<Signup />
 		</div>
 	);
 }
