@@ -9,5 +9,9 @@ body,
 }
 
 .page {
-	background: #efefef;
+	background: #faf9f9;
+}
+
+select:hover {
+	cursor: pointer;
 }

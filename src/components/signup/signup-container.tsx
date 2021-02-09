@@ -6,14 +6,22 @@ import { namesForm } from '../../constants/form-arrays';
 import { formPageInterface } from '../../interfaces/forms/signup-form';
 
 export default function SignupContainer() {
+	const [ signupResult, setSignupResult ] = useState({
+		email: '',
+		password: '',
+		firstName: '',
+		lastName: '',
+		universityLocation: '',
+		universityName: '',
+		studentNumber: '',
+		field: ''
+	});
 	const [ formPage, setFormPage ] = useState<formPageInterface>(namesForm);
 
 	return (
 		<div className="signup-container">
 			<SignupImage />
-			<div className="signup-content">
-				<SignupForm {...{ formPage, setFormPage }} />
-			</div>
+			<SignupForm {...{ formPage, setFormPage, signupResult, setSignupResult }} />
 		</div>
 	);
 }
