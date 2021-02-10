@@ -10,7 +10,6 @@ export default function FormInputs({ formPage, signupResult, setSignupResult }: 
 	const [ uniIndex, setUniIndex ] = useState(0);
 
 	const textInputs = () => {
-		console.log(signupResult);
 		return inputMessages.map((inputHint, index) => (
 			<input
 				placeholder={inputHint}
