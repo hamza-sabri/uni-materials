@@ -9,7 +9,7 @@ export default function SignupForm({ formPage, setFormPage, signupResult, setSig
 			<h1>Signup</h1>
 			<div className="signup-form ">
 				<FormInputs {...{ formPage, signupResult, setSignupResult }} />
-				<FormButtons {...{ formPage, setFormPage,signupResult }} />
+				<FormButtons {...{ formPage, setFormPage,signupResult, setSignupResult }} />
 			</div>
 		</div>
 	);

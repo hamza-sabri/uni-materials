@@ -20,7 +20,7 @@ export function SignupDropdown({
 	const createASelector = (index: number) => {
         const selectedItem:string = signupResult[keysAndIDs[index]] || options[index][0];
 		return (
-			<select onChange={({ target }) => {selectionHandler(target,index)}} className="uni-selector" value={selectedItem}>
+			<select id={keysAndIDs[index]} onChange={({ target }) => {selectionHandler(target,index)}} className="uni-selector" value={selectedItem}>
 				{options[index].map((currentOption) => (
 					<option key={currentOption} value={currentOption}>
 						{currentOption}

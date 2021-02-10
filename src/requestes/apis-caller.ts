@@ -23,7 +23,6 @@ const APIsCaller = async (api: any, requestBody?: any): Promise<responseInterfac
 		}
 		return response;
 	} catch (err) {
-		console.log('this is the catch of the calling ');
 		console.error(err);
 		return { status: BAD_REQUEST, data: {} };
 	}
@@ -31,7 +30,6 @@ const APIsCaller = async (api: any, requestBody?: any): Promise<responseInterfac
 
 // this function would resign the user in again
 const refreshIDToken = async (): Promise<boolean> => {
-	console.log('refreshed');
 	const { email, password } = getUserCredentials();
 	if (!email || !password) return false;
 	try {

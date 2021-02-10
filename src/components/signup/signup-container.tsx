@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/signup-styles/signup-main.css';
 import SignupForm from './signup-forms';
 import SignupImage from './signup-image';
@@ -13,7 +13,6 @@ export default function SignupContainer() {
 		lastName: '',
 		universityLocation: '',
 		universityName: '',
-		studentNumber: '',
 		field: ''
 	});
 	const [ formPage, setFormPage ] = useState<formPageInterface>(namesForm);
