@@ -1,5 +1,5 @@
-import Swal from 'sweetalert2';
 import { missingFieldMessage } from '../constants/messages';
+import { showAlert } from '../utilities/alearts';
 
 const reqiredFields = (inputIDs: string[]): boolean => {
 	let result = true;
@@ -9,7 +9,7 @@ const reqiredFields = (inputIDs: string[]): boolean => {
 		if (value == undefined || value === '') result = false;
 	});
 	if (!result) {
-		Swal.fire({
+		showAlert({
 			title: 'Ops',
 			text: missingFieldMessage,
 			icon: 'error',
