@@ -2,9 +2,8 @@ import { userCredentials } from '../../interfaces/user/credentials';
 import { urlConcatenator, signinRoute, signupRoute } from '../../constants/urls';
 import { emailKey, IDTokenKey, passwordKey } from '../../constants/local-storage-keys';
 import { CREATED, OK } from '../../constants/status-codes';
-import { signinError, signUpError } from '../../constants/messages';
+import { signinError, signUpError, userCreated } from '../../constants/messages';
 import axios from 'axios';
-
 
 // this function is called if the user wants to signin or to refresh his IDToken if needed
 const signin = async (userData: userCredentials): Promise<boolean> => {
@@ -23,7 +22,7 @@ const signin = async (userData: userCredentials): Promise<boolean> => {
 	}
 };
 
-const signup = async (userData: userCredentials): Promise<boolean> => {
+const signup = async (userData: userCredentials): Promise<any> => {
 	try {
 		const signUpPath = urlConcatenator([ signupRoute ]);
 		const { status, data } = await axios.post(signUpPath, userData);
@@ -31,9 +30,13 @@ const signup = async (userData: userCredentials): Promise<boolean> => {
 		if (status !== CREATED) throw new Error(signUpError);
 		saveUserCredentials(userData, data.IDToken);
 
-		return true;
+		return { result: true, message: userCreated };
 	} catch (err) {
-		return false;
+		if (err && err.response) {
+			const { data } = err.response;
+			return { result: false, message: data.error.message };
+		}
+		return { result: false, message: signinError };
 	}
 };
 

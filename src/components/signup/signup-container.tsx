@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import '../../styles/signup-styles/signup-main.css';
 import SignupForm from './signup-forms';
 import SignupImage from './signup-image';

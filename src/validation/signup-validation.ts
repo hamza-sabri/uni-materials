@@ -6,7 +6,7 @@ const reqiredFields = (inputIDs: string[]): boolean => {
 	inputIDs.forEach((id) => {
 		const currentInput: any = document.getElementById(id);
 		const value: string = currentInput.value;
-		if (value == undefined || value === '') result = false;
+		if (value === undefined || value === '') result = false;
 	});
 	if (!result) {
 		showAlert({

@@ -2,9 +2,10 @@ import { emailPasswordForm, namesForm, uniForm } from '../../constants/form-arra
 import { formInterface } from '../../interfaces/forms/signup-form';
 import { signup } from '../../requestes/user-requestes/user';
 import { reqiredFields, addSelectedValues } from '../../validation/signup-validation';
-import Swal from 'sweetalert2';
 import { showAlert } from '../../utilities/alearts';
-import { userCreated } from '../../constants/messages';
+import history from '../../history/credationls-history';
+import Swal from 'sweetalert2';
+import { homePageRoute } from '../../constants/pages-route';
 
 export default function FormButtons({ formPage, setFormPage, signupResult }: formInterface) {
 	let { buttonMessages, pageNumber, keysAndIDs } = formPage;
@@ -28,21 +29,27 @@ export default function FormButtons({ formPage, setFormPage, signupResult }: for
 		// TODO validate the whole oject before sending it to backend
 		const filnaUserData = addSelectedValues(signupResult, keysAndIDs);
 		Swal.showLoading();
-		if (await signup(filnaUserData)) {
+		const { result, message } = await signup(filnaUserData);
+		if (result) {
 			showAlert({
 				title: 'Congrats',
-				text: userCreated,
+				text: message,
 				icon: 'success',
-				confirmButtonText: 'Continue' // TODO when this is clicked go to home
+				confirmButtonText: 'Continue',
+				sucessFunction: sucessSignup // TODO when this is clicked go to home
 			});
 		} else {
 			showAlert({
 				title: 'Ops',
-				text: 'sorry but something went wrong',
+				text: message,
 				icon: 'error',
 				confirmButtonText: 'Ok'
 			});
 		}
+	};
+
+	const sucessSignup = ({ isConfirmed, isDismissed }: any) => {
+		if (isConfirmed || isDismissed) history.push(homePageRoute);
 	};
 
 	return (

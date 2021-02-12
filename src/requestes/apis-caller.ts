@@ -13,7 +13,7 @@ const APIsCaller = async (api: any, requestBody?: any): Promise<responseInterfac
 		if (requestBody) response = await api(axios, requestBody);
 		else response = await api(axios);
 
-		const { status, data } = response;
+		const { status } = response;
 		if (status >= OK && status <= ACCEPTED) return response;
 		if (status === UNAUTHORIZED) {
 			if ((await refreshIDToken()) && times < refreshTokenLimit) {
