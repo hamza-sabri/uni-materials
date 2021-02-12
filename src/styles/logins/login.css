@@ -1,108 +1,143 @@
 /* .form1:hover {
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 } */
-.border{
-  display: flex;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 80%;
-  height: 80%;
-  background-color: #DCD4EF;
-  border-radius: 20px;
-
+.border {
+	display: flex;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 80%;
+	height: 80%;
+	background-color: #dcd4ef;
+	border-radius: 20px;
 }
-.login-page {
-  display: flex;
-  background-color: #F1F0FF;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.6s;
-  border-radius: 13px;
-
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 60%;
-  height: 75%;
+.login-container {
+	display: flex;
+	background-color: #f1f0ff;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.6s;
+	border-radius: 13px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 65%;
+	height: 80%;
+	animation: login-container-animation 1.2s ease-in-out;
 }
 .login-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 45%;
-  background: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 50%;
+	height: 100%;
+	background: white;
 
-  border-bottom-right-radius: 13px;
-  border-top-right-radius: 13px;
+	border-bottom-right-radius: 13px;
+	border-top-right-radius: 13px;
 }
 .login-design {
-  width: 55%;
-  height: 50%;
-  /* background-color: #5524a2; */
-  border-bottom-right-radius: 13px;
-  border-top-right-radius: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  
+	width: 55%;
+	height: 50%;
+	/* background-color: #5524a2; */
+	border-bottom-right-radius: 13px;
+	border-top-right-radius: 13px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
 }
-.btn{
-  width: 25%;
-  overflow: hidden;
-  background-color: #6C63FF;
-  color: #FAF8FE;
+.btn {
+	width: 35%;
+	overflow: hidden;
+	height: 2rem;
+	font-weight: 600;
+	background-color: #6c63ff;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	margin-top: 10%;
+	transition: .3s;
+}
+
+.btn:hover {
+	background-color: #6c63fa;
+	width: 40%;
+	font-weight: 700;
+	border-radius: 8px;
+}
+
+.btn:focus {
+	border: none;
+	outline: none;
 }
 
 body,
-#root 
-{
-  margin: 0;
-  padding: 0;
-  height: 100vh;
+#root {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
 }
-body{
-  background-color: #EFEFEF !important;
+body {
+	background-color: #efefef !important;
+}
+.input {
+	width: 90% !important;
+	font-weight: 200;
+	margin-top: 1.5rem;
+	height: 1.5rem;
+	border: none;
+	outline: none;
+	border-bottom: .8px rgb(221, 219, 219) solid;
+}
 
+.input:focus {
+	border: none;
+	outline: none;
+	border-bottom: .8px rgb(221, 219, 219) solid;
 }
-.input{
-  width: 95% !important;
-  font-weight: 200;
+.signup-btn {
+	color: #6c63ff !important;
+	font-weight: 600;
+	margin-top: 2%;
 }
-.signup-btn{
-  color: #6C63FF !important;
-  font-weight: bold;
-} 
-.forgot-password{
-  color: #6C63FF !important;
-  font-weight: bold;
+.forgot-password {
+	color: #6c63ff !important;
+	font-weight: 600;
+	margin-top: 10%;
+	margin-bottom: 5%;
 }
-.login-h3{
-  color: #6C63FF;
+.login-h1 {
+	color: #6c63ff;
 }
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  border-radius: 13px !important;
-  width: 80%;
-  height: 45%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 7px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+	border-radius: 13px !important;
+	width: 80%;
+	height: 40%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 7px;
 }
-.card:hover{
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.card:hover {
+	box-shadow: 0 8px 16px 0 rgba(114, 63, 63, 0.2);
 }
-.icon{
-  width: 100%;
-  
+.icon {
+	width: 100%;
+}
+
+.signup-btn:hover,
+.forgot-password:hover {
+	cursor: pointer;
+	font-weight: 700;
 }

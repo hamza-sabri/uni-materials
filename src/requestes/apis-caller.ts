@@ -1,15 +1,16 @@
-import { ACCEPTED, OK, UNAUTHORIZED, refreshTokenLimit } from '../constants/status-codes';
+import { ACCEPTED, OK, UNAUTHORIZED, refreshTokenLimit, BAD_REQUEST } from '../constants/status-codes';
+import { responseInterface } from '../interfaces/responses';
 import { getAxiosInstance } from './axios-creation';
 import { getUserCredentials, signin } from './user-requestes/user';
 
 let times: number = 0;
 
 // TODO complete this file and document it
-const APIsCaller = async (api: any, data?: any): Promise<any> => {
+const APIsCaller = async (api: any, requestBody?: any): Promise<responseInterface> => {
 	const axios = getAxiosInstance();
 	try {
-		let response = { status: OK };
-		if (data) response = await api(axios, data);
+		let response: responseInterface = { status: OK };
+		if (requestBody) response = await api(axios, requestBody);
 		else response = await api(axios);
 
 		const { status } = response;
@@ -17,20 +18,18 @@ const APIsCaller = async (api: any, data?: any): Promise<any> => {
 		if (status === UNAUTHORIZED) {
 			if ((await refreshIDToken()) && times < refreshTokenLimit) {
 				times++;
-				return APIsCaller(api, data);
+				return APIsCaller(api, requestBody);
 			} else times = 0;
 		}
-		return { status, data: {} };
+		return response;
 	} catch (err) {
-		console.log('this is the catch of the calling ');
-		console.log(err);
-		return { err };
+		console.error(err);
+		return { status: BAD_REQUEST, data: {} };
 	}
 };
 
 // this function would resign the user in again
 const refreshIDToken = async (): Promise<boolean> => {
-	console.log('refreshed');
 	const { email, password } = getUserCredentials();
 	if (!email || !password) return false;
 	try {

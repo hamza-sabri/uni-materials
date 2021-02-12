@@ -1,0 +1,17 @@
+body,
+#root,
+.page {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+
+.page {
+	background: #faf9f9;
+}
+
+select:hover {
+	cursor: pointer;
+}

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import "../../styles/logins/login.css";
+import { signupPageRoute } from '../../constants/pages-route';
+import history from '../../history/credationls-history';
+import '../../styles/logins/login.css';
 
 export default function SignUpButton() {
-
-    return (
-        <a className="signup-btn ">
-           Sign up
-        </a>
-    );
+	return (
+		<div className="signup-btn" onClick={() => history.push(signupPageRoute)}>
+			Sign up
+		</div>
+	);
 }
