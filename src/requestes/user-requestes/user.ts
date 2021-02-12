@@ -16,7 +16,7 @@ const signin = async (userData: userCredentials): Promise<any> => {
 
 		// if the response status is not OK then throw an error else save the token
 		if (status !== OK) throw new Error(signinError);
-		saveLocaly(IDTokenKey, data.IDToken);
+		saveUserCredentials(userData, data.IDToken);
 		return { result: true, message: userCreated };
 	} catch (err) {
 		if (err && err.response) {
