@@ -4,6 +4,7 @@ import ForgotPassword from "./forgotPassword";
 import SignUpButton from "./signUpButton";
 import { signin } from "../../requestes/user-requestes/user";
 import { APIsCaller } from "../../requestes/apis-caller";
+import icon from "../../icons/sign-in/sign-in.svg";
 
 export default function LoginPage() {
   const [{ email, password }, setCredentials] = useState({
@@ -20,12 +21,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="border">
-      <div className="login-page">
-        <div className="login-form inner-div">
-          <h3>Log in</h3>
-          <br/><br/>
-          
+    <div className="login-page">
+      <div className="login-design inner-div">
+        <img className="icon" src={icon} alt="what"/>
+      </div>
+
+      <div className="login-form inner-div">
+        <h3 className="login-h3">Log in</h3>
+        <br />
+
+        <div className="card">
+
           <input
             className="input form-control"
             placeholder="Email"
@@ -37,7 +43,7 @@ export default function LoginPage() {
               })
             }
           />
-          <br/>
+          <br />
           <input
             className="input form-control"
             placeholder="Password"
@@ -51,15 +57,16 @@ export default function LoginPage() {
             }
           />
           <br />
+          <br />
           <button className="btn " type="submit" onClick={login}>
             Login
           </button>
-          <br />
-          <ForgotPassword />
-          <br />
-          <span>don't have an account?</span><SignUpButton />
         </div>
-        <div className="login-design inner-div"></div>
+        <br />
+        <ForgotPassword />
+        <br />
+        <span>don't have an account?</span>
+        <SignUpButton />
       </div>
     </div>
   );
