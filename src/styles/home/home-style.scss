@@ -1,0 +1,13 @@
+@import './colors';
+@import './nav-bar';
+@import './side-bar';
+
+.home-page {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	display: grid;
+	background: $homePageBackground;
+	grid-template-rows: 8% auto;
+	grid-template-columns: 10% 90%;
+}
