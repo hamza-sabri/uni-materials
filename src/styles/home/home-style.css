@@ -2,8 +2,8 @@
   width: 100%;
   height: 100%;
   background: white;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(51, 51, 51, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(51, 51, 51, 0.2);
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
   grid-column-end: 3;
   -ms-grid-column: 1;
       grid-column-start: 1;
@@ -13,8 +13,8 @@
   width: 100%;
   height: 100%;
   background: white;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(51, 51, 51, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(51, 51, 51, 0.2);
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
 }
 
 .home-page {
@@ -23,10 +23,10 @@
   overflow: hidden;
   display: -ms-grid;
   display: grid;
-  background: #e2d3d3;
+  background: white;
   -ms-grid-rows: 8% auto;
       grid-template-rows: 8% auto;
-  -ms-grid-columns: 10% 90%;
-      grid-template-columns: 10% 90%;
+  -ms-grid-columns: 18% auto;
+      grid-template-columns: 18% auto;
 }
 /*# sourceMappingURL=home-style.css.map */
