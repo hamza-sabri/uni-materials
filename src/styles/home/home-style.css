@@ -7,6 +7,7 @@
   grid-column-end: 3;
   -ms-grid-column: 1;
       grid-column-start: 1;
+  z-index: 0;
 }
 
 .side-bar {
@@ -15,6 +16,11 @@
   background: white;
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  overflow-y: scroll;
+}
+
+.side-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .home-page {
@@ -26,7 +32,7 @@
   background: white;
   -ms-grid-rows: 8% auto;
       grid-template-rows: 8% auto;
-  -ms-grid-columns: 18% auto;
-      grid-template-columns: 18% auto;
+  -ms-grid-columns: 20% auto;
+      grid-template-columns: 20% auto;
 }
 /*# sourceMappingURL=home-style.css.map */

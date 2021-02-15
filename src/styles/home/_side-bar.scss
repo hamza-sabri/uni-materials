@@ -5,4 +5,9 @@
 	height: 100%;
 	background: white;
 	@include floating;
+	overflow-y: scroll;
+}
+
+.side-bar::-webkit-scrollbar {
+	display: none;
 }
