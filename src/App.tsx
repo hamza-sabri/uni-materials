@@ -5,7 +5,7 @@ import history from './history/credationls-history';
 // pages
 import Signup from './pages/signup';
 import Home from './pages/home';
-import Login from './pages/login';
+import Login from './pages/signin';
 function App() {
 	return (
 		<div className="App">

@@ -1,0 +1,85 @@
+.logo {
+  background: red;
+}
+
+.search-input-filed {
+  width: 40%;
+  height: 40%;
+  border: none;
+  border-bottom: 0.5px solid #c8c3c3;
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  outline: none;
+  margin-left: .8rem;
+}
+
+.search-input-filed:hover, .search-input-filed:focus {
+  width: 70%;
+  border: none;
+  border-bottom: 0.5px solid #023af1;
+}
+
+.bar-options {
+  background: greenyellow;
+}
+
+.nav-bar {
+  width: 100%;
+  height: 100%;
+  background: white;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  grid-column-end: 3;
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  z-index: 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20% 60% 20%;
+      grid-template-columns: 20% 60% 20%;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+}
+
+.logo, .search-bar, .bar-options {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.side-bar {
+  width: 100%;
+  height: 100%;
+  background: white;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  overflow-y: scroll;
+}
+
+.side-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.home-page {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: -ms-grid;
+  display: grid;
+  background: white;
+  -ms-grid-rows: 8% auto;
+      grid-template-rows: 8% auto;
+  -ms-grid-columns: 20% auto;
+      grid-template-columns: 20% auto;
+}
+/*# sourceMappingURL=home-style.css.map */

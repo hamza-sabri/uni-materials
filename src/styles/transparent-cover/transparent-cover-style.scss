@@ -1,0 +1,11 @@
+.transparent-cover {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.3);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100000;
+}

@@ -1,0 +1,15 @@
+.search-input-filed {
+	width: 40%;
+	height: 40%;
+	border: none;
+	border-bottom: .5px solid rgb(200, 195, 195);
+	transition: .5s ease-in-out;
+	outline: none;
+	margin-left: .8rem;
+	&:hover,
+	&:focus {
+		width: 70%;
+		border: none;
+		border-bottom: .5px solid rgb(2, 58, 241);
+	}
+}

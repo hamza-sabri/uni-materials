@@ -1,0 +1,13 @@
+@import '../../shared-styles/shared-effects';
+
+.side-bar {
+	width: 100%;
+	height: 100%;
+	background: white;
+	@include floating;
+	overflow-y: scroll;
+}
+
+.side-bar::-webkit-scrollbar {
+	display: none;
+}
