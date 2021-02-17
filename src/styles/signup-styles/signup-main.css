@@ -19,7 +19,8 @@
 	grid-template-rows: 100%;
 }
 
-.signup-image img {
+.signup-image img,
+.signup-image svg {
 	width: 90%;
 	height: 90%;
 	margin-top: 2rem;
@@ -154,3 +155,4 @@ button:focus {
 	width: 100%;
 	text-align: start;
 }
+
