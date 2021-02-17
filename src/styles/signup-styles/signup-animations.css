@@ -23,10 +23,12 @@
 	0% {
 		transform: rotateY(0deg) rotateX(0deg);
 		fill: #6c63ff;
+		opacity: .5;
 	}
 	100% {
 		transform: rotateY(20deg) rotateX(20deg);
 		fill: #d363ff;
+		opacity: 1;
 	}
 }
 

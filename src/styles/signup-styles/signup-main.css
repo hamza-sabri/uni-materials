@@ -92,6 +92,7 @@ h1 {
 	outline: none;
 	border: none;
 	border-bottom: .5px solid rgb(200, 195, 195);
+	margin-left: 1.5rem;
 }
 
 input:focus {
@@ -143,16 +144,16 @@ button:focus {
 	grid-template-columns: 30% 80%;
 	row-gap: 2rem;
 	margin-top: 2rem;
-	margin-left: 3rem;
 }
 
 .selector-container label {
 	color: black;
 	font-weight: 600;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	margin-top: .6rem;
 	padding: 0;
 	width: 100%;
 	text-align: start;
+	margin-left: 1.5rem;
 }
 

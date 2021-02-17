@@ -2,10 +2,6 @@
   background: red;
 }
 
-.search-bar {
-  background: blue;
-}
-
 .search-input-filed {
   width: 40%;
   height: 40%;
@@ -14,6 +10,7 @@
   -webkit-transition: .5s ease-in-out;
   transition: .5s ease-in-out;
   outline: none;
+  margin-left: .8rem;
 }
 
 .search-input-filed:hover, .search-input-filed:focus {
