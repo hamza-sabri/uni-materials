@@ -1,6 +1,6 @@
-@import './colors';
-@import './nav-bar';
-@import './side-bar';
+@import '../shared-styles/colors';
+@import './nav-bar/nav-bar';
+@import './side-bar/side-bar';
 
 .home-page {
 	width: 100%;
