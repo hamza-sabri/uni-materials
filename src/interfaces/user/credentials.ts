@@ -8,4 +8,5 @@ export type userCredentials = {
 	studentNumber?: string;
 	universityName?: string;
 	universityLocation?: string;
+	uniID?:string;
 };

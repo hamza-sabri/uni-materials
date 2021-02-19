@@ -1,12 +1,8 @@
 import { signupDropdownInterface } from '../../interfaces/forms/signup-form';
 
 export function SignupDropdown({
-	doc,
-	setUniIndex,
-	unisNames,
-	formPage,
-	signupResult,
-	setSignupResult
+	doc, setUniIndex, unisNames, formPage,
+	signupResult, setSignupResult
 }: signupDropdownInterface) {
 	const { locations, fields } = doc;
 	const { keysAndIDs } = formPage;

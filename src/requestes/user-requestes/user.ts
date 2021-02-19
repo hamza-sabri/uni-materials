@@ -1,10 +1,9 @@
 import { userCredentials } from '../../interfaces/user/credentials';
 import { urlConcatenator, signinRoute, signupRoute } from '../../constants/urls';
-import { emailKey, IDTokenKey, passwordKey } from '../../constants/local-storage-keys';
+import { emailKey, IDTokenKey, passwordKey, uniIDKey } from '../../constants/local-storage-keys';
 import { CREATED, OK } from '../../constants/status-codes';
 import { signinError, signUpError, userCreated } from '../../constants/messages';
 import axios from 'axios';
-
 
 // this function is called if the user wants to signin or to refresh his IDToken if needed
 const signin = async (userData: userCredentials): Promise<any> => {
@@ -16,6 +15,7 @@ const signin = async (userData: userCredentials): Promise<any> => {
 
 		// if the response status is not OK then throw an error else save the token
 		if (status !== OK) throw new Error(signinError);
+		userData.uniID = data.uniID;
 		saveUserCredentials(userData, data.IDToken);
 		return { result: true, message: userCreated };
 	} catch (err) {
@@ -49,6 +49,7 @@ const saveUserCredentials = (userData: userCredentials, IDToken: string) => {
 	saveLocaly(IDTokenKey, IDToken);
 	saveLocaly(emailKey, userData.email);
 	saveLocaly(passwordKey, userData.password);
+	if (userData.uniID) saveLocaly(uniIDKey, userData.uniID);
 };
 
 const getUserCredentials = (): userCredentials => {

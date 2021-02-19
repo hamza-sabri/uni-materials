@@ -6,9 +6,16 @@ import { showAlert } from '../../utilities/alearts';
 import history from '../../history/credationls-history';
 import Swal from 'sweetalert2';
 import { homePageRoute } from '../../constants/pages-route';
+import { useContext } from 'react';
+import { UniDataContext } from '../../contexts/signup-context/uni-data-context';
 
 export default function FormButtons({ formPage, setFormPage, signupResult }: formInterface) {
 	let { buttonMessages, pageNumber, keysAndIDs } = formPage;
+	const unisDataList = useContext(UniDataContext);
+	const unisTabel = unisDataList.map(({ id, doc }) => {
+		const currentUni = { id: id, name: doc.name };
+		return currentUni;
+	});
 
 	const transitionHandler = ({ target }: any) => {
 		const btnMessage = target.innerText;
@@ -27,7 +34,7 @@ export default function FormButtons({ formPage, setFormPage, signupResult }: for
 
 	const submitSignupResults = async () => {
 		// TODO validate the whole oject before sending it to backend
-		const filnaUserData = addSelectedValues(signupResult, keysAndIDs);
+		const filnaUserData = addSelectedValues(signupResult, keysAndIDs, unisTabel);
 		Swal.showLoading();
 		const { result, message } = await signup(filnaUserData);
 		if (result) {
