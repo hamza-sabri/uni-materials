@@ -1,0 +1,19 @@
+@import '../shared-styles/shared-effects';
+
+.data-entry-page{
+    width: 100%;
+	height: 100%;
+}
+
+.data-entry-methods-container {
+	width: 80%;
+	height: 90%;
+	background: rebeccapurple;
+	border-radius: 18px;
+	overflow-y: scroll;
+	@include floating;
+}
+
+.data-entry-methods-container::-webkit-scrollbar {
+	display: none;
+}

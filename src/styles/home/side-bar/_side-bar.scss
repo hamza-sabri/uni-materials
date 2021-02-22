@@ -6,6 +6,7 @@
 	background: white;
 	@include floating;
 	overflow-y: scroll;
+	z-index: 0;
 }
 
 .side-bar::-webkit-scrollbar {
