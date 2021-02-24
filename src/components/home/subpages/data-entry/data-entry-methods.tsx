@@ -9,15 +9,15 @@ type DataEntryMethodsInterface = {
 
 export default function DataEntryMethods({ img, method, routeTo, alt }: DataEntryMethodsInterface) {
 	const onMethodClicked = () => {
-        console.log('clicked')
+        console.log(routeTo)
     };
 
 	return (
 		<div className="data-entry-method" onClick={onMethodClicked}>
-			{/* <img src={img} alt={alt} className="data-entry-method-img" />
+			<img src={img} alt={alt} className="data-entry-method-img" />
 			<div className="method-container">
 				<div className="method">{method}</div>
-			</div> */}
+			</div>
 		</div>
 	);
 }

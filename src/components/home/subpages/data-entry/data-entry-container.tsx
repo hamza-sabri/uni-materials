@@ -11,78 +11,10 @@ import DataEntryMethods from './data-entry-methods';
 
 export default function DataEntryContainer() {
 	return (
-		<div className="data-entry-methods-container">
-			<p>some content</p>
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
-
-			<p>some content</p>
+		<div className="data-entry-container">
+			<div className="methods-header">Data Entry Methods</div>
+			<DataEntryMethods alt="book adding" img={addByBookImg} method="Add By Book" routeTo="book" />
+			<DataEntryMethods alt="manual adding" img={manualAddingImg} method="Add Manually" routeTo="manual" />
 		</div>
 	);
 }
