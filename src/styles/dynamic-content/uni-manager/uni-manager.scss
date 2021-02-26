@@ -1,0 +1,141 @@
+@import "../../shared-styles/shared-effects";
+
+.uni-manager-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.uni-manager-container {
+  width: 90%;
+  height: 90%;
+  background-color: #ffffff;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  @include floating;
+}
+
+.uni-manager-container-2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.uni-manager-info {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.uni-names-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.autoContainer {
+  @include floating;
+  background: #f5f5f5;
+  width: 50%;
+}
+.option {
+  cursor: pointer;
+  width: 100%;
+  :hover {
+    background: #cfcdcd;
+  }
+}
+.uni-name-option {
+  padding: 10px 0px;
+  display: block;
+  width: 100%;
+}
+
+.input {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  height: 2rem;
+  font-size: large;
+  border-bottom: 0.8px rgb(0, 0, 0) solid;
+}
+
+.uni-locations-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.uni-input-and-button-div {
+  width: 100%;
+  display: flex;
+  height: 50%;
+  
+}
+.add-uni-location-button {
+  width: 35%;
+  
+	height: 2rem;
+	font-weight: 600;
+	background-color: #6c63ff;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	margin-top: 3%;
+	transition: .3s;
+}
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  background-color: #f0eeee;
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.location-tag-editor {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.location-tag {
+  border-radius: 7px;
+  background: #6c63ff;
+  padding: 0.25em;
+  margin: 0.25em;
+  line-height: 2;
+  white-space: nowrap;
+  font-weight: 400;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.location-tag-text {
+  padding-right: 0.75rem;
+  color: white;
+}
+.location-tag-delete {
+  border: none;
+  border-radius: 5px;
+  background: #a9a6eb;
+  color: #000000;
+  font-size: 15px;
+}
+

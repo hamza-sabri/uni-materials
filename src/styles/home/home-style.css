@@ -77,9 +77,9 @@
   display: -ms-grid;
   display: grid;
   background: white;
-  -ms-grid-rows: 8% auto;
-      grid-template-rows: 8% auto;
-  -ms-grid-columns: 20% auto;
-      grid-template-columns: 20% auto;
+  -ms-grid-rows: 8% 92%;
+      grid-template-rows: 8% 92%;
+  -ms-grid-columns: 20% 80%;
+      grid-template-columns: 20% 80%;
 }
 /*# sourceMappingURL=home-style.css.map */
