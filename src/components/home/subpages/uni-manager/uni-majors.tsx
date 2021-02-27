@@ -43,6 +43,7 @@ export default function UniMajors({ uniIndex, unisDataList }: any) {
       </label>
 
       <div className="location-tag-editor" id="location-tag-editor">
+        <div className="tags-border">
         <span className="location-tag-wrapper">
           {locations.map((location: string) => (
             <LocationTag
@@ -52,13 +53,14 @@ export default function UniMajors({ uniIndex, unisDataList }: any) {
             />
           ))}
         </span>
+        </div>
         <div className="uni-input-and-button-div">
           <input
             onChange={(e) => {
               setLocationText(e.target.value);
             }}
             value={locationText}
-            id="uni-locations-input"
+            id="uni-majors-input"
             className="uni-locations-input input"
           />
 

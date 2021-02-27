@@ -3,7 +3,8 @@ import "../../../../styles/dynamic-content/uni-manager/uni-manager.css";
 import LocationTag from "./location-tag";
 import { showAlert } from "../../../../utilities/alearts";
 
-export default function UniLocations({ uniIndex, unisDataList }: any) {
+export default function UniLocations({ uniIndex, unisDataList, uniManagerResult, setUniManagerResult }: any) {
+  console.log(uniIndex);
   const { doc } = unisDataList[uniIndex];
   const { locations: destructuredLocations } = doc;
   const [locations, setLocations] = useState(destructuredLocations);
@@ -43,15 +44,17 @@ export default function UniLocations({ uniIndex, unisDataList }: any) {
       </label>
 
       <div className="location-tag-editor" id="location-tag-editor">
-        <span className="location-tag-wrapper">
-          {locations.map((location: string) => (
-            <LocationTag
-              key={location}
-              neededLocation={location}
-              deleteLocation={deleteLocation}
-            />
-          ))}
-        </span>
+        <div className="tags-border">
+          <span className="location-tag-wrapper">
+            {locations.map((location: string) => (
+              <LocationTag
+                key={location}
+                neededLocation={location}
+                deleteLocation={deleteLocation}
+              />
+            ))}
+          </span>
+        </div>
         <div className="uni-input-and-button-div">
           <input
             onChange={(e) => {

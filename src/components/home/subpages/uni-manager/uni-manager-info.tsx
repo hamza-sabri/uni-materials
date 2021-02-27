@@ -18,7 +18,6 @@ export default function UniManagerInfo({
       <UnisNames
         {...{
           unisDataList,
-          uniIndex,
           setUniIndex,
           uniManagerResult,
           setUniManagerResult,
@@ -28,7 +27,7 @@ export default function UniManagerInfo({
   };
 
   const uniLocationInputs = () => {
-    return <UniLocations {...{ uniIndex, unisDataList }} />;
+    return <UniLocations {...{ uniIndex, unisDataList, uniManagerResult, setUniManagerResult}} />;
   };
   const uniMajorsInputs = () => {
     return <UniMajors {...{ uniIndex, unisDataList }} />;
@@ -39,6 +38,9 @@ export default function UniManagerInfo({
       {uniNamesFun()}
       {uniLocationInputs()}
       {uniMajorsInputs()}
+      <button>
+        add/edit
+      </button>
     </div>
   );
 }

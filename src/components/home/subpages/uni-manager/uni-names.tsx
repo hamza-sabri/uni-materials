@@ -13,12 +13,12 @@ export default function UnisNames({
   const [display, setDisplay] = useState(false);
   const [options, setOptions] = useState(unisDataList);
   const [search, setSearch] = useState("");
+	const unisNames = unisDataList.map(({ doc }:any) => doc.name);
   let index = 0;
-
-  const setUniDex = (uni: any, index :any) => {
+  const setUniDex = (uni: any) => {
     setSearch(uni);
     setDisplay(false);
-    setUniIndex(index);
+    setUniIndex(()=> unisNames.indexOf(uni));
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function UnisNames({
     }
   };
   return (
-    <div ref={wrapperRef} className="uni-names-div">
+    <div  className="uni-names-div">
       <label htmlFor="uni-name-input" className="uni-name-label label">
         University name
       </label>
@@ -51,7 +51,7 @@ export default function UnisNames({
         onChange={(event) => setSearch(event.target.value)}
       ></input>
       {display && (
-        <div className="autoContainer">
+        <div ref={wrapperRef} className="autoContainer">
           {options
             .filter(
               ({ doc }: any) => doc.name.indexOf(search) > -1
@@ -59,7 +59,7 @@ export default function UnisNames({
             .map(({ doc }: any) => {
               return (
                 <div
-                  onClick={() => setUniDex(doc.name, index)}
+                  onClick={() => setUniDex(doc.name)}
                   className="option"
                   key={index++}
                 >
@@ -69,7 +69,6 @@ export default function UnisNames({
             })}
         </div>
       )}
-      {/* <input type="text" id="uni-name-input" className="uni-name-input input" /> */}
     </div>
   );
 }
