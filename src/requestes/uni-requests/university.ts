@@ -1,5 +1,5 @@
 import { getErrorStatusCode } from '../../constants/status-codes';
-import { getUnisRoute, updateUniRoute } from '../../constants/urls';
+import { getUnisRoute, updateUniRoute, createUniRoute } from '../../constants/urls';
 import { responseInterface } from '../../interfaces/responses';
 import { AxiosInstance } from 'axios';
 
@@ -24,7 +24,7 @@ const updateUni = async (axios: AxiosInstance, requestBody: any, requestParams: 
 
 const createUni = async (axios: AxiosInstance, requestBody: any) => {
 	try {
-		const { status, data } = await axios.post(updateUniRoute, requestBody);
+		const { status, data } = await axios.post(createUniRoute, requestBody);
 		return { data, status };
 	} catch (err) {
 		return { status: getErrorStatusCode(err.message) };
