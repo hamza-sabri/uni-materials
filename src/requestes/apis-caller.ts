@@ -5,12 +5,20 @@ import { getUserCredentials, signin } from './user-requestes/user';
 
 let times: number = 0;
 
+type apiCallerInterface = {
+	requestBody?: any;
+	requestParams?: any;
+	api: any;
+};
+
 // TODO complete this file and document it
-const APIsCaller = async (api: any, requestBody?: any): Promise<responseInterface> => {
+const APIsCaller = async ({ api, requestBody, requestParams }: apiCallerInterface): Promise<responseInterface> => {
 	const axios = getAxiosInstance();
 	try {
 		let response: responseInterface = { status: OK };
-		if (requestBody) response = await api(axios, requestBody);
+		if (requestBody && requestParams) response = await api(axios, requestBody, requestParams);
+		else if (requestBody) response = await api(axios, requestBody);
+		else if (requestParams) response = await api(axios, requestParams);
 		else response = await api(axios);
 
 		const { status } = response;
@@ -18,7 +26,7 @@ const APIsCaller = async (api: any, requestBody?: any): Promise<responseInterfac
 		if (status === UNAUTHORIZED) {
 			if ((await refreshIDToken()) && times < refreshTokenLimit) {
 				times++;
-				return APIsCaller(api, requestBody);
+				return APIsCaller({ api, requestBody, requestParams });
 			} else times = 0;
 		}
 		return response;
