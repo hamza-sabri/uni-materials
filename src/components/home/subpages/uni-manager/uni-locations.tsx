@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "../../../../styles/dynamic-content/uni-manager/uni-manager.css";
 import LocationTag from "./location-tag";
 import { showAlert } from "../../../../utilities/alearts";
@@ -14,7 +14,7 @@ export default function UniLocations({ uniIndex, unisDataList }: any) {
     const tempLocations = locations.map(function (v: string) {
       return v.toLowerCase();
     });
-    if (loc == "") {
+    if (loc === "") {
     } else if (loc && !tempLocations.includes(loc)) {
       setLocations([...locations, loc]);
       setLocationText("");

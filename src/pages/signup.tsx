@@ -9,7 +9,7 @@ export default function Signup() {
 	const [ unisDataList, setUnisDataList ] = useState<any[]>([]);
 	useEffect(() => {
 		const fetchData = async () => {
-			const { data } = await APIsCaller(getAllUnis);
+			const { data } = await  APIsCaller({ api: getAllUnis });
 			const { unisList } = data!;
 			setUnisDataList(unisList);
 		};
