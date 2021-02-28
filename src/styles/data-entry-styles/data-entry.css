@@ -4,8 +4,8 @@
 }
 
 .data-entry-container {
-  width: 60%;
-  height: 80%;
+  width: 80%;
+  height: 90%;
   background: white;
   border-radius: 18px;
   overflow-y: scroll;
@@ -72,7 +72,7 @@
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
   width: 45%;
-  height: 52%;
+  height: 55%;
 }
 
 .data-entry-method-img {

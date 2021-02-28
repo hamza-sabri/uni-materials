@@ -7,26 +7,40 @@
 	grid-template-columns: 20% 80%;
 	overflow: hidden;
 	transition: .3s;
-    border-bottom: .5px solid rgb(221, 219, 219);
+	border-bottom: .5px solid rgb(221, 219, 219);
+	text-decoration: none;
+	color: black;
 }
+
 .side-bar-card:hover {
 	cursor: pointer;
 	@include floating;
 	height: 60px;
 	width: 105%;
-    margin-bottom: .4rem;
+	margin-bottom: .4rem;
+}
+
+.icon-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 90%;
 }
 
 .card-icon {
 	width: 100%;
-	height: 100%;
+	height: 80%;
 	margin-left: .6rem;
 }
+
 .card-name {
+	width: 80%;
 	height: 90%;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	font-weight: 600;
 	font-size: 18px;
+	margin-left: 1.3rem;
 }
