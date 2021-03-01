@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 type DataEntryMethodsInterface = {
 	img: string;
@@ -8,16 +9,12 @@ type DataEntryMethodsInterface = {
 };
 
 export default function DataEntryMethods({ img, method, routeTo, alt }: DataEntryMethodsInterface) {
-	const onMethodClicked = () => {
-        console.log(routeTo)
-    };
-
 	return (
-		<div className="data-entry-method" onClick={onMethodClicked}>
+		<NavLink className="data-entry-method" to={routeTo}>
 			<img src={img} alt={alt} className="data-entry-method-img" />
 			<div className="method-container">
 				<div className="method">{method}</div>
 			</div>
-		</div>
+		</NavLink>
 	);
 }

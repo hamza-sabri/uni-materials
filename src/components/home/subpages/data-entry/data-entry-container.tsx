@@ -1,6 +1,7 @@
 import React from 'react';
 import addByBookImg from '../../../../assets/data-entry-assets/book-entry.svg';
 import manualAddingImg from '../../../../assets/data-entry-assets/manual-entry.svg';
+import { bookEntryRoute, manualEntryRoute } from '../../../../constants/pages-route';
 import DataEntryMethods from './data-entry-methods';
 
 // TODO:
@@ -13,8 +14,8 @@ export default function DataEntryContainer() {
 	return (
 		<div className="data-entry-container">
 			<div className="methods-header">Data Entry Methods</div>
-			<DataEntryMethods alt="book adding" img={addByBookImg} method="Add By Book" routeTo="book" />
-			<DataEntryMethods alt="manual adding" img={manualAddingImg} method="Add Manually" routeTo="manual" />
+			<DataEntryMethods alt="book" img={addByBookImg} method="Add By Book" routeTo={bookEntryRoute} />
+			<DataEntryMethods alt="manual" img={manualAddingImg} method="Add Manually" routeTo={manualEntryRoute} />
 		</div>
 	);
 }

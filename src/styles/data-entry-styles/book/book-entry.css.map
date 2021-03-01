@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,kBAAkB,CAAC;EAClB,KAAK,EAAE,GAAG;EACV,MAAM,EAAE,GAAG;EACX,UAAU,EAAE,KAAK;EACjB,aAAa,EAAE,IAAI;EACnB,UAAU,EAAE,MAAM;EAClB,UAAU,EAAE,MAAM;ECNlB,UAAU,EAAE,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,CAAC,CAAC,qBAAqB;CDQ/C;;AAED,AAAA,kBAAkB,AAAA,mBAAmB,CAAC;EACrC,OAAO,EAAE,IAAI;CACb",
+    "sources": [
+        "book-entry.scss",
+        "../../shared-styles/_shared-effects.scss"
+    ],
+    "names": [],
+    "file": "book-entry.css"
+}
