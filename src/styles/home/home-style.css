@@ -1,5 +1,6 @@
 .logo {
-  background: red;
+  background: white;
+  border-right: 2px greenyellow dashed;
 }
 
 .search-input-filed {
@@ -32,7 +33,7 @@
   grid-column-end: 3;
   -ms-grid-column: 1;
       grid-column-start: 1;
-  z-index: 0;
+  z-index: 1;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 20% 60% 20%;
@@ -64,10 +65,74 @@
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
   overflow-y: scroll;
+  z-index: 0;
+  padding-top: .5rem;
 }
 
 .side-bar::-webkit-scrollbar {
   display: none;
+}
+
+.side-bar-card {
+  width: 100%;
+  height: 50px;
+  background: white;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20% 80%;
+      grid-template-columns: 20% 80%;
+  overflow: hidden;
+  -webkit-transition: .3s;
+  transition: .3s;
+  border-bottom: 0.5px solid #dddbdb;
+  text-decoration: none;
+  color: black;
+}
+
+.side-bar-card:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  height: 60px;
+  width: 105%;
+  margin-bottom: .4rem;
+}
+
+.icon-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 90%;
+}
+
+.card-icon {
+  width: 100%;
+  height: 80%;
+  margin-left: .6rem;
+}
+
+.card-name {
+  width: 80%;
+  height: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 600;
+  font-size: 18px;
+  margin-left: 1.3rem;
 }
 
 .home-page {
@@ -77,9 +142,9 @@
   display: -ms-grid;
   display: grid;
   background: white;
-  -ms-grid-rows: 8% auto;
-      grid-template-rows: 8% auto;
-  -ms-grid-columns: 20% auto;
-      grid-template-columns: 20% auto;
+  -ms-grid-rows: 8% 92%;
+      grid-template-rows: 8% 92%;
+  -ms-grid-columns: 18% 82%;
+      grid-template-columns: 18% 82%;
 }
 /*# sourceMappingURL=home-style.css.map */

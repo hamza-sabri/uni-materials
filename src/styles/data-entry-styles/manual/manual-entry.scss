@@ -1,0 +1,14 @@
+@import '../../shared-styles/shared-effects';
+.manual-entry-method {
+	width: 80%;
+	height: 90%;
+	background: white;
+	border-radius: 18px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	@include floating;
+}
+
+.manual-entry-method::-webkit-scrollbar {
+	display: none;
+}

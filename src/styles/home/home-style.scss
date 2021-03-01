@@ -1,6 +1,7 @@
 @import '../shared-styles/colors';
 @import './nav-bar/nav-bar';
 @import './side-bar/side-bar';
+@import './side-bar/side-bar-card';
 
 .home-page {
 	width: 100%;
@@ -8,6 +9,6 @@
 	overflow: hidden;
 	display: grid;
 	background: $homePageBackground;
-	grid-template-rows: 8% auto;
-	grid-template-columns: 20% auto;
+	grid-template-rows: 8% 92%;
+	grid-template-columns: 18% 82%;
 }

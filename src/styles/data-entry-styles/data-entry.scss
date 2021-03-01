@@ -1,0 +1,79 @@
+@import '../shared-styles/shared-effects';
+
+.data-entry-page {
+	width: 100%;
+	height: 100%;
+}
+
+.data-entry-container {
+	width: 80%;
+	height: 90%;
+	background: white;
+	border-radius: 18px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	@include floating;
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.methods-header {
+	display: block;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	font-weight: 700;
+	margin-top: 1rem;
+}
+
+.data-entry-container::-webkit-scrollbar {
+	display: none;
+}
+
+.data-entry-method {
+	width: 40%;
+	height: 50%;
+	overflow: hidden;
+	@include smallShadow;
+	border-radius: 12px;
+	margin: 1rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	transition: .3s;
+	text-decoration: none;
+}
+
+.data-entry-method:hover {
+	cursor: pointer;
+	@include floating;
+	width: 45%;
+	height: 55%;
+}
+
+.data-entry-method-img {
+	width: 90%;
+	height: 85%;
+}
+
+.img-and-method {
+	width: 100%;
+	height: 80%;
+	background: rebeccapurple;
+}
+
+.method-container {
+	width: 100%;
+	height: 12%;
+	background: rgba(0, 0, 0, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 1.3rem;
+	margin-bottom: 1.5rem;
+}

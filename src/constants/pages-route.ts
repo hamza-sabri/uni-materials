@@ -2,4 +2,9 @@ const homePageRoute: string = '/';
 const signupPageRoute: string = '/signup';
 const singinPageRoute: string = '/signin';
 
-export { homePageRoute, signupPageRoute, singinPageRoute };
+//home page route
+const dataEntryRoute: string = '/data-entry';
+const bookEntryRoute: string = '/book-entry';
+const manualEntryRoute: string = '/manual-entry';
+
+export { homePageRoute, signupPageRoute, singinPageRoute, dataEntryRoute, bookEntryRoute, manualEntryRoute };
