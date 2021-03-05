@@ -9,7 +9,7 @@ export default function CardCreateor({inputs}:{inputs:string[]}) {
 	const materialName = useRef<HTMLPreElement>(null);
 	const previewer = useRef<HTMLDivElement>(null);
 	const emptyName: string = '???? ????';
-	const results: string[] = [ '', '', '' ];
+	const results: string[] = new Array(inputs.length);
 
 	useEffect(() => {
 		lottie.loadAnimation({
