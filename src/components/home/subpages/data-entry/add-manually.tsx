@@ -4,7 +4,7 @@ import lottie from 'lottie-web';
 import floattingLaptop from '../../../../assets/data-entry-assets/floatting-laptop.json';
 import emptySVG from '../../../../assets/data-entry-assets/empty.svg';
 
-export default function CardCreateor({inputs}:{inputs:string[]}) {
+export default function CardCreateor({ inputs }: { inputs: string[] }) {
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
 	const previewer = useRef<HTMLDivElement>(null);
@@ -33,9 +33,9 @@ export default function CardCreateor({inputs}:{inputs:string[]}) {
 	const MaterialInputs = () => {
 		return (
 			<div className="inputs-container">
-				{inputs.map((hint,index) =>{
-					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
-				})}
+				{inputs.map((hint, index) => (
+					<input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
+				))}
 				<div className="lottie-input-container" ref={inputLottie} />
 				<div className="submit-material-button" onClick={() => console.log(results)}>
 					Submit
