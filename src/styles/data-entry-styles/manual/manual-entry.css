@@ -137,8 +137,8 @@
     display: grid;
     -ms-grid-columns: 100%;
         grid-template-columns: 100%;
-    -ms-grid-rows: 80vh 40vh;
-        grid-template-rows: 80vh 40vh;
+    -ms-grid-rows: 74vh 40vh;
+        grid-template-rows: 74vh 40vh;
     height: 90vh;
     overflow-y: scroll;
     border: none;
@@ -146,6 +146,8 @@
   .inputs-container {
     border: none;
     border-bottom: 0.3px dashed rgba(0, 0, 0, 0.5);
+    height: 100%;
+    overflow: hidden;
   }
   .submit-material-button {
     padding: .4rem;

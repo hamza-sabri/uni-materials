@@ -92,13 +92,12 @@
 	font-weight: 500;
 }
 
-
 // medias
 @media (max-width: 600px), (max-height: 540px) {
 	.manual-entry-method {
 		display: grid;
 		grid-template-columns: 100%;
-		grid-template-rows: 80vh 40vh;
+		grid-template-rows: 74vh 40vh;
 		height: 90vh;
 		overflow-y: scroll;
 		border: none;
@@ -106,6 +105,8 @@
 	.inputs-container {
 		border: none;
 		border-bottom: .3px dashed rgba(0, 0, 0, .5);
+		height: 100%;
+		overflow: hidden;
 	}
 
 	.submit-material-button {
