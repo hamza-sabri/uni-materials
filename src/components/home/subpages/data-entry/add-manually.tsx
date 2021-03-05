@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import '../../../../styles/data-entry-styles/manual/manual-entry.css';
 import lottie from 'lottie-web';
-import floattingLabtop from '../../../../assets/data-entry-assets/floatting-labtop.json';
+import floattingLaptop from '../../../../assets/data-entry-assets/floatting-laptop.json';
 import emptySVG from '../../../../assets/data-entry-assets/empty.svg';
 
 export default function CardCreateor({inputs}:{inputs:string[]}) {
@@ -17,7 +17,7 @@ export default function CardCreateor({inputs}:{inputs:string[]}) {
 			autoplay: true,
 			renderer: 'svg',
 			loop: true,
-			animationData: floattingLabtop
+			animationData: floattingLaptop
 		});
 	}, []);
 
