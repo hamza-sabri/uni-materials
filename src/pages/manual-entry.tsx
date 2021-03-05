@@ -1,10 +1,11 @@
 import React from 'react';
-import AddManually from '../components/home/subpages/data-entry/add-manually';
+import CardCreateor from '../components/home/subpages/data-entry/add-manually';
 
 export default function AddManuallyPage() {
+	const inputs = ['Material Name','Material Image','Material Number']
 	return (
 		<div className="dynamic-subpage">
-			<AddManually />
+			<CardCreateor {...{inputs}}/>
 		</div>
 	);
 }
