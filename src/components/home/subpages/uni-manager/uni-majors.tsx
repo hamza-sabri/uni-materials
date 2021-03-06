@@ -2,22 +2,18 @@ import React, { useContext, useState } from "react";
 import "../../../../styles/dynamic-content/uni-manager/uni-manager.css";
 import LocationTag from "./location-tag";
 import { showAlert } from "../../../../utilities/alearts";
-
-export default function UniMajors({ uniIndex, unisDataList }: any) {
-  const { doc } = unisDataList[uniIndex];
-  const { fields: destructuredLocations } = doc;
-  const [locations, setLocations] = useState(destructuredLocations);
-  const [locationText, setLocationText] = useState("");
-
-  const addLocation = () => {
-    const loc = locationText.trim();
-    const tempLocations = locations.map(function (v: string) {
+// the majorTag component is as same as the locationTag conmponent ,so the name of it is locationTag
+export default function UniMajors({ majors, setMajors }: any) {
+  const [majorText, setMajorText] = useState("");
+  const addMajor = () => {
+    const major = majorText.trim();
+    const tempMajors = majors.map(function (v: string) {
       return v.toLowerCase();
     });
-    if (loc == "") {
-    } else if (loc && !tempLocations.includes(loc)) {
-      setLocations([...locations, loc]);
-      setLocationText("");
+    if (major == "") {
+    } else if (major && !tempMajors.includes(major)) {
+      setMajors([...majors, major]);
+      setMajorText("");
     } else {
       showAlert({
         title: "Ops",
@@ -28,13 +24,13 @@ export default function UniMajors({ uniIndex, unisDataList }: any) {
     }
   };
 
-  const deleteLocation = (location: any) => {
-    const tempLocations = locations.filter((l: any) => l !== location);
-    setLocations(tempLocations);
+  const deleteLocation = (major: any) => {
+    const tempMajors = majors.filter((l: any) => l !== major);
+    setMajors(tempMajors);
   };
 
   return (
-    <div className="uni-locations-div">
+    <div className="uni-majors-div">
       <label
         htmlFor="location-tag-editor"
         className="uni-locations-label label"
@@ -45,10 +41,10 @@ export default function UniMajors({ uniIndex, unisDataList }: any) {
       <div className="location-tag-editor" id="location-tag-editor">
         <div className="tags-border">
         <span className="location-tag-wrapper">
-          {locations.map((location: string) => (
+          {majors.map((major: string) => (
             <LocationTag
-              key={location}
-              neededLocation={location}
+              key={major}
+              neededLocation={major}
               deleteLocation={deleteLocation}
             />
           ))}
@@ -57,14 +53,14 @@ export default function UniMajors({ uniIndex, unisDataList }: any) {
         <div className="uni-input-and-button-div">
           <input
             onChange={(e) => {
-              setLocationText(e.target.value);
+              setMajorText(e.target.value);
             }}
-            value={locationText}
+            value={majorText}
             id="uni-majors-input"
             className="uni-locations-input input"
           />
 
-          <button className="add-uni-location-button" onClick={addLocation}>
+          <button className="add-uni-location-button" onClick={addMajor}>
             add major
           </button>
         </div>

@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../../../../styles/dynamic-content/uni-manager/uni-manager.css";
 import LocationTag from "./location-tag";
 import { showAlert } from "../../../../utilities/alearts";
 
-export default function UniLocations({ uniIndex, unisDataList, uniManagerResult, setUniManagerResult }: any) {
-  console.log(uniIndex);
-  const { doc } = unisDataList[uniIndex];
-  const { locations: destructuredLocations } = doc;
-  const [locations, setLocations] = useState(destructuredLocations);
+export default function UniLocations({ locations, setLocations }: any) {
   const [locationText, setLocationText] = useState("");
-
   const addLocation = () => {
     const loc = locationText.trim();
     const tempLocations = locations.map(function (v: string) {
       return v.toLowerCase();
     });
-    if (loc === "") {
+    if (loc == "") {
     } else if (loc && !tempLocations.includes(loc)) {
       setLocations([...locations, loc]);
       setLocationText("");
@@ -42,7 +37,6 @@ export default function UniLocations({ uniIndex, unisDataList, uniManagerResult,
       >
         Locations
       </label>
-
       <div className="location-tag-editor" id="location-tag-editor">
         <div className="tags-border">
           <span className="location-tag-wrapper">
