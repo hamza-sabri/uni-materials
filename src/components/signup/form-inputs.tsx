@@ -28,5 +28,5 @@ export default function FormInputs({ formPage, signupResult, setSignupResult }: 
 		return <SignupDropdown {...{ setUniIndex, doc, unisNames, formPage, signupResult, setSignupResult }} />;
 	};
 
-	return <div className="inputs-container">{pageNumber !== 3 ? textInputs() : dropdownInputs()}</div>;
+	return <div className="signup-inputs-container">{pageNumber !== 3 ? textInputs() : dropdownInputs()}</div>;
 }

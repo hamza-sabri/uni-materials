@@ -1,6 +1,6 @@
 import { userCredentials } from '../../interfaces/user/credentials';
 import { urlConcatenator, signinRoute, signupRoute } from '../../constants/urls';
-import { emailKey, IDTokenKey, passwordKey, uniIDKey } from '../../constants/local-storage-keys';
+import { emailKey, IDTokenKey, passwordKey } from '../../constants/local-storage-keys';
 import { CREATED, OK } from '../../constants/status-codes';
 import { signinError, signUpError, userCreated } from '../../constants/messages';
 import axios from 'axios';
@@ -46,10 +46,11 @@ const signup = async (userData: userCredentials): Promise<any> => {
 };
 
 const saveUserCredentials = (userData: userCredentials, IDToken: string) => {
+	console.log('saving!!!')
 	saveLocaly(IDTokenKey, IDToken);
 	saveLocaly(emailKey, userData.email);
 	saveLocaly(passwordKey, userData.password);
-	if (userData.uniID) saveLocaly(uniIDKey, userData.uniID);
+	console.log('done saving')
 };
 
 const getUserCredentials = (): userCredentials => {
