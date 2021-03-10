@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import Swal from "sweetalert2";
+import { OK } from "../../../../constants/status-codes";
 import { APIsCaller } from "../../../../requestes/apis-caller";
 import { createUni, updateUni } from "../../../../requestes/uni-requests/university";
 
 export default function SubmitBtn({ uniID, uniName, locations, majors }: any) {
   const submit = async () => {
+    Swal.showLoading();
     const requestBody = {
       name: uniName,
       locations: locations,
@@ -11,9 +13,14 @@ export default function SubmitBtn({ uniID, uniName, locations, majors }: any) {
     };
     const requestParams = { uniID: uniID };
     if (uniID === null) {
-      await APIsCaller({ api: createUni, requestBody });
+    const {status,data} =  await APIsCaller({ api: createUni, requestBody });
+    const {message, uniID} = data;
+    if(status === OK)  Swal.fire('Message', message, 'success')
+    else Swal.fire('Ops', 'Something went wrong', 'error')
     }else {
-      await APIsCaller({ api: updateUni, requestBody, requestParams });
+      const {status,data} = await APIsCaller({ api: updateUni, requestBody, requestParams });
+      if(status === OK)  Swal.fire('Message', data.message, 'success')
+      else Swal.fire('Ops!', 'Something went wrong', 'error')
     }
   };
   return (

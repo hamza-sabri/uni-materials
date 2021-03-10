@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import { UniDataContext } from "../../../../contexts/signup-context/uni-data-context";
 import { APIsCaller } from "../../../../requestes/apis-caller";
 import { getAllUnis } from "../../../../requestes/uni-requests/university";
@@ -10,10 +11,12 @@ export default function UniManager() {
   const [flag, setFlag] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
+		  Swal.showLoading();
       const { data } = await APIsCaller({ api: getAllUnis });
       const { unisList } = data!;
       setUnisDataList(unisList);
       setFlag(true);
+      Swal.clickCancel();
     };
     fetchData();
   }, []);
@@ -21,7 +24,7 @@ export default function UniManager() {
   return (
     <div className="uni-manager-container">
       <UniDataContext.Provider value={unisDataList}>
-        {flag && <UniManagerInfo />}
+        {unisDataList.length && <UniManagerInfo />}
       </UniDataContext.Provider>
     </div>
   );

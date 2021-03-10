@@ -1,8 +1,15 @@
 import React from "react";
 import "../../../../styles/dynamic-content/uni-manager/uni-manager.css";
 
+type locationTag = {
+  neededLocation: string;
+  deleteLocation: any;
+};
 
-export default function LocationTag({ neededLocation, deleteLocation }: any) {
+export default function LocationTag({
+  neededLocation,
+  deleteLocation,
+}: locationTag) {
   const handleDelete = (event: any) => {
     deleteLocation(neededLocation);
   };

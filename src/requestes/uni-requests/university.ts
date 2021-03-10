@@ -31,4 +31,14 @@ const createUni = async (axios: AxiosInstance, requestBody: any) => {
 	}
 };
 
-export { getAllUnis, updateUni, createUni };
+const getUniID = async (axios: AxiosInstance, requestParams: any) => {
+	try {
+		const { status, data } = await axios.post(createUniRoute, { params: requestParams });
+		return { data, status };
+	} catch (err) {
+		return { status: getErrorStatusCode(err.message) };
+	}
+};
+
+
+export { getAllUnis, updateUni, createUni, getUniID };

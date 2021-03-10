@@ -88,18 +88,26 @@
       }
     }
   }
-  .change-uni-name-btn {
-    width: 35%;
-    height: 2rem;
-    font-weight: 500;
-    background-color: #766ffa;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    margin-top: 5%;
+  .change-uni-name-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    .change-uni-name-btn {
+      width: 35%;
+      height: 2.5rem;
+      font-weight: 600;
+      background-color: #766ffa;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      margin-top: 5%;
+    }
   }
-  .animated{
+
+  .animated {
     width: 80%;
     height: 80%;
   }
@@ -110,59 +118,70 @@
   @include floating;
   border-radius: 7px;
   width: 100%;
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow-x: hidden;
   margin-bottom: 2rem;
-  // background: #b8b6e2;
+
   .location-tag-editor {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    .tags-border {
-      width: 85%;
 
-      height: fit-content;
+    .tags-border {
+      display: block;
+      width: 85%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      height: 18vh;
       padding: 1%;
       border: 2px solid #938efa;
-      border-radius: 7px;
+      border-radius: 5px;
     }
+    .tags-border::-webkit-scrollbar {
+      display: none;
+    }
+
     .uni-input-and-button-div {
-      width: 50%;
-      display: flex;
-      align-items: flex-start;
-
-      // height: 50%;
-
+      width: 88%;
       .add-uni-location-button {
-        width: 35%;
-        height: 2rem;
-        font-weight: 500;
+        width: 60%;
+        padding: 0.8rem;
         background-color: #766ffa;
         color: white;
         border-radius: 5px;
         border: none;
         outline: none;
-        margin-top: 5%;
+        transition: 0.3s;
+        font-weight: 600;
+
+        &:hover {
+          width: 75%;
+          padding: 0.9rem;
+          cursor: pointer;
+          font-weight: 700;
+          font-size: 14px;
+        }
       }
     }
   }
 }
+
 .uni-locations-div {
-  height: 45%;
+  height: 50%;
 }
 .uni-majors-div {
-  height: 55%;
+  height: 50%;
 }
 
 .location-tag {
   border-radius: 5px;
-  background: #e2dfdf;
+  background: #635cf1;
   padding: 0.25em;
   margin: 0.25em;
+  padding-top: 0.35em;
   line-height: 2;
   white-space: nowrap;
   font-weight: 400;
@@ -170,15 +189,15 @@
   .location-tag-text {
     padding-left: 0.5rem;
     padding-right: 0.25rem;
-    color: #3933a3;
-    font-weight: 500;
+    color: #ffffff;
+    font-weight: 400;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
   .location-tag-delete {
     border: none;
     border-radius: 5px;
-    background: #e2dfdf;
-    color: #6c63ff;
+    background: #635cf1;
+    color: #ffffff;
 
     font-size: 17px;
   }
@@ -186,8 +205,11 @@
 
 .label {
   display: flex;
-  margin-bottom: 10px;
+  padding: 3% 0 1% 7%;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #000000;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .input {
@@ -197,16 +219,47 @@
   font-size: large;
   border-bottom: 0.8px rgb(0, 0, 0) solid;
 }
+
 .submit-btn {
-  display: block;
   width: 35%;
-  height: 2rem;
-  font-weight: 500;
-  background-color: #191749;
+  font-weight: 600;
+  background: #766ffa;
   color: white;
   border-radius: 5px;
   border: none;
   outline: none;
   margin-top: 5%;
   margin-left: 28%;
+  text-align: center;
+  padding: 0.8rem;
+  transition: 0.3s;
+  &:hover {
+    background: #6f67fd;
+    width: 40%;
+    cursor: pointer;
+  }
+}
+
+.uni-input-and-button-div {
+  display: grid;
+  grid-template-columns: 70% 30%;
+
+  .add-button-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .uni-locations-input {
+    width: 50%;
+    transition: 0.3s;
+    padding-left: 0.2rem;
+    &:hover,
+    &:active {
+      width: 100%;
+      border-bottom: 1px solid #635cf1;
+    }
+  }
 }

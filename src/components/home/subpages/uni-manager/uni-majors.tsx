@@ -1,16 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import "../../../../styles/dynamic-content/uni-manager/uni-manager.css";
 import LocationTag from "./location-tag";
 import { showAlert } from "../../../../utilities/alearts";
 // the majorTag component is as same as the locationTag conmponent ,so the name of it is locationTag
-export default function UniMajors({ majors, setMajors }: any) {
+
+type uniMajor = {
+  majors: string[],
+  setMajors: any
+}
+
+export default function UniMajors({ majors, setMajors }: uniMajor) {
   const [majorText, setMajorText] = useState("");
   const addMajor = () => {
     const major = majorText.trim();
     const tempMajors = majors.map(function (v: string) {
       return v.toLowerCase();
     });
-    if (major == "") {
+    if (major === "") {
     } else if (major && !tempMajors.includes(major)) {
       setMajors([...majors, major]);
       setMajorText("");
@@ -58,11 +64,15 @@ export default function UniMajors({ majors, setMajors }: any) {
             value={majorText}
             id="uni-majors-input"
             className="uni-locations-input input"
+            placeholder="add major"
+            autoComplete="off"
           />
 
-          <button className="add-uni-location-button" onClick={addMajor}>
-            add major
-          </button>
+          <div className='add-button-container'>
+            <button className="add-uni-location-button" onClick={addMajor}>
+              Add Major
+            </button>
+          </div>
         </div>
       </div>
     </div>
