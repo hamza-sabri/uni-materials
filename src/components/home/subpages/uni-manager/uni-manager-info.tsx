@@ -7,7 +7,13 @@ import UniMajors from "./uni-majors";
 import SubmitBtn from "./submit-btn";
 
 export default function UniManagerInfo() {
-  const unisDataList = useContext(UniDataContext);
+  const unisDataListTemp = useContext(UniDataContext);
+  const [unisDataList, setUnisDataList] = useState(unisDataListTemp);
+
+
+  const tempUnisNames: string[] = unisDataList.map(({ doc }: any) => doc.name) || [];
+  const [unisNames, setUnisNames] = useState(tempUnisNames || []);
+
   const [uniID, setUniID] = useState("");
   const [uniName, setUniName] = useState("");
   const [locations, setLocations] = useState([]);
@@ -22,6 +28,8 @@ export default function UniManagerInfo() {
           setMajors,
           setUniName,
           setUniID,
+          unisNames, 
+          setUnisNames
         }}
       />
     );
@@ -43,6 +51,10 @@ export default function UniManagerInfo() {
             uniName,
             locations,
             majors,
+            unisDataList,
+            setUnisDataList,
+            unisNames, 
+            setUnisNames
           }}
         />
       </div>

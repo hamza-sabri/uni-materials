@@ -2,17 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import lottie from "lottie-web";
 import Swal from "sweetalert2";
 import uniManagerPic from "../../../../assets/home/uni-manager/uni-manager.json";
-import { resourceLimits } from "worker_threads";
 interface SelectProtected {
   readonly wrapperElement: HTMLDivElement;
 }
-
 type uniNames = {
   unisDataList: any;
   setLocations: any;
   setMajors: any;
   setUniName: any;
   setUniID: any;
+  unisNames: string[];
+  setUnisNames: any;
 };
 
 export default function UnisNames({
@@ -21,18 +21,18 @@ export default function UnisNames({
   setMajors,
   setUniName,
   setUniID,
+  unisNames,
+  setUnisNames,
 }: uniNames) {
   const [display, setDisplay] = useState(false);
-  // const [options, setOptions] = useState(unisDataList);
   const [search, setSearch] = useState("");
 
-  let unisNamess: string[] = unisDataList.map(({ doc }: any) => doc.name);
-
-  const [unisNames, setUnisNames] = useState(unisNamess || []);
+  // let unisNamess: string[] = unisDataList.map(({ doc }: any) => doc.name);
+  // const [unisNames, setUnisNames] = useState(unisNamess || []);
 
   let index = 0;
   const animated: any = useRef(null);
-
+  const [flag, setFlag] = useState(true); // to clear data (locations and majors) depending on the name
   const setUniDex = (uni: string) => {
     if (unisNames.includes(uni)) {
       setSearch(uni);
@@ -48,13 +48,17 @@ export default function UnisNames({
       setMajors(fields);
       setUniName(name);
       setUniID(id);
-    } else {
+      setFlag(true);
+    } else  {
       setUniName(uni);
       setUniID(null);
-      const empty: any = [];
-      setLocations(empty);
-      setMajors(empty);
-    }
+      if (flag === true) {
+        const empty: any = [];
+        setLocations(empty);
+        setMajors(empty);
+        setFlag(false);
+      }
+    } 
   };
 
   const changeUniName = async (oldName: string) => {

@@ -8,14 +8,12 @@ import UniManagerInfo from './uni-manager-info';
 
 export default function UniManager() {
   const [unisDataList, setUnisDataList] = useState<any[]>([]);
-  const [flag, setFlag] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
 		  Swal.showLoading();
       const { data } = await APIsCaller({ api: getAllUnis });
       const { unisList } = data!;
       setUnisDataList(unisList);
-      setFlag(true);
       Swal.clickCancel();
     };
     fetchData();

@@ -118,6 +118,8 @@
   width: 20.1%;
   z-index: 3;
   border-radius: 2px;
+  max-height: 50%;
+  overflow-x: hidden;
 }
 
 .uni-names-div .autoContainer .option {
@@ -140,6 +142,10 @@
           align-items: center;
   width: 100%;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.uni-names-div .autoContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .uni-names-div .change-uni-name-div {
@@ -309,7 +315,23 @@
   border-bottom: 0.8px black solid;
 }
 
-.submit-btn {
+.submit-btn-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.submit-btn-div .submit-btn {
   width: 35%;
   font-weight: 600;
   background: #766ffa;
@@ -318,14 +340,13 @@
   border: none;
   outline: none;
   margin-top: 5%;
-  margin-left: 28%;
   text-align: center;
   padding: 0.8rem;
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
-.submit-btn:hover {
+.submit-btn-div .submit-btn:hover {
   background: #6f67fd;
   width: 40%;
   cursor: pointer;
