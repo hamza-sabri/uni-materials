@@ -17,6 +17,8 @@
 	align-items: center;
 	flex-direction: column;
 	border-right: .3px dashed rgba(0, 0, 0, .5);
+	overflow-y: scroll;
+	margin-bottom: .5rem;
 	input {
 		width: 75%;
 		height: 20px;
@@ -33,6 +35,10 @@
 			border-bottom: .5px solid rgb(2, 58, 241);
 		}
 	}
+}
+
+.inputs-container::-webkit-scrollbar{
+	display: none;
 }
 
 .submit-material-button {

@@ -26,6 +26,8 @@
       -ms-flex-direction: column;
           flex-direction: column;
   border-right: 0.3px dashed rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
+  margin-bottom: .5rem;
 }
 
 .inputs-container input {
@@ -44,6 +46,10 @@
   width: 80%;
   border: none;
   border-bottom: 0.5px solid #023af1;
+}
+
+.inputs-container::-webkit-scrollbar {
+  display: none;
 }
 
 .submit-material-button {
