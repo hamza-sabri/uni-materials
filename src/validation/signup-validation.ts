@@ -19,7 +19,7 @@ const reqiredFields = (inputIDs: string[]): boolean => {
 	return result;
 };
 
-const addSelectedValues = (signupResult: any, selectorIDs: string[]): any => {
+const addSelectedValues = (signupResult: any, selectorIDs: string[], unisTabel: any[]): any => {
 	// TODO do the validation here
 	const uniNameSelector: any = document.getElementById(selectorIDs[0]);
 	const uniLocationsSelector: any = document.getElementById(selectorIDs[1]);
@@ -29,9 +29,19 @@ const addSelectedValues = (signupResult: any, selectorIDs: string[]): any => {
 		...signupResult,
 		universityName: uniNameSelector.value,
 		universityLocation: uniLocationsSelector.value,
-		field: uniFieldsSelector.value
+		field: uniFieldsSelector.value,
+		uniID: getUniID(uniNameSelector.value, unisTabel)
 	};
 	return newResult;
+};
+
+const getUniID = (selectedUni: string, unisTabel: any[]): string => {
+	let ID: string = '';
+	unisTabel.forEach((currentUni: any) => {
+		if (currentUni.name === selectedUni) ID = currentUni.id;
+	});
+
+	return ID;
 };
 
 export { reqiredFields, addSelectedValues };

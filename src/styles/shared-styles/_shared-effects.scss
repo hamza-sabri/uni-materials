@@ -1,3 +1,7 @@
 @mixin floating {
 	box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
 }
+
+@mixin smallShadow {
+	box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
+}

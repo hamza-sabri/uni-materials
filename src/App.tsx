@@ -6,15 +6,16 @@ import history from './history/credationls-history';
 import Signup from './pages/signup';
 import Home from './pages/home';
 import Login from './pages/signin';
+
 function App() {
 	
 	return (
 		<div className="App">
 			<Router history={history}>
 				<Switch>
-					<Route path={signupPageRoute} component={Signup} />
-					<Route path={singinPageRoute} component={Login} />
-					<Route path={homePageRoute} exact component={Home} />
+					<Route path={signupPageRoute} exact component={Signup} />
+					<Route path={singinPageRoute} exact component={Login} />
+					<Route path={homePageRoute} component={Home} />
 				</Switch>
 			</Router>
 		</div>

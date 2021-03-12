@@ -1,15 +1,10 @@
 import { ACCEPTED, OK, UNAUTHORIZED, refreshTokenLimit, BAD_REQUEST } from '../constants/status-codes';
+import { apiCallerInterface } from '../interfaces/api-caller';
 import { responseInterface } from '../interfaces/responses';
 import { getAxiosInstance } from './axios-creation';
 import { getUserCredentials, signin } from './user-requestes/user';
 
 let times: number = 0;
-
-type apiCallerInterface = {
-	requestBody?: any;
-	requestParams?: any;
-	api: any;
-};
 
 // TODO complete this file and document it
 const APIsCaller = async ({ api, requestBody, requestParams }: apiCallerInterface): Promise<responseInterface> => {

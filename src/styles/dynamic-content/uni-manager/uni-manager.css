@@ -17,8 +17,8 @@
 }
 
 .uni-manager-container {
-  width: 95%;
-  height: 95%;
+  width: 80%;
+  height: 85vh;
   background-color: #ffffff;
   border-radius: 18px;
   display: -webkit-box;
@@ -36,24 +36,6 @@
           flex-direction: column;
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
-}
-
-.uni-manager-container .uni-manager-container-2 {
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
 }
 
 .uni-manager-info {
@@ -76,6 +58,8 @@
 
 .uni-manager-info .left-div {
   width: 35%;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .uni-manager-info .right-div {
@@ -112,10 +96,10 @@
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
   position: absolute;
-  left: 28.3%;
-  top: 28vh;
+  left: 33.8%;
+  top: 28.8vh;
   background: #ffffff;
-  width: 20.1%;
+  width: 16%;
   z-index: 3;
   border-radius: 2px;
   max-height: 50%;
@@ -228,7 +212,8 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
 }
 
 .uni-locations-div .location-tag-editor,
@@ -250,7 +235,7 @@
   width: 85%;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: 18vh;
+  height: 16vh;
   padding: 1%;
   border: 2px solid #938efa;
   border-radius: 5px;
@@ -268,7 +253,7 @@
 
 .uni-locations-div .location-tag-editor .uni-input-and-button-div .add-uni-location-button,
 .uni-majors-div .location-tag-editor .uni-input-and-button-div .add-uni-location-button {
-  width: 60%;
+  width: 80%;
   padding: 0.8rem;
   background-color: #766ffa;
   color: white;
@@ -337,8 +322,6 @@
 }
 
 .input {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   height: 2rem;
   font-size: large;
   border-bottom: 0.8px black solid;
@@ -386,6 +369,7 @@
   display: grid;
   -ms-grid-columns: 70% 30%;
       grid-template-columns: 70% 30%;
+  margin-top: 1rem;
 }
 
 .uni-input-and-button-div .add-button-container {
@@ -394,12 +378,23 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.uni-input-and-button-div .uni-manger-input-wraper {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .uni-input-and-button-div .uni-locations-input {

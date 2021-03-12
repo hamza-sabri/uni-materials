@@ -1,5 +1,5 @@
 import { validateUserOrSignHimIn } from '../../utilities/user-checker';
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from './nav-bar/nav-bar';
 import SideBar from './side-bar/side-bar';
 

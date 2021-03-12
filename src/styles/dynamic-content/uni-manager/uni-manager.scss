@@ -10,8 +10,8 @@
 }
 
 .uni-manager-container {
-  width: 95%;
-  height: 95%;
+  width: 80%;
+  height: 85vh;
   background-color: #ffffff;
   border-radius: 18px;
   display: flex;
@@ -19,15 +19,6 @@
   justify-content: center;
   flex-direction: column;
   @include floating;
-
-  .uni-manager-container-2 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
 }
 .uni-manager-info {
   width: 95%;
@@ -36,15 +27,14 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  // background: #a9a6eb;
   .left-div {
     width: 35%;
-    // background: #b8b6e2;
+    padding: 1rem;
+    margin-top: 1rem;
   }
   .right-div {
     width: 60%;
     height: 90%;
-    // background: #b8b6e2;
   }
 }
 
@@ -62,13 +52,14 @@
     margin-bottom: -10px;
     margin-top: 5%;
   }
+
   .autoContainer {
     @include floating;
     position: absolute;
-    left: 28.3%;
-    top: 28vh;
+    left: 33.8%;
+    top: 28.8vh;
     background: #ffffff;
-    width: 20.1%;
+    width: 16%;
     z-index: 3;
     border-radius: 2px;
     max-height: 50%;
@@ -146,7 +137,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+
 
   .location-tag-editor {
     width: 100%;
@@ -159,7 +152,7 @@
       width: 85%;
       overflow-x: hidden;
       overflow-y: scroll;
-      height: 18vh;
+      height: 16vh;
       padding: 1%;
       border: 2px solid #938efa;
       border-radius: 5px;
@@ -171,7 +164,7 @@
     .uni-input-and-button-div {
       width: 88%;
       .add-uni-location-button {
-        width: 60%;
+        width: 80%;
         padding: 0.8rem;
         background-color: #766ffa;
         color: white;
@@ -237,8 +230,6 @@
 }
 
 .input {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   height: 2rem;
   font-size: large;
   border-bottom: 0.8px rgb(0, 0, 0) solid;
@@ -273,15 +264,22 @@
 .uni-input-and-button-div {
   display: grid;
   grid-template-columns: 70% 30%;
+  margin-top: 1rem;
 
   .add-button-container {
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: flex-end;
+    justify-content: center;
   }
 
+  .uni-manger-input-wraper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
   .uni-locations-input {
     width: 50%;
     transition: 0.3s;

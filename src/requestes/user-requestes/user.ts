@@ -5,7 +5,6 @@ import { CREATED, OK } from '../../constants/status-codes';
 import { signinError, signUpError, userCreated } from '../../constants/messages';
 import axios from 'axios';
 
-
 // this function is called if the user wants to signin or to refresh his IDToken if needed
 const signin = async (userData: userCredentials): Promise<any> => {
 	try {
@@ -16,6 +15,7 @@ const signin = async (userData: userCredentials): Promise<any> => {
 
 		// if the response status is not OK then throw an error else save the token
 		if (status !== OK) throw new Error(signinError);
+		userData.uniID = data.uniID;
 		saveUserCredentials(userData, data.IDToken);
 		return { result: true, message: userCreated };
 	} catch (err) {
@@ -46,9 +46,11 @@ const signup = async (userData: userCredentials): Promise<any> => {
 };
 
 const saveUserCredentials = (userData: userCredentials, IDToken: string) => {
+	console.log('saving!!!')
 	saveLocaly(IDTokenKey, IDToken);
 	saveLocaly(emailKey, userData.email);
 	saveLocaly(passwordKey, userData.password);
+	console.log('done saving')
 };
 
 const getUserCredentials = (): userCredentials => {

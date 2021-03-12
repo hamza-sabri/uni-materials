@@ -13,7 +13,8 @@ export default function SignupContainer() {
 		lastName: '',
 		universityLocation: '',
 		universityName: '',
-		field: ''
+		field: '',
+		uniID: ''
 	});
 	const [ formPage, setFormPage ] = useState<formPageInterface>(namesForm);
 
