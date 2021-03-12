@@ -8,6 +8,7 @@ import Home from './pages/home';
 import Login from './pages/signin';
 
 function App() {
+	
 	return (
 		<div className="App">
 			<Router history={history}>

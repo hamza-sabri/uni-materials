@@ -86,10 +86,10 @@ body,
 	height: 100vh;
 }
 body {
-	background-color: #efefef !important;
+	background-color: #efefef  ;
 }
 .input {
-	width: 90% !important;
+	width: 90%  ;
 	font-weight: 200;
 	margin-top: 1.5rem;
 	height: 1.5rem;
@@ -104,12 +104,12 @@ body {
 	border-bottom: .8px rgb(221, 219, 219) solid;
 }
 .signup-btn {
-	color: #6c63ff !important;
+	color: #6c63ff  ;
 	font-weight: 600;
 	margin-top: 2%;
 }
 .forgot-password {
-	color: #6c63ff !important;
+	color: #6c63ff  ;
 	font-weight: 600;
 	margin-top: 10%;
 	margin-bottom: 5%;
@@ -120,7 +120,7 @@ body {
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	transition: 0.3s;
-	border-radius: 13px !important;
+	border-radius: 13px  ;
 	width: 80%;
 	height: 40%;
 	display: flex;
