@@ -24,9 +24,12 @@ export default function UniManagerInfo() {
       <UnisNames
         {...{
           unisDataList,
+          setUnisDataList,
           setLocations,
           setMajors,
+          uniName,
           setUniName,
+          uniID,
           setUniID,
           unisNames, 
           setUnisNames
@@ -54,7 +57,8 @@ export default function UniManagerInfo() {
             unisDataList,
             setUnisDataList,
             unisNames, 
-            setUnisNames
+            setUnisNames,
+            setUniID
           }}
         />
       </div>

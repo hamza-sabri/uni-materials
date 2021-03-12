@@ -15,6 +15,7 @@ type submitData = {
   setUnisDataList: any;
   unisNames: string[];
   setUnisNames: any;
+  setUniID: any;
 };
 type university = {
   id: string;
@@ -34,6 +35,7 @@ export default function SubmitBtn({
   setUnisDataList,
   unisNames,
   setUnisNames,
+  setUniID
 }: submitData) {
   const submit = async () => {
     if (uniName === "") {
@@ -51,7 +53,7 @@ export default function SubmitBtn({
           api: createUni,
           requestBody,
         });
-        const { message, uniID } = data;
+        const { message , uniID } = data;
         if (status === OK || status === CREATED) {
           Swal.fire("Message", message, "success");
           const uni = {
@@ -60,6 +62,7 @@ export default function SubmitBtn({
           };
           setUnisDataList([...unisDataList, uni]);
           setUnisNames([...unisNames, uniName]);
+          setUniID(uniID);
         } else Swal.fire("Ops", "Something went wrong", "error");
       } else {
         const { status, data } = await APIsCaller({

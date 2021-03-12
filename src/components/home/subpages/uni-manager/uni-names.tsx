@@ -2,14 +2,18 @@ import React, { useState, useRef, useEffect } from "react";
 import lottie from "lottie-web";
 import Swal from "sweetalert2";
 import uniManagerPic from "../../../../assets/home/uni-manager/uni-manager.json";
+import DeleteUni from "./delete-uni";
 interface SelectProtected {
   readonly wrapperElement: HTMLDivElement;
 }
 type uniNames = {
   unisDataList: any;
+  setUnisDataList: any;
   setLocations: any;
   setMajors: any;
+  uniName: string;
   setUniName: any;
+  uniID: string;
   setUniID: any;
   unisNames: string[];
   setUnisNames: any;
@@ -17,9 +21,12 @@ type uniNames = {
 
 export default function UnisNames({
   unisDataList,
+  setUnisDataList,
   setLocations,
   setMajors,
+  uniName,
   setUniName,
+  uniID,
   setUniID,
   unisNames,
   setUnisNames,
@@ -33,10 +40,10 @@ export default function UnisNames({
   let index = 0;
   const animated: any = useRef(null);
   const [flag, setFlag] = useState(true); // to clear data (locations and majors) depending on the name
-  const setUniDex = (uni: string) => {
+  const setUniDex = (uni: string) => { // set the uni index to fill data locations and majors if founds
     if (unisNames.includes(uni)) {
-      setSearch(uni);
-      setDisplay(false);
+      // setSearch(uni);
+      // setDisplay(false);
       const index = unisNames.indexOf(uni);
       const item = unisDataList[index];
       const { id } = item;
@@ -49,7 +56,7 @@ export default function UnisNames({
       setUniName(name);
       setUniID(id);
       setFlag(true);
-    } else  {
+    } else {
       setUniName(uni);
       setUniID(null);
       if (flag === true) {
@@ -58,7 +65,7 @@ export default function UnisNames({
         setMajors(empty);
         setFlag(false);
       }
-    } 
+    }
   };
 
   const changeUniName = async (oldName: string) => {
@@ -116,6 +123,7 @@ export default function UnisNames({
     if (unisNames[0].length > 0) {
       const temp = unisNames[0];
       setUniDex(temp);
+      setSearch(temp);
     }
   }, []);
 
@@ -136,6 +144,10 @@ export default function UnisNames({
       setDisplay(false);
     }
   };
+  const makeChange = () => {
+    console.log(search);
+    setUniDex(search);
+  };
 
   return (
     <div className="uni-names-div ">
@@ -149,7 +161,7 @@ export default function UnisNames({
         value={search}
         autoComplete="off"
         onChange={(event) => setSearch(event.target.value)}
-        onBlur={(event) => setUniDex(event.target.value)}
+        onBlur={(event) => setUniDex(search)}
       ></input>
       {display && (
         <div ref={wrapperRef} className="autoContainer">
@@ -158,7 +170,11 @@ export default function UnisNames({
             .map((uniName: string) => {
               return (
                 <div
-                  onClick={() => setUniDex(uniName)}
+                  onClick={() => {
+                    setSearch(() => uniName);
+                    setUniDex(uniName);
+                    setDisplay(false);
+                  }}
                   className="option"
                   key={index++}
                 >
@@ -176,6 +192,18 @@ export default function UnisNames({
           change name
         </button>
       </div>
+      <DeleteUni
+        {...{
+          unisDataList,
+          setUnisDataList,
+          unisNames,
+          setUnisNames,
+          uniID,
+          uniName,
+          setUniDex,
+          setSearch,
+        }}
+      />
       <div className="animated" ref={animated}></div>
     </div>
   );

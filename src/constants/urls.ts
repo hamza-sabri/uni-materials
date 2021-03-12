@@ -9,6 +9,7 @@ const signupRoute: string = '/users/signup';
 const getUnisRoute: string = '/unis/all';
 const updateUniRoute: string = '/unis/update';
 const createUniRoute: string = '/unis/create';
+const deleteUniRoute: string = '/unis/uni/delete'
 
 // functions
 const urlConcatenator = (seconderyPath: string[]): string => {
@@ -17,4 +18,4 @@ const urlConcatenator = (seconderyPath: string[]): string => {
 	return apiPath;
 };
 
-export { rootURL, signinRoute, signupRoute, urlConcatenator, getUnisRoute, updateUniRoute, createUniRoute };
+export { rootURL, signinRoute, signupRoute, urlConcatenator, getUnisRoute, updateUniRoute, createUniRoute, deleteUniRoute };

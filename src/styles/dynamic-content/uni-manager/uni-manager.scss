@@ -113,6 +113,24 @@
     }
   }
 
+  .delete-uni-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    .delete-uni-btn {
+      width: 45%;
+      height: 2.5rem;
+      font-weight: 600;
+      background-color: #766ffa;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      margin-top: 5%;
+    }
+  }
   .animated {
     width: 80%;
     height: 80%;
