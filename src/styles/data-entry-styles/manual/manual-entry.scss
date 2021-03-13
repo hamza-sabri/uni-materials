@@ -2,6 +2,7 @@
 .manual-entry-method {
 	width: 70%;
 	height: auto;
+	min-height: 72vh;
 	background: white;
 	border-radius: 18px;
 	overflow: hidden;
@@ -23,7 +24,7 @@
 		width: 75%;
 		height: 20px;
 		display: block;
-		margin-top: 2.5rem;
+		margin-top: 2rem;
 		outline: none;
 		border: none;
 		border-bottom: 0.5px solid #c8c3c3;
@@ -37,12 +38,12 @@
 	}
 }
 
-.inputs-container::-webkit-scrollbar{
+.inputs-container::-webkit-scrollbar {
 	display: none;
 }
 
 .submit-material-button {
-	padding: .8rem;
+	padding: .6rem;
 	background: rgb(117, 109, 255);
 	width: 22%;
 	font-size: 20px;
@@ -127,8 +128,20 @@
 }
 
 .lottie-input-container {
-	height: 35vh;
+	height: 30vh;
 }
+
+textarea {
+	width: 75%;
+	margin-top: 1.5rem;
+	margin-bottom: 0;
+	display: block;
+	border: none;
+	outline: none;
+	min-height: 3rem;
+	max-height: 4rem;
+}
+
 @media (max-height: 680px) {
 	.lottie-input-container {
 		height: 35%;

@@ -3,13 +3,18 @@ import '../../../../styles/data-entry-styles/manual/manual-entry.css';
 import lottie from 'lottie-web';
 import floattingLaptop from '../../../../assets/data-entry-assets/floatting-laptop.json';
 import emptySVG from '../../../../assets/data-entry-assets/empty.svg';
+import Swal from 'sweetalert2';
+import { APIsCaller } from '../../../../requestes/apis-caller';
+import { createNewMaerial } from '../../../../requestes/material-requests/mateirla';
+import { CREATED } from '../../../../constants/status-codes';
 
-export default function CardCreateor({ inputs }: { inputs: string[] }) {
+export default function CardCreateor({ inputs, descriptionInput }: { inputs: string[]; descriptionInput?: string }) {
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
 	const previewer = useRef<HTMLDivElement>(null);
 	const emptyName: string = '???? ????';
-	const results: string[] = new Array(inputs.length);
+	const results: string[] = new Array(inputs.length).fill('');
+	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
 	useEffect(() => {
 		lottie.loadAnimation({
@@ -30,14 +35,46 @@ export default function CardCreateor({ inputs }: { inputs: string[] }) {
 		results[index] = value;
 	};
 
+	const submitHandler =  ()=>{
+		let emptyIndex:number = -1;
+		results.forEach((result,index) =>(result === '' || !result)? emptyIndex = index: '')
+		if(emptyIndex !== -1) Swal.fire('Ops!',`Sorry but the "${inputs[emptyIndex]}" is required`, 'error' );
+		else if(descriptionInput && textAreaRef.current!.value === '') Swal.fire('Ops!',`description is required`, 'error' );
+		else{
+			if(descriptionInput) submitMaterial();
+			}
+	}
+
+	const submitMaterial = async()=>{
+		Swal.showLoading();
+		const requestBody = {
+			materialName: results[0],
+			materialPhoto: results[1],
+			materialNumber: results[2],
+			materialDesc: textAreaRef.current?.value
+		}
+		const {data, status} = await APIsCaller({api:createNewMaerial, requestBody});
+		const {message, materialID} = data;
+		console.log({materialID});
+		if (status === CREATED) Swal.fire('Thanks', message, 'success' );
+		else Swal.fire('Ops!','Something went wrong', 'error' );
+	
+	}
 	const MaterialInputs = () => {
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => (
 					<input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
 				))}
+				{
+					descriptionInput ? <textarea placeholder={descriptionInput} ref={textAreaRef} onFocus={()=>{
+						textAreaRef.current!.style.overflowY ='scroll';
+					}} onBlur={()=> {
+						textAreaRef.current!.style.overflow ='hidden';
+					}}/> : <div/>
+				}
 				<div className="lottie-input-container" ref={inputLottie} />
-				<div className="submit-material-button" onClick={() => console.log(results)}>
+				<div className="submit-material-button" onClick={submitHandler}>
 					Submit
 				</div>
 			</div>
