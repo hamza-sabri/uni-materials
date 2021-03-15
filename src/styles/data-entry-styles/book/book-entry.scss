@@ -2,7 +2,7 @@
 .book-entry-method {
 	width: 90%;
 	height: auto;
-	min-height: 88vh;
+	min-height: 86vh;
 	background: white;
 	border-radius: 18px;
 	overflow: hidden;
@@ -24,7 +24,7 @@
 		width: 75%;
 		height: 20px;
 		display: block;
-		margin-top: 2rem;
+		margin-top: 1.8rem;
 		outline: none;
 		border: none;
 		border-bottom: 0.5px solid #c8c3c3;
@@ -55,6 +55,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	margin-bottom: 1rem;
 	&:hover {
 		cursor: pointer;
 		@include floating;
@@ -72,7 +73,7 @@
 	border-left: .3px dashed rgba(0, 0, 0, .5);
 }
 
-.material-previewer {
+.book-entry-method .material-previewer {
 	width: 85%;
 	height: 60%;
 	background: white;
@@ -101,12 +102,15 @@
 }
 
 .drop-zoon-container {
-	width: 70%;
+	width: 75%;
 	border: 1.8px dashed rgb(207, 205, 205);
 	border-radius: 5px;
 	height: 14vh;
+	min-height: 10vh;
 	margin-top: 5px;
 	outline: none;
+	overflow: hidden;
+	margin-top: .5rem;
 	div {
 		width: 100%;
 		height: 100%;
@@ -116,35 +120,44 @@
 		outline: none;
 		&:hover {
 			cursor: pointer;
+			background: rgba(117, 109, 255, .1);
+			border-radius: inherit;
 		}
-		p {
+		pre {
+			border-radius: inherit;
 			text-align: center;
 			margin: 0;
 			outline: none;
+			font-weight: 600;
+			font-size: 1.1rem;
 		}
 
-		.active-p {
+		.active-pre {
 			width: 100%;
 			height: 100%;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			animation: hover-to-drop ease 1.2s infinite alternate;
+			animation: hover-to-drop ease 1.5s infinite alternate;
 			outline: none;
+			font-weight: 600;
+			font-size: 1.5rem;
+			border-radius: inherit;
 		}
 	}
 }
 
 @keyframes hover-to-drop {
 	0% {
-		background: rgb(222, 250, 250);
+		background: rgba(117, 109, 255, .2);
 		border: 2px dashed rgba(247, 123, 123, .2);
 	}
 	100% {
-		background: rgb(173, 247, 247);
+		background: rgba(117, 109, 255, .6);
 		border: 2px dashed rgba(247, 123, 123, 1);
 	}
 }
+
 
 // medias
 @media (max-width: 900px), (max-height: 540px) {
@@ -153,11 +166,18 @@
 		grid-template-columns: 100%;
 		grid-template-rows: 74vh 40vh;
 		height: 95vh;
+		max-height:95vh;
 		overflow-y: scroll;
 		border: none;
 		margin-top: 2rem;
 	}
 	.book-entry-method .inputs-container {
+		.drop-zoon-container{
+			div pre{
+				font-size: .85rem;
+				font-weight: 900;
+			}
+		}
 		border: none;
 		height: 100%;
 		overflow-y: scroll;
@@ -182,7 +202,7 @@
 }
 
 .book-entry-method .lottie-input-container {
-	height: 25vh;
+	height: 24vh;
 }
 
 textarea {
@@ -198,7 +218,7 @@ textarea {
 
 @media (max-height: 680px) {
 	.lottie-input-container {
-		height: 25vh;
+		height: 28vh;
 	}
 	.submit-material-button {
 		padding: .6rem;
