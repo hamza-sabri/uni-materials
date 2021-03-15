@@ -39,9 +39,9 @@ export default function CardCreateor({ inputs, descriptionInput }: { inputs: str
 		let emptyIndex:number = -1;
 		results.forEach((result,index) =>(result === '' || !result)? emptyIndex = index: '')
 		if(emptyIndex !== -1) Swal.fire('Ops!',`Sorry but the "${inputs[emptyIndex]}" is required`, 'error' );
-		else if(descriptionInput && textAreaRef.current!.value === '') Swal.fire('Ops!',`description is required`, 'error' );
 		else{
 			if(descriptionInput) submitMaterial();
+			// to add the topic later
 			}
 	}
 
@@ -51,7 +51,7 @@ export default function CardCreateor({ inputs, descriptionInput }: { inputs: str
 			materialName: results[0],
 			materialPhoto: results[1],
 			materialNumber: results[2],
-			materialDesc: textAreaRef.current?.value
+			materialDesc: textAreaRef?.current?.value || ''
 		}
 		const {data, status} = await APIsCaller({api:createNewMaerial, requestBody});
 		const {message, materialID} = data;
