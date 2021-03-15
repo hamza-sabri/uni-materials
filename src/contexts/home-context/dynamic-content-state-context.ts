@@ -1,3 +1,3 @@
 import {createContext} from 'react';
 
-export const DynamicContentStateContext = createContext<React.Dispatch<React.SetStateAction<JSX.Element>> | undefined>(undefined);
+export const DynamicContentStateContext = createContext<any>(undefined);

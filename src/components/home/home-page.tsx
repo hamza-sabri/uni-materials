@@ -4,13 +4,12 @@ import SideBar from './side-bar/side-bar';
 
 import '../../styles/home/home-style.css';
 import DynamicContentSection from './subpages/dynamic-content-section';
-import TransparentCover from './covers/transparent-cover';
 
 export default function HomePage() {
 	validateUserOrSignHimIn();
+
 	return (
 		<div className="home-page">
-            <TransparentCover />
 			<NavBar />
 			<SideBar />
 			<DynamicContentSection />

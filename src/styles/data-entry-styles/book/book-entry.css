@@ -144,12 +144,13 @@
   width: 75%;
   border: 1.8px dashed #cfcdcd;
   border-radius: 5px;
-  height: 14vh;
+  height: 20vh;
   min-height: 10vh;
   margin-top: 5px;
   outline: none;
   overflow: hidden;
-  margin-top: .5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .drop-zoon-container div {
@@ -263,10 +264,6 @@
   }
 }
 
-.book-entry-method .lottie-input-container {
-  height: 24vh;
-}
-
 textarea {
   width: 75%;
   margin-bottom: 0;
@@ -275,12 +272,58 @@ textarea {
   outline: none;
   min-height: 3rem;
   max-height: 4rem;
+  resize: none;
+}
+
+.swal2-container {
+  width: 100vw;
+  padding: 0;
+}
+
+.transparent-background {
+  background: rgba(0, 0, 0, 0.3);
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+}
+
+.transparent-background .swal2-actions {
+  display: none;
+}
+
+.upload-container {
+  width: 100wh;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.lottie-ocr {
+  width: 60vw;
+  height: 100%;
+}
+
+.empty-div {
+  display: none;
 }
 
 @media (max-height: 680px) {
-  .lottie-input-container {
-    height: 28vh;
-  }
   .submit-material-button {
     padding: .6rem;
     width: 22%;

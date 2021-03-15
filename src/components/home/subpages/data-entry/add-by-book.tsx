@@ -1,33 +1,20 @@
 import '../../../../styles/data-entry-styles/book/book-entry.css';
-import { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import '../../../../styles/data-entry-styles/manual/manual-entry.css';
-import lottie from 'lottie-web';
-import floattingLaptop from '../../../../assets/data-entry-assets/floatting-laptop.json';
 import emptySVG from '../../../../assets/data-entry-assets/empty.svg';
 import Swal from 'sweetalert2';
-import { APIsCaller } from '../../../../requestes/apis-caller';
-import { createNewMaerial } from '../../../../requestes/material-requests/mateirla';
-import { CREATED } from '../../../../constants/status-codes';
+import withReactContent from 'sweetalert2-react-content';
 import DropZone from './drop-zone';
+import OCR from './ocr';
 
 export default function AddByBook({ inputs }: { inputs: string[]; }) {
-	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
 	const bookLinkInput = useRef<HTMLInputElement>(null);
 	const previewer = useRef<HTMLDivElement>(null);
 	const emptyName: string = '???? ????';
 	const results: string[] = new Array(inputs.length).fill('');
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-	useEffect(() => {
-		lottie.loadAnimation({
-			container: inputLottie.current!,
-			autoplay: true,
-			renderer: 'svg',
-			loop: true,
-			animationData: floattingLaptop
-		});
-	}, []);
+	const MySwal = withReactContent(Swal);
 
 	const inputHandler = (e: any, index: number) => {
 		const value: string = e.target.value || '';
@@ -53,13 +40,27 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 			materialNumber: results[2],
 			materialDesc: textAreaRef?.current?.value || ''
 		}
-		const {data, status} = await APIsCaller({api:createNewMaerial, requestBody});
-		const {message, materialID} = data;
-		console.log({materialID});
-		if (status === CREATED) Swal.fire('Thanks', message, 'success' );
-		else Swal.fire('Ops!','Something went wrong', 'error' );
+		console.log(requestBody);
+		showLoading();
+		// TODO: call Hussien's API
+		// TODO call the Firebase API
 	
 	}
+	
+	const hideLoading = () => {
+		let temp = document.querySelector('.transparent-background');
+		temp!.className = 'empty-div'
+		temp = document.querySelector('.swal2-container');
+		temp!.className = 'empty-div';
+		MySwal.clickCancel();
+		Swal.clickCancel();
+	};
+
+	const showLoading = () => {
+		MySwal.fire(<OCR />);
+		const temp = document.querySelector('.swal2-popup');
+		temp!.className = 'transparent-background'
+	};
 
 	const MaterialInputs = () => {
 		return (
@@ -76,7 +77,6 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 					}}/> 
 				}
 				<DropZone {...{bookLinkInput, results}}/>
-				<div className="lottie-input-container" ref={inputLottie} />
 				<div className="submit-material-button" onClick={submitHandler}>
 					Submit
 				</div>

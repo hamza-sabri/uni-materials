@@ -105,12 +105,13 @@
 	width: 75%;
 	border: 1.8px dashed rgb(207, 205, 205);
 	border-radius: 5px;
-	height: 14vh;
+	height: 20vh;
 	min-height: 10vh;
 	margin-top: 5px;
 	outline: none;
 	overflow: hidden;
-	margin-top: .5rem;
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
 	div {
 		width: 100%;
 		height: 100%;
@@ -158,7 +159,6 @@
 	}
 }
 
-
 // medias
 @media (max-width: 900px), (max-height: 540px) {
 	.book-entry-method {
@@ -166,14 +166,14 @@
 		grid-template-columns: 100%;
 		grid-template-rows: 74vh 40vh;
 		height: 95vh;
-		max-height:95vh;
+		max-height: 95vh;
 		overflow-y: scroll;
 		border: none;
 		margin-top: 2rem;
 	}
 	.book-entry-method .inputs-container {
-		.drop-zoon-container{
-			div pre{
+		.drop-zoon-container {
+			div pre {
 				font-size: .85rem;
 				font-weight: 900;
 			}
@@ -201,10 +201,6 @@
 	}
 }
 
-.book-entry-method .lottie-input-container {
-	height: 24vh;
-}
-
 textarea {
 	width: 75%;
 	margin-bottom: 0;
@@ -213,12 +209,41 @@ textarea {
 	outline: none;
 	min-height: 3rem;
 	max-height: 4rem;
+	resize: none;
 }
 
-@media (max-height: 680px) {
-	.lottie-input-container {
-		height: 28vh;
+.swal2-container {
+	width: 100vw;
+	padding: 0;
+}
+.transparent-background {
+	background: rgba(0, 0, 0, 0.3);
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+
+	.swal2-actions {
+		display: none;
 	}
+}
+.upload-container {
+	width: 100wh;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.lottie-ocr{
+	width: 60vw;
+	height: 100%;
+}
+.empty-div {
+	display: none;
+}
+@media (max-height: 680px) {
 	.submit-material-button {
 		padding: .6rem;
 		width: 22%;
