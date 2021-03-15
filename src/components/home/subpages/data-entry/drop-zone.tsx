@@ -10,7 +10,6 @@ export default function DropZone({ bookLinkInput, results }: { bookLinkInput: Re
 	const bookLinkIndex: number = 3;
 
 	const uploadFile = async (fileUploaded: any) => {
-		console.log(fileUploaded);
 		let formData = new FormData();
 		formData.append('file', fileUploaded);
 		formData.append('cloud_name', "dgviin24k");
@@ -27,7 +26,6 @@ export default function DropZone({ bookLinkInput, results }: { bookLinkInput: Re
 		);
 
 		let json = await res.json();
-		console.log('json', json);
 
 		return json;
 
