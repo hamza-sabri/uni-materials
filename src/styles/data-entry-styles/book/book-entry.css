@@ -1,7 +1,7 @@
 .book-entry-method {
-  width: 85%;
+  width: 90%;
   height: auto;
-  min-height: 85vh;
+  min-height: 88vh;
   background: white;
   border-radius: 18px;
   overflow: hidden;
@@ -139,6 +139,79 @@
   font-weight: 500;
 }
 
+.drop-zoon-container {
+  width: 70%;
+  border: 1.8px dashed #cfcdcd;
+  border-radius: 5px;
+  height: 14vh;
+  margin-top: 5px;
+  outline: none;
+}
+
+.drop-zoon-container div {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  outline: none;
+}
+
+.drop-zoon-container div:hover {
+  cursor: pointer;
+}
+
+.drop-zoon-container div p {
+  text-align: center;
+  margin: 0;
+  outline: none;
+}
+
+.drop-zoon-container div .active-p {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-animation: hover-to-drop ease 1.2s infinite alternate;
+          animation: hover-to-drop ease 1.2s infinite alternate;
+  outline: none;
+}
+
+@-webkit-keyframes hover-to-drop {
+  0% {
+    background: #defafa;
+    border: 2px dashed rgba(247, 123, 123, 0.2);
+  }
+  100% {
+    background: #adf7f7;
+    border: 2px dashed #f77b7b;
+  }
+}
+
+@keyframes hover-to-drop {
+  0% {
+    background: #defafa;
+    border: 2px dashed rgba(247, 123, 123, 0.2);
+  }
+  100% {
+    background: #adf7f7;
+    border: 2px dashed #f77b7b;
+  }
+}
+
 @media (max-width: 900px), (max-height: 540px) {
   .book-entry-method {
     display: -ms-grid;
@@ -147,9 +220,10 @@
         grid-template-columns: 100%;
     -ms-grid-rows: 74vh 40vh;
         grid-template-rows: 74vh 40vh;
-    height: 90vh;
+    height: 95vh;
     overflow-y: scroll;
     border: none;
+    margin-top: 2rem;
   }
   .book-entry-method .inputs-container {
     border: none;
@@ -166,13 +240,14 @@
   }
   .book-entry-method .material-previewer-container {
     border: none;
+    margin-top: 10px;
     border-top: 0.3px dashed rgba(0, 0, 0, 0.5);
     height: 70vh;
   }
 }
 
-.lottie-input-container {
-  height: 30vh;
+.book-entry-method .lottie-input-container {
+  height: 25vh;
 }
 
 textarea {
@@ -188,7 +263,7 @@ textarea {
 
 @media (max-height: 680px) {
   .lottie-input-container {
-    height: 35%;
+    height: 25vh;
   }
   .submit-material-button {
     padding: .6rem;

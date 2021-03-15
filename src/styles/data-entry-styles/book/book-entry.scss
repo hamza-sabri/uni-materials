@@ -1,8 +1,8 @@
 @import '../../shared-styles/shared-effects';
 .book-entry-method {
-	width: 85%;
+	width: 90%;
 	height: auto;
-	min-height: 85vh;
+	min-height: 88vh;
 	background: white;
 	border-radius: 18px;
 	overflow: hidden;
@@ -19,7 +19,7 @@
 	flex-direction: column;
 	overflow-y: scroll;
 	margin-bottom: .6rem;
-	border:none;
+	border: none;
 	input {
 		width: 75%;
 		height: 20px;
@@ -70,7 +70,6 @@
 	align-items: center;
 	justify-content: center;
 	border-left: .3px dashed rgba(0, 0, 0, .5);
-
 }
 
 .material-previewer {
@@ -101,17 +100,64 @@
 	font-weight: 500;
 }
 
+.drop-zoon-container {
+	width: 70%;
+	border: 1.8px dashed rgb(207, 205, 205);
+	border-radius: 5px;
+	height: 14vh;
+	margin-top: 5px;
+	outline: none;
+	div {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		outline: none;
+		&:hover {
+			cursor: pointer;
+		}
+		p {
+			text-align: center;
+			margin: 0;
+			outline: none;
+		}
+
+		.active-p {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			animation: hover-to-drop ease 1.2s infinite alternate;
+			outline: none;
+		}
+	}
+}
+
+@keyframes hover-to-drop {
+	0% {
+		background: rgb(222, 250, 250);
+		border: 2px dashed rgba(247, 123, 123, .2);
+	}
+	100% {
+		background: rgb(173, 247, 247);
+		border: 2px dashed rgba(247, 123, 123, 1);
+	}
+}
+
 // medias
 @media (max-width: 900px), (max-height: 540px) {
 	.book-entry-method {
 		display: grid;
 		grid-template-columns: 100%;
 		grid-template-rows: 74vh 40vh;
-		height: 90vh;
+		height: 95vh;
 		overflow-y: scroll;
 		border: none;
+		margin-top: 2rem;
 	}
-	.book-entry-method  .inputs-container {
+	.book-entry-method .inputs-container {
 		border: none;
 		height: 100%;
 		overflow-y: scroll;
@@ -127,15 +173,16 @@
 		display: none;
 	}
 
-	.book-entry-method .material-previewer-container{
-		border:none;
+	.book-entry-method .material-previewer-container {
+		border: none;
+		margin-top: 10px;
 		border-top: .3px dashed rgba(0, 0, 0, .5);
 		height: 70vh;
 	}
 }
 
-.lottie-input-container {
-	height: 30vh;
+.book-entry-method .lottie-input-container {
+	height: 25vh;
 }
 
 textarea {
@@ -151,7 +198,7 @@ textarea {
 
 @media (max-height: 680px) {
 	.lottie-input-container {
-		height: 35%;
+		height: 25vh;
 	}
 	.submit-material-button {
 		padding: .6rem;
