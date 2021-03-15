@@ -13,6 +13,7 @@ import DropZone from './drop-zone';
 export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
+	const bookLinkInput = useRef<HTMLInputElement>(null);
 	const previewer = useRef<HTMLDivElement>(null);
 	const emptyName: string = '???? ????';
 	const results: string[] = new Array(inputs.length).fill('');
@@ -63,16 +64,18 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const MaterialInputs = () => {
 		return (
 			<div className="inputs-container">
-				{inputs.map((hint, index) => (
-					<input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
-				))}
+				{inputs.map((hint, index) => {
+						if(hint.includes("Link")) return <input placeholder={hint} key={index} ref={bookLinkInput} onChange={(e) => inputHandler(e, index)}  />
+						return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index) } />
+					}
+				)}
 				{<textarea placeholder='Describe the Material' ref={textAreaRef} onFocus={()=>{
 						textAreaRef.current!.style.overflowY ='scroll';
 					}} onBlur={()=> {
 						textAreaRef.current!.style.overflow ='hidden';
 					}}/> 
 				}
-				<DropZone />
+				<DropZone {...{bookLinkInput, results}}/>
 				<div className="lottie-input-container" ref={inputLottie} />
 				<div className="submit-material-button" onClick={submitHandler}>
 					Submit
