@@ -12,6 +12,7 @@ export default function DropZone({ bookLinkInput, results }: { bookLinkInput: Re
 	const uploadFile = async (fileUploaded: any) => {
 		let formData = new FormData();
 		formData.append('file', fileUploaded);
+		// TODO: Add to .env
 		formData.append('cloud_name', "dgviin24k");
 		formData.append("upload_preset", "ysd8j66q");
 		formData.append("public_id", (fileUploaded.name.split('.')[0]));
