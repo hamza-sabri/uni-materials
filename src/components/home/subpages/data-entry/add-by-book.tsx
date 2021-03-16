@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import DropZone from './drop-zone';
 import OCR from './ocr';
+import axios from 'axios';
+import { splitURl } from '../../../../constants/urls';
 
 export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const materialName = useRef<HTMLPreElement>(null);
@@ -25,14 +27,14 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		results[index] = value;
 	};
 
-	const submitHandler =  ()=>{
-		let emptyIndex:number = -1;
-		results.forEach((result,index) =>(result === '' || !result)? emptyIndex = index: '')
-		if(emptyIndex !== -1) Swal.fire('Ops!',`Sorry but the "${inputs[emptyIndex]}" is required`, 'error' );
+	const submitHandler = () => {
+		let emptyIndex: number = -1;
+		results.forEach((result, index) => (result === '' || !result) ? emptyIndex = index : '')
+		if (emptyIndex !== -1) Swal.fire('Ops!', `Sorry but the "${inputs[emptyIndex]}" is required`, 'error');
 		else submitMaterial();
 	}
 
-	const submitMaterial = async()=>{
+	const submitMaterial = async () => {
 		Swal.showLoading();
 		const requestBody = {
 			materialName: results[0],
@@ -42,11 +44,13 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		}
 		console.log(requestBody);
 		showLoading();
-		// TODO: call Hussien's API
+		const splitResponse = await axios.post(splitURl, { filename: requestBody.materialName, url: results[3] });
+		console.log(splitResponse);
+		hideLoading();
 		// TODO call the Firebase API
-	
+
 	}
-	
+
 	const hideLoading = () => {
 		let temp = document.querySelector('.transparent-background');
 		temp!.className = 'empty-div'
@@ -66,17 +70,17 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => {
-						if(hint.includes("Link")) return <input placeholder={hint} key={index} ref={bookLinkInput} onChange={(e) => inputHandler(e, index)}  />
-						return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index) } />
-					}
-				)}
-				{<textarea placeholder='Describe the Material' ref={textAreaRef} onFocus={()=>{
-						textAreaRef.current!.style.overflowY ='scroll';
-					}} onBlur={()=> {
-						textAreaRef.current!.style.overflow ='hidden';
-					}}/> 
+					if (hint.includes("Link")) return <input placeholder={hint} key={index} ref={bookLinkInput} onChange={(e) => inputHandler(e, index)} />
+					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
 				}
-				<DropZone {...{bookLinkInput, results}}/>
+				)}
+				{<textarea placeholder='Describe the Material' ref={textAreaRef} onFocus={() => {
+					textAreaRef.current!.style.overflowY = 'scroll';
+				}} onBlur={() => {
+					textAreaRef.current!.style.overflow = 'hidden';
+				}} />
+				}
+				<DropZone {...{ bookLinkInput, results }} />
 				<div className="submit-material-button" onClick={submitHandler}>
 					Submit
 				</div>
@@ -96,10 +100,10 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		);
 	};
 
-    return (
-        <div className='book-entry-method'>
-            <MaterialInputs />
+	return (
+		<div className='book-entry-method'>
+			<MaterialInputs />
 			<Materialpreviewer />
-        </div>
-    )
+		</div>
+	)
 }

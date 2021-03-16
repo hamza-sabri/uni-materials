@@ -1,3 +1,6 @@
+// split url
+const splitURl: string = 'https://young-atoll-63362.herokuapp.com/split-file';
+
 // external urls
 const rootURL: string = 'https://us-central1-uni-materials-412a2.cloudfunctions.net/webApi';
 
@@ -31,5 +34,6 @@ export {
 	updateUniRoute,
 	createUniRoute,
 	deleteUniRoute,
-	createMaterialRoute
+	createMaterialRoute,
+	splitURl
 };

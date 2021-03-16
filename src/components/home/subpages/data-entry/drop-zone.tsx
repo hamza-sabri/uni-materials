@@ -16,6 +16,7 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 	const MySwal = withReactContent(Swal);
 	const message: string = 'Click to Add\n Or drag and drop a PDF file';
 	const dropeHereRef = useRef<HTMLDivElement>(null);
+	const LIMIT = 10000000;
 
 	useEffect(() => {
 		lottie.loadAnimation({
@@ -58,7 +59,13 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 	};
 
 	const onDrop = useCallback(async (acceptedFiles) => {
-		if (acceptedFiles[0].type !== 'application/pdf') {
+		if(acceptedFiles[0].size > LIMIT){
+			Swal.fire({
+				title: 'Ops!',
+				html: `<pre><b>File Must be less than ${LIMIT/1000000}MB</b></pre>`,
+				icon: 'error'
+			});
+		} else if (acceptedFiles[0].type !== 'application/pdf') {
 			Swal.fire({
 				title: 'Ops!',
 				html: `<pre>Wrong Type\n pleas add a <b>PDF</b> file insted</pre>`,
