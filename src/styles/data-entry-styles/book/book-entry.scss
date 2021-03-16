@@ -235,11 +235,32 @@ textarea {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 }
-.lottie-ocr{
-	width: 60vw;
-	height: 100%;
+.lottie-ocr {
+	width: 50vw;
+	height: auto;
 }
+
+.loading-message {
+	color: white;
+	font-size: 2rem;
+	// span {
+		animation: faddingSpan 1.8s ease-in-out alternate infinite ;
+	// }
+}
+
+@keyframes faddingSpan {
+	0% {
+		opacity: 0;
+		color: #c8c3c3;
+	}
+	100% {
+		opacity: 1;
+		color: white;
+	}
+}
+
 .empty-div {
 	display: none;
 }

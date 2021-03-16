@@ -1,8 +1,5 @@
-import React from 'react';
 import { motion, Variants } from 'framer-motion';
-import { Route } from 'react-router';
 import { homePageRoute } from '../../../constants/pages-route';
-import HomePage from '../home-page';
 import { NavLink } from 'react-router-dom';
 export default function Logo() {
 	const repeatDelay = 15;

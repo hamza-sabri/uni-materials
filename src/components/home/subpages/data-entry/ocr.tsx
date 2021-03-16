@@ -17,6 +17,7 @@ export default function OCR() {
 	return (
 		<div className="upload-container">
 			<div className="lottie-ocr" ref={uploadingRef} />
+            <div className="loading-message">Splitting the PDF please wait <span>...</span></div>
 		</div>
 	);
 }
