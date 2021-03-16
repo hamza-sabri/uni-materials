@@ -44,17 +44,26 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 			});
 		} else {
 			showLoading();
-			setDropedFile(
-				<div>
-					<img style={{ width: '2.5rem', height: '2.5rem' }} src={pdfImage} alt="pdficon" />
-					<pre>	</pre>
-					<p style={{ fontSize: '1.8rem' }}>{acceptedFiles[0].name}</p>
-				</div>
-			);
-			const { url } = await uploadFile(acceptedFiles[0]);
-			console.log(url);
-			updateBookLink(url);
-			hideLoading();
+			try {
+				const { url } = await uploadFile(acceptedFiles[0]);
+				setDropedFile(
+					<div>
+						<img style={{ width: '2.5rem', height: '2.5rem' }} src={pdfImage} alt="pdficon" />
+						<pre> </pre>
+						<p style={{ fontSize: '1.8rem' }}>{acceptedFiles[0].name}</p>
+					</div>
+				);
+				updateBookLink(url);
+				hideLoading();
+			} catch (err) {
+				console.log(err);
+				hideLoading();
+				Swal.fire({
+					title: 'Ops!',
+					html: `<pre style='font-size:1.8rem; font-weight:600'>Something went wrong\nPlease try again</pre>`,
+					icon: 'error'
+				});
+			}
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +77,7 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 
 	const hideLoading = () => {
 		let temp = document.querySelector('.transparent-background');
-		temp!.className = 'empty-div'
+		temp!.className = 'empty-div';
 		temp = document.querySelector('.swal2-container');
 		temp!.className = 'empty-div';
 		MySwal.clickCancel();
@@ -78,7 +87,7 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 	const showLoading = () => {
 		MySwal.fire(<LoadingUpload />);
 		const temp = document.querySelector('.swal2-popup');
-		temp!.className = 'transparent-background'
+		temp!.className = 'transparent-background';
 	};
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });

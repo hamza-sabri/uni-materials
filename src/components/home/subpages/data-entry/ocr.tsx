@@ -10,7 +10,10 @@ export default function OCR() {
 			autoplay: true,
 			renderer: 'svg',
 			loop: true,
-			animationData: ocrSVG
+			animationData: ocrSVG,
+            rendererSettings:{
+                
+            }
 		});
 	}, []);
 
