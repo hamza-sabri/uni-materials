@@ -2,7 +2,7 @@ import { motion, Variants } from 'framer-motion';
 import { homePageRoute } from '../../../constants/pages-route';
 import { NavLink } from 'react-router-dom';
 export default function Logo() {
-	const repeatDelay = 15;
+	const repeatDelay = 25.5;
 	const svgVariants: Variants = {
 		hidden: {
 			scale: 0.95
@@ -11,9 +11,9 @@ export default function Logo() {
 			scale: 1.02,
 			transition: {
 				duration: 1.5,
-				ease: 'easeInOut',
+				ease: 'backInOut',
 				repeat: Infinity,
-				repeatDelay: repeatDelay - 5,
+				repeatDelay,
 				repeatType: 'reverse',
 				delay: 6
 			}
@@ -52,7 +52,7 @@ export default function Logo() {
 			pathLength: 1,
 			transition: {
 				duration: 2,
-				ease: 'easeInOut',
+				ease: 'backInOut',
 				delay: 2,
 				staggerChildren: 2,
 			}
@@ -73,7 +73,7 @@ export default function Logo() {
 			transition: {
 				duration: 1.5,
 				ease: 'backInOut',
-				delay: 4.5,
+				delay: 2.8,
 				staggerChildren: 2,
 			}
 		}
@@ -93,7 +93,7 @@ export default function Logo() {
 			transition: {
 				duration: 1.8,
 				ease: 'backInOut',
-				delay: 5,
+				delay: 3.2,
 				staggerChildren: 2,
 			}
 		}
