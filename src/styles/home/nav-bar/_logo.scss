@@ -1,4 +1,18 @@
 .logo {
 	background: white;
-	border-right: 2px greenyellow dashed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	svg {
+		width: 80%;
+		height: 70%;
+		margin-right: 10%;
+	}
+}
+
+.cls-1 {
+	fill: #6466ae;
+}
+.cls-2 {
+	fill: #231f20;
 }
