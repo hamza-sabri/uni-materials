@@ -1,9 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import pdfImage from '../../../../assets/data-entry-assets/pdf.svg';
 import LoadingUpload from './loading-upload';
+import lottie from 'lottie-web';
+import dropeHere from '../../../../assets/data-entry-assets/drop-here.json'
 
 type dropZoneInterface = {
 	bookLinkInput: React.RefObject<HTMLInputElement>;
@@ -13,7 +15,28 @@ type dropZoneInterface = {
 export default function DropZone({ bookLinkInput, results }: dropZoneInterface) {
 	const MySwal = withReactContent(Swal);
 	const message: string = 'Click to Add\n Or drag and drop a PDF file';
-	const [ dropedFile, setDropedFile ] = useState<JSX.Element>(<pre>{message}</pre>);
+	const dropeHereRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		lottie.loadAnimation({
+			container: dropeHereRef.current!,
+			autoplay: true,
+			renderer: 'svg',
+			loop: true,
+			animationData: dropeHere
+		});
+	}, []);
+
+	const DefualtDrooeZone = ()=>{
+		return (
+			<div>
+				<pre>{message}</pre>
+				<div className="upload-here" ref={dropeHereRef} style={{width:"15%", marginLeft:"1.2rem"}}></div>
+
+			</div>
+		);
+	}
+	const [ dropedFile, setDropedFile ] = useState<JSX.Element>(DefualtDrooeZone());
 	const bookLinkIndex: number = 3;
 
 	const uploadFile = async (fileUploaded: any) => {

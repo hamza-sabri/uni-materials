@@ -3,6 +3,22 @@ import { homePageRoute } from '../../../constants/pages-route';
 import { NavLink } from 'react-router-dom';
 export default function Logo() {
 	const repeatDelay = 15;
+	const svgVariants: Variants = {
+		hidden: {
+			scale: 0.95
+		},
+		visible: {
+			scale: 1.02,
+			transition: {
+				duration: 1.5,
+				ease: 'easeInOut',
+				repeat: Infinity,
+				repeatDelay: repeatDelay - 5,
+				repeatType: 'reverse',
+				delay: 6
+			}
+		}
+	};
 	const pathVariants: Variants = {
 		hidden: {
 			opacity: 0.1,
@@ -20,25 +36,6 @@ export default function Logo() {
 			transition: {
 				duration: 2,
 				ease: 'backInOut',
-				repeat: Infinity,
-				repeatDelay,
-				repeatType: 'reverse'
-			}
-		}
-	};
-	const svgVariants: Variants = {
-		hidden: {
-			scale: 0.95
-		},
-		visible: {
-			scale: 1.02,
-			transition: {
-				duration: 1.5,
-				ease: 'easeInOut',
-				repeat: Infinity,
-				repeatDelay: repeatDelay - 5,
-				repeatType: 'reverse',
-				delay: 6
 			}
 		}
 	};
@@ -58,9 +55,6 @@ export default function Logo() {
 				ease: 'easeInOut',
 				delay: 2,
 				staggerChildren: 2,
-				repeat: Infinity,
-				repeatDelay,
-				repeatType: 'reverse'
 			}
 		}
 	};
@@ -81,9 +75,6 @@ export default function Logo() {
 				ease: 'backInOut',
 				delay: 4.5,
 				staggerChildren: 2,
-				repeat: Infinity,
-				repeatDelay,
-				repeatType: 'reverse'
 			}
 		}
 	};
@@ -104,9 +95,6 @@ export default function Logo() {
 				ease: 'backInOut',
 				delay: 5,
 				staggerChildren: 2,
-				repeat: Infinity,
-				repeatDelay,
-				repeatType: 'reverse'
 			}
 		}
 	};
