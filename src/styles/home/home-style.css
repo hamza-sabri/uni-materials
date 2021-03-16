@@ -17,6 +17,10 @@
   margin-right: 10%;
 }
 
+.logo svg:hover {
+  cursor: pointer;
+}
+
 .cls-1 {
   fill: #6466ae;
 }

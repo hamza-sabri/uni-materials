@@ -1,21 +1,48 @@
 import React from 'react';
 import { motion, Variants } from 'framer-motion';
+import { Route } from 'react-router';
+import { homePageRoute } from '../../../constants/pages-route';
+import HomePage from '../home-page';
+import { NavLink } from 'react-router-dom';
 export default function Logo() {
+	const repeatDelay = 15;
 	const pathVariants: Variants = {
 		hidden: {
-			opacity: .1,
+			opacity: 0.1,
 			pathLength: 0,
-            rotate:180,
+			rotate: 180,
 			y: '-20%',
 			x: '-80%'
 		},
 		visible: {
 			y: '0',
 			x: '0',
-            rotate:0,
+			rotate: 0,
 			opacity: 1,
 			pathLength: 1,
-			transition: { duration: 2, ease: 'easeInOut' }
+			transition: {
+				duration: 2,
+				ease: 'backInOut',
+				repeat: Infinity,
+				repeatDelay,
+				repeatType: 'reverse'
+			}
+		}
+	};
+	const svgVariants: Variants = {
+		hidden: {
+			scale: 0.95
+		},
+		visible: {
+			scale: 1.02,
+			transition: {
+				duration: 1.5,
+				ease: 'easeInOut',
+				repeat: Infinity,
+				repeatDelay: repeatDelay - 5,
+				repeatType: 'reverse',
+				delay: 6
+			}
 		}
 	};
 
@@ -29,7 +56,15 @@ export default function Logo() {
 			rotate: 0,
 			opacity: 1,
 			pathLength: 1,
-			transition: { duration: 2, ease: 'easeInOut', delay: 2, staggerChildren: 2 }
+			transition: {
+				duration: 2,
+				ease: 'easeInOut',
+				delay: 2,
+				staggerChildren: 2,
+				repeat: Infinity,
+				repeatDelay,
+				repeatType: 'reverse'
+			}
 		}
 	};
 
@@ -44,7 +79,15 @@ export default function Logo() {
 			opacity: 1,
 			pathLength: 1,
 			y: '0',
-			transition: { duration: 1.5, ease: 'backInOut', delay: 4.5, staggerChildren: 2 }
+			transition: {
+				duration: 1.5,
+				ease: 'backInOut',
+				delay: 4.5,
+				staggerChildren: 2,
+				repeat: Infinity,
+				repeatDelay,
+				repeatType: 'reverse'
+			}
 		}
 	};
 
@@ -59,12 +102,27 @@ export default function Logo() {
 			opacity: 1,
 			pathLength: 1,
 			y: '0',
-			transition: { duration: 1.8, ease: 'backInOut', delay: 5, staggerChildren: 2 }
+			transition: {
+				duration: 1.8,
+				ease: 'backInOut',
+				delay: 5,
+				staggerChildren: 2,
+				repeat: Infinity,
+				repeatDelay,
+				repeatType: 'reverse'
+			}
 		}
 	};
+
 	return (
-		<div className="logo">
-			<motion.svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 383.4 89.62" initial="hidden" animate="visible">
+		<NavLink to={homePageRoute} className="logo">
+			<motion.svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 383.4 89.62"
+				initial="hidden"
+				animate="visible"
+				variants={svgVariants}
+			>
 				<g id="Layer_2" data-name="Layer 2">
 					<g id="Layer_1-2" data-name="Layer 1">
 						<motion.path
@@ -107,6 +165,6 @@ export default function Logo() {
 					</g>
 				</g>
 			</motion.svg>
-		</div>
+		</NavLink>
 	);
 }
