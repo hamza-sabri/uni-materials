@@ -225,6 +225,10 @@
   }
 }
 
+#upload-here:hover {
+  background: rgba(117, 109, 255, 0);
+}
+
 @media (max-width: 900px), (max-height: 540px) {
   .book-entry-method {
     display: -ms-grid;

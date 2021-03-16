@@ -5,7 +5,7 @@ import withReactContent from 'sweetalert2-react-content';
 import pdfImage from '../../../../assets/data-entry-assets/pdf.svg';
 import LoadingUpload from './loading-upload';
 import lottie from 'lottie-web';
-import dropeHere from '../../../../assets/data-entry-assets/drop-here.json'
+import dropeHere from '../../../../assets/data-entry-assets/drop-here.json';
 
 type dropZoneInterface = {
 	bookLinkInput: React.RefObject<HTMLInputElement>;
@@ -27,15 +27,14 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 		});
 	}, []);
 
-	const DefualtDrooeZone = ()=>{
+	const DefualtDrooeZone = () => {
 		return (
 			<div>
 				<pre>{message}</pre>
-				<div className="upload-here" ref={dropeHereRef} style={{width:"15%", marginLeft:"1.2rem"}}></div>
-
+				<div id="upload-here" ref={dropeHereRef} style={{width: "15%", marginLeft:"1.5rem"}} />
 			</div>
 		);
-	}
+	};
 	const [ dropedFile, setDropedFile ] = useState<JSX.Element>(DefualtDrooeZone());
 	const bookLinkIndex: number = 3;
 

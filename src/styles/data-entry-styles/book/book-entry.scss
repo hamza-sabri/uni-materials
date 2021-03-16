@@ -159,6 +159,12 @@
 	}
 }
 
+ #upload-here {
+	&:hover {
+		background: rgba(117, 109, 255, 0);
+	}
+}
+
 // medias
 @media (max-width: 900px), (max-height: 540px) {
 	.book-entry-method {
@@ -246,7 +252,7 @@ textarea {
 	color: white;
 	font-size: 2rem;
 	// span {
-		animation: faddingSpan 1.8s ease-in-out alternate infinite ;
+	animation: faddingSpan 1.8s ease-in-out alternate infinite;
 	// }
 }
 
