@@ -2,7 +2,6 @@ import { motion, Variants } from 'framer-motion';
 import { homePageRoute } from '../../../constants/pages-route';
 import { NavLink } from 'react-router-dom';
 export default function Logo() {
-	const repeatDelay = 25.5;
 	const svgVariants: Variants = {
 		hidden: {
 			scale: 0.95
@@ -12,10 +11,8 @@ export default function Logo() {
 			transition: {
 				duration: 1.5,
 				ease: 'backInOut',
-				repeat: Infinity,
-				repeatDelay,
 				repeatType: 'reverse',
-				delay: 6
+				delay: 4.2
 			}
 		}
 	};

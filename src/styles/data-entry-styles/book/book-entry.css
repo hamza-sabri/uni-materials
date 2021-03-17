@@ -100,32 +100,12 @@
   border-left: 0.3px dashed rgba(0, 0, 0, 0.5);
 }
 
-.book-entry-method .material-previewer {
-  width: 75%;
-  height: 50%;
-  background: white;
-  border-radius: 12px;
-  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
-          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  background-repeat: no-repeat, repeat;
-  background-size: cover;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-}
-
-.book-entry-method .material-previewer:hover {
-  cursor: pointer;
-}
-
-.material-name-container {
+.book-entry-method .material-name-container {
   width: 100%;
   height: 2rem;
   background: rgba(0, 0, 0, 0.7);
-  margin-bottom: 2rem;
+  position: absolute;
+  bottom: .5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

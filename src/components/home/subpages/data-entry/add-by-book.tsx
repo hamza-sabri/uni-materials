@@ -12,7 +12,7 @@ import { splitURl } from '../../../../constants/urls';
 export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const materialName = useRef<HTMLPreElement>(null);
 	const bookLinkInput = useRef<HTMLInputElement>(null);
-	const previewer = useRef<HTMLDivElement>(null);
+	const previewer = useRef<HTMLImageElement>(null);
 	const emptyName: string = '???? ????';
 	const results: string[] = new Array(inputs.length).fill('');
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -22,7 +22,7 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		const value: string = e.target.value || '';
 		if (index === 0) materialName.current!.innerHTML = value !== '' ? value : emptyName;
 		else if (index === 1) {
-			previewer.current!.style.backgroundImage = `url(${value !== '' ? value : emptySVG})`;
+			previewer.current!.src = (value !== '' ? value : emptySVG)
 		}
 		results[index] = value;
 	};
@@ -44,9 +44,15 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		}
 		console.log(requestBody);
 		showLoading();
-		const splitResponse = await axios.post(splitURl, { filename: requestBody.materialName, url: results[3] });
-		console.log(splitResponse);
-		hideLoading();
+		try{
+			const {data} = await axios.post(splitURl, { filename: requestBody.materialName, url: results[3] });
+			console.log(data.length);
+			hideLoading();
+		} catch(err){
+			hideLoading();
+			// TODO show an err message
+		}
+		
 		// TODO call the Firebase API
 
 	}
@@ -91,7 +97,8 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const Materialpreviewer = () => {
 		return (
 			<div className="material-previewer-container">
-				<div className="material-previewer" ref={previewer} style={{ backgroundImage: `url(${emptySVG})` }}>
+				<div className="material-previewer" >
+					<img src={emptySVG} alt="card-img" ref={previewer}/>
 					<pre className="material-name-container" ref={materialName}>
 						{emptyName}
 					</pre>

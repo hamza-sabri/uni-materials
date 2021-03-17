@@ -11,7 +11,7 @@ import { CREATED } from '../../../../constants/status-codes';
 export default function CardCreateor({ inputs, descriptionInput }: { inputs: string[]; descriptionInput?: string }) {
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
-	const previewer = useRef<HTMLDivElement>(null);
+	const previewer = useRef<HTMLImageElement>(null);
 	const emptyName: string = '???? ????';
 	const results: string[] = new Array(inputs.length).fill('');
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -30,7 +30,7 @@ export default function CardCreateor({ inputs, descriptionInput }: { inputs: str
 		const value: string = e.target.value || '';
 		if (index === 0) materialName.current!.innerHTML = value !== '' ? value : emptyName;
 		else if (index === 1) {
-			previewer.current!.style.backgroundImage = `url(${value !== '' ? value : emptySVG})`;
+			previewer.current!.src = (value !== '' ? value : emptySVG)
 		}
 		results[index] = value;
 	};
@@ -84,7 +84,8 @@ export default function CardCreateor({ inputs, descriptionInput }: { inputs: str
 	const Materialpreviewer = () => {
 		return (
 			<div className="material-previewer-container">
-				<div className="material-previewer" ref={previewer} style={{ backgroundImage: `url(${emptySVG})` }}>
+				<div className="material-previewer" >
+					<img src={emptySVG} alt="card-img" ref={previewer}/>
 					<pre className="material-name-container" ref={materialName}>
 						{emptyName}
 					</pre>
