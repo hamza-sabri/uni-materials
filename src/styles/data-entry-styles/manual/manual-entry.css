@@ -1,6 +1,7 @@
 .manual-entry-method {
   width: 70%;
-  height: auto;
+  height: 75vh;
+  min-height: 72vh;
   background: white;
   border-radius: 18px;
   overflow: hidden;
@@ -25,7 +26,6 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-right: 0.3px dashed rgba(0, 0, 0, 0.5);
   overflow-y: scroll;
   margin-bottom: .6rem;
 }
@@ -34,7 +34,7 @@
   width: 75%;
   height: 20px;
   display: block;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   outline: none;
   border: none;
   border-bottom: 0.5px solid #c8c3c3;
@@ -53,7 +53,7 @@
 }
 
 .submit-material-button {
-  padding: .8rem;
+  padding: .6rem;
   background: #756dff;
   width: 22%;
   font-size: 20px;
@@ -98,8 +98,8 @@
 }
 
 .material-previewer {
-  width: 72%;
-  height: 50%;
+  width: 380px;
+  height: 320px;
   background: white;
   border-radius: 12px;
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
@@ -107,11 +107,21 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  background-repeat: no-repeat, repeat;
-  background-size: cover;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.material-previewer img {
+  min-height: 100%;
+  min-width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .material-previewer:hover {
@@ -121,8 +131,9 @@
 .material-name-container {
   width: 100%;
   height: 2rem;
-  background: rgba(0, 0, 0, 0.6);
-  margin-bottom: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  bottom: .6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -137,7 +148,7 @@
   font-weight: 500;
 }
 
-@media (max-width: 600px), (max-height: 540px) {
+@media (max-width: 1450px), (max-height: 540px) {
   .manual-entry-method {
     display: -ms-grid;
     display: grid;
@@ -163,10 +174,35 @@
   .manual-entry-method::-webkit-scrollbar {
     display: none;
   }
+  .material-previewer-container {
+    height: 100vh;
+    overflow: hidden;
+  }
+  .material-previewer {
+    max-height: 70vh;
+  }
 }
 
 .lottie-input-container {
-  height: 35vh;
+  height: 30vh;
+}
+
+textarea {
+  width: 75%;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  display: block;
+  border: none;
+  outline: none;
+  min-height: 3rem;
+  max-height: 4rem;
+}
+
+@media (max-width: 740px) {
+  .material-previewer {
+    width: 80%;
+    height: auto;
+  }
 }
 
 @media (max-height: 680px) {
@@ -178,11 +214,31 @@
     width: 22%;
     font-size: 16px;
   }
+  .material-previewer {
+    width: 80%;
+    height: auto;
+    min-height: 200px;
+  }
 }
 
 @media (max-height: 540px) {
   .material-previewer-container {
     height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    overflow: auto;
+  }
+  .material-previewer {
+    width: 60%;
+    height: auto;
+    min-height: 10vh;
   }
 }
 /*# sourceMappingURL=manual-entry.css.map */

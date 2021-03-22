@@ -14,5 +14,21 @@
       -ms-flex-align: center;
           align-items: center;
   z-index: 100000;
+  display: none;
+}
+
+.x-div {
+  font-size: 70px;
+  color: #756dff;
+  position: absolute;
+  z-index: inherit;
+  right: .8rem;
+  top: -.8rem;
+  font-weight: 400;
+}
+
+.x-div:hover {
+  color: white;
+  cursor: pointer;
 }
 /*# sourceMappingURL=transparent-cover-style.css.map */

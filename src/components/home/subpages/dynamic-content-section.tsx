@@ -2,13 +2,21 @@ import '../../../styles/dynamic-content/dynamic-content-section.css';
 import { Route, Switch } from 'react-router-dom';
 
 // routes
-import { bookEntryRoute, dataEntryRoute, manualEntryRoute, uniMangerRoute } from '../../../constants/pages-route';
+import {
+	bookEntryRoute,
+	cretateTopics,
+	dataEntryRoute,
+	manualEntryRoute,
+	updatematerialsRoute,
+	uniMangerRoute
+} from '../../../constants/pages-route';
 
 // components
 import DataEntryPage from '../../../pages/data-entry-page';
 import AddByBookPage from '../../../pages/book-entry-page';
 import AddManuallyPage from '../../../pages/manual-entry';
 import UniManagerPage from '../../../pages/uni-manager-page';
+import ViewerPage from '../../../pages/view-page';
 
 export default function DynamicContentSection() {
 	return (
@@ -18,6 +26,9 @@ export default function DynamicContentSection() {
 				<Route path={bookEntryRoute} exact component={AddByBookPage} />
 				<Route path={manualEntryRoute} exact component={AddManuallyPage} />
 				<Route path={uniMangerRoute} exact component={UniManagerPage} />
+				<Route path={updatematerialsRoute} exact component={ViewerPage} />
+				<Route path={cretateTopics} exact component={ViewerPage} />
+				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />
 			</Switch>
 		</div>
 	);
