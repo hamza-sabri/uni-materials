@@ -53,22 +53,20 @@
 	svg {
 		position: relative;
 		display: block;
-		margin-left: 1.5rem;
-		top:-.8rem;
-		right: -.5rem;
+		top: -0.9rem;
+		left: 1.2rem;
 		z-index: 60;
 	}
 	span {
 		position: relative;
 		display: block;
-		margin-left: 1.5rem;
+		left: 1.2rem;
+		top: -0.6rem;
 		z-index: 60;
 	}
 	img{
 		position: absolute;
 		width: 100%;
-		top: -.2rem;
-		right: -.2rem;
 		z-index: 50;
 	}
 }

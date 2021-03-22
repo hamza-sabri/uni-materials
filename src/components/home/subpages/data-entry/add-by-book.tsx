@@ -1,5 +1,5 @@
 import '../../../../styles/data-entry-styles/book/book-entry.css';
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import '../../../../styles/data-entry-styles/manual/manual-entry.css';
 import emptySVG from '../../../../assets/data-entry-assets/empty.svg';
 import Swal from 'sweetalert2';
@@ -8,6 +8,10 @@ import DropZone from './drop-zone';
 import OCR from './ocr';
 import axios from 'axios';
 import { splitURl } from '../../../../constants/urls';
+import { APIsCaller } from '../../../../requestes/apis-caller';
+import { addMaterialByBook } from '../../../../requestes/material-requests/mateirla';
+import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
+import { CREATED } from '../../../../constants/status-codes';
 
 export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const materialName = useRef<HTMLPreElement>(null);
@@ -17,6 +21,8 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const results: string[] = new Array(inputs.length).fill('');
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 	const MySwal = withReactContent(Swal);
+	const {materialsTable, setMaterialsTable } = useContext(DynamicContentContext);
+
 
 	const inputHandler = (e: any, index: number) => {
 		const value: string = e.target.value || '';
@@ -36,16 +42,29 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 
 	const submitMaterial = async () => {
 		Swal.showLoading();
-		const requestBody = {
+		const requestBody:any = {
 			materialName: results[0],
 			materialPhoto: results[1],
 			materialNumber: results[2],
-			materialDesc: textAreaRef?.current?.value || ''
+			materialDesc: textAreaRef?.current?.value || '',
+			totalRate: 5
 		}
 		showLoading();
 		try{
-			const {data} = await axios.post(splitURl, { filename: requestBody.materialName, url: results[3] });
-			hideLoading();
+			const {data,status} = await axios.post(splitURl, { filename: requestBody.materialName, url: results[3] });
+			// check if the status from husieen is not somthing then show an err
+			requestBody.topics = data;
+			const {data:createdMaterial, status:creatingStatus}= await APIsCaller({api:addMaterialByBook, requestBody});
+			if(creatingStatus === CREATED){
+				const createdID = createdMaterial.materialID;
+				delete requestBody.topics;
+				updateMaterialLocally(createdID, requestBody);
+				hideLoading();
+				Swal.fire('Congrants', createdMaterial.message, 'success')
+			}else{
+				Swal.fire('Ops!','something went wrong please try again latter','error')
+			}
+			
 		} catch(err){
 			hideLoading();
 			// TODO show an err message
@@ -53,6 +72,14 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		
 		// TODO call the Firebase API
 
+	}
+
+	const updateMaterialLocally = (matID:string, newMat:any)=>{
+		const newData = {
+			...materialsTable,
+			[matID]: newMat
+		}
+		setMaterialsTable(()=> newData);
 	}
 
 	const hideLoading = () => {

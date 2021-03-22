@@ -1,5 +1,5 @@
 import { getErrorStatusCode } from '../../constants/status-codes';
-import { createMaterialRoute, updateMaterialRoute } from '../../constants/urls';
+import { createByBookRoute, createMaterialRoute, updateMaterialRoute } from '../../constants/urls';
 import { responseInterface } from '../../interfaces/responses';
 import { AxiosInstance } from 'axios';
 
@@ -23,4 +23,13 @@ const updateMaterial = async (axios: AxiosInstance, requestBody: any, requestPar
 	}
 };
 
-export { createNewMaerial, updateMaterial };
+const addMaterialByBook = async (axios: AxiosInstance, requestBody: any): Promise<responseInterface> => {
+	try {
+		const { status, data } = await axios.post(createByBookRoute, requestBody);
+		return { data, status };
+	} catch (err) {
+		return { status: getErrorStatusCode(err.message), data: err };
+	}
+};
+
+export { createNewMaerial, updateMaterial, addMaterialByBook };
