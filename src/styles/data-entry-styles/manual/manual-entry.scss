@@ -96,7 +96,7 @@
 	height: 2rem;
 	background: rgba(0, 0, 0, .7);
 	position: absolute;
-	bottom: 0;
+	bottom: .6rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -133,12 +133,11 @@
 	}
 
 	.material-previewer-container {
-		height: 70vh;
+		height: 100vh;
+		overflow: hidden;
 	}
 	.material-previewer{
-		width: 80%;
-		height: auto;
-		min-height: 200px;
+		max-height: 70vh;
 	}
 }
 
@@ -155,6 +154,13 @@ textarea {
 	outline: none;
 	min-height: 3rem;
 	max-height: 4rem;
+}
+
+@media (max-width:740px){
+	.material-previewer{
+		width: 80%;
+		height: auto;
+	}
 }
 
 @media (max-height: 680px) {

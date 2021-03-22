@@ -12,7 +12,7 @@ export default function UniManager() {
     const fetchData = async () => {
 		  Swal.showLoading();
       const { data } = await APIsCaller({ api: getAllUnis });
-      const { unisList } = data!;
+      const { unisList } = data! ||  [];
       setUnisDataList(unisList);
       Swal.clickCancel();
     };
@@ -22,7 +22,7 @@ export default function UniManager() {
   return (
     <div className="uni-manager-container">
       <UniDataContext.Provider value={unisDataList}>
-        {unisDataList.length && <UniManagerInfo />}
+        {unisDataList && unisDataList.length && <UniManagerInfo />}
       </UniDataContext.Provider>
     </div>
   );

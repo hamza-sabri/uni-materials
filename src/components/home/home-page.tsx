@@ -4,9 +4,14 @@ import SideBar from './side-bar/side-bar';
 
 import '../../styles/home/home-style.css';
 import DynamicContentSection from './subpages/dynamic-content-section';
+import { useEffect, useState } from 'react';
+import { APIsCaller } from '../../requestes/apis-caller';
+import { getAllMaterials } from '../../requestes/uni-requests/university';
+import { DynamicContentContext } from '../../contexts/home-context/dynamic-content-state-context';
 
 export default function HomePage() {
 	validateUserOrSignHimIn();
+	const [ materialsTable, setMaterialsTable ] = useState<any>({});
 	// TODO very very very very important
 	/**
 	 * very important 
@@ -15,11 +20,20 @@ export default function HomePage() {
 	 * uni manger data
 	 * all materials ...
 	 */
+	useEffect(() => {
+		const getData = async () => {
+			const { data: allMaterials } = await APIsCaller({ api: getAllMaterials });
+			if (allMaterials && allMaterials.materialsTable) setMaterialsTable(allMaterials.materialsTable);
+		};
+		getData();
+	}, []);
 	return (
 		<div className="home-page">
 			<NavBar />
 			<SideBar />
-			<DynamicContentSection />
+			<DynamicContentContext.Provider value={{ materialsTable, setMaterialsTable }}>
+				<DynamicContentSection />
+			</DynamicContentContext.Provider>
 		</div>
 	);
 }

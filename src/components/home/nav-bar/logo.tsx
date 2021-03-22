@@ -2,20 +2,23 @@ import { motion, Variants } from 'framer-motion';
 import { homePageRoute } from '../../../constants/pages-route';
 import { NavLink } from 'react-router-dom';
 export default function Logo() {
+	const duration: number = 2.3;
+	const delay:number = duration + .5;
 	const svgVariants: Variants = {
 		hidden: {
-			scale: 0.95
+			scale: 0.85
 		},
 		visible: {
-			scale: 1.02,
+			scale: .90,
 			transition: {
 				duration: 1.5,
-				ease: 'backInOut',
+				ease: 'backOut',
 				repeatType: 'reverse',
-				delay: 4.2
+				delay
 			}
 		}
 	};
+	
 	const pathVariants: Variants = {
 		hidden: {
 			opacity: 0.1,
@@ -30,10 +33,7 @@ export default function Logo() {
 			rotate: 0,
 			opacity: 1,
 			pathLength: 1,
-			transition: {
-				duration: 2,
-				ease: 'backInOut',
-			}
+			transition: { duration, ease: 'backInOut' }
 		}
 	};
 
@@ -47,12 +47,7 @@ export default function Logo() {
 			rotate: 0,
 			opacity: 1,
 			pathLength: 1,
-			transition: {
-				duration: 2,
-				ease: 'backInOut',
-				delay: 2,
-				staggerChildren: 2,
-			}
+			transition: { duration, ease: 'backInOut' }
 		}
 	};
 
@@ -67,12 +62,7 @@ export default function Logo() {
 			opacity: 1,
 			pathLength: 1,
 			y: '0',
-			transition: {
-				duration: 1.5,
-				ease: 'backInOut',
-				delay: 2.8,
-				staggerChildren: 2,
-			}
+			transition: { duration, ease: 'backInOut' }
 		}
 	};
 
@@ -87,12 +77,7 @@ export default function Logo() {
 			opacity: 1,
 			pathLength: 1,
 			y: '0',
-			transition: {
-				duration: 1.8,
-				ease: 'backInOut',
-				delay: 3.2,
-				staggerChildren: 2,
-			}
+			transition: { duration, ease: 'backInOut' }
 		}
 	};
 

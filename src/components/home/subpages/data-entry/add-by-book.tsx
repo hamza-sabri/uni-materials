@@ -42,11 +42,9 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 			materialNumber: results[2],
 			materialDesc: textAreaRef?.current?.value || ''
 		}
-		console.log(requestBody);
 		showLoading();
 		try{
 			const {data} = await axios.post(splitURl, { filename: requestBody.materialName, url: results[3] });
-			console.log(data.length);
 			hideLoading();
 		} catch(err){
 			hideLoading();

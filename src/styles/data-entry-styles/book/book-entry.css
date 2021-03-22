@@ -105,7 +105,7 @@
   height: 2rem;
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
-  bottom: .5rem;
+  bottom: .6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -209,7 +209,7 @@
   background: rgba(117, 109, 255, 0);
 }
 
-@media (max-width: 900px), (max-height: 540px) {
+@media (max-width: 1450px), (max-height: 540px) {
   .book-entry-method {
     display: -ms-grid;
     display: grid;
@@ -244,7 +244,7 @@
     border: none;
     margin-top: 10px;
     border-top: 0.3px dashed rgba(0, 0, 0, 0.5);
-    height: 70vh;
+    height: 50vh;
   }
 }
 

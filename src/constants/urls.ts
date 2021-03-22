@@ -14,9 +14,10 @@ const updateUniRoute: string = '/unis/update';
 const createUniRoute: string = '/unis/create';
 const deleteUniRoute: string = '/unis/uni/delete';
 
-
 // material routes
-const createMaterialRoute:string = '/materials/create';
+const createMaterialRoute: string = '/materials/create';
+const allMaterialsRoute: string = '/unis/all-materials';
+const updateMaterialRoute: string = '/materials/update';
 
 // functions
 const urlConcatenator = (seconderyPath: string[]): string => {
@@ -35,5 +36,7 @@ export {
 	createUniRoute,
 	deleteUniRoute,
 	createMaterialRoute,
-	splitURl
+	splitURl,
+	allMaterialsRoute,
+	updateMaterialRoute
 };

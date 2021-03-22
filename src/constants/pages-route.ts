@@ -4,8 +4,21 @@ const singinPageRoute: string = '/signin';
 
 //home page route
 const dataEntryRoute: string = '/data-entry';
+const updatematerialsRoute: string = '/update-materials';
 const bookEntryRoute: string = '/book-entry';
 const manualEntryRoute: string = '/manual-entry';
 const uniMangerRoute: string = '/uni-maneger';
+const cretateTopics: string = '/topics/create';
 
-export { homePageRoute, signupPageRoute, singinPageRoute, dataEntryRoute, bookEntryRoute, manualEntryRoute, uniMangerRoute };
+
+export {
+	homePageRoute,
+	signupPageRoute,
+	updatematerialsRoute,
+	singinPageRoute,
+	dataEntryRoute,
+	bookEntryRoute,
+	manualEntryRoute,
+	uniMangerRoute,
+	cretateTopics
+};

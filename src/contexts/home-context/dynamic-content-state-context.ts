@@ -1,3 +1,3 @@
 import {createContext} from 'react';
 
-export const DynamicContentStateContext = createContext<any>(undefined);
+export const DynamicContentContext = createContext<any>(undefined);

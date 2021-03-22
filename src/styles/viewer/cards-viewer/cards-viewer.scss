@@ -1,0 +1,26 @@
+@import '../../shared-styles/shared-effects';
+.cards-viewer {
+	width: 100%;
+	height: 100%;
+	overflow: scroll;
+    background: white;
+    @include smallShadow;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5%;
+}
+
+.cards-viewer::-webkit-scrollbar {
+	display: none;
+}
+
+.space{
+    width: 100%;
+    height: 1vh;
+}
+
+.down-space{
+    width: 100%;
+    height: 2vh;
+}

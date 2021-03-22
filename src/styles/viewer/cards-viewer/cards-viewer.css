@@ -1,0 +1,32 @@
+.cards-viewer {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  background: white;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 1.5%;
+}
+
+.cards-viewer::-webkit-scrollbar {
+  display: none;
+}
+
+.space {
+  width: 100%;
+  height: 1vh;
+}
+
+.down-space {
+  width: 100%;
+  height: 2vh;
+}
+/*# sourceMappingURL=cards-viewer.css.map */
