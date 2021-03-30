@@ -5,10 +5,12 @@ import UnisNames from "./uni-names";
 import UniLocations from "./uni-locations";
 import UniMajors from "./uni-majors";
 import SubmitBtn from "./submit-btn";
+import { DynamicContentContext } from "../../../../contexts/home-context/dynamic-content-state-context";
 
 export default function UniManagerInfo() {
   const unisDataListTemp = useContext(UniDataContext);
-  const [unisDataList, setUnisDataList] = useState(unisDataListTemp);
+  //const [unisDataList, setUnisDataList] = useState(unisDataListTemp);
+  const {unisDataList, setUnisDataList} = useContext(DynamicContentContext);
 
 
   const tempUnisNames: string[] = unisDataList.map(({ doc }: any) => doc.name) || [];
