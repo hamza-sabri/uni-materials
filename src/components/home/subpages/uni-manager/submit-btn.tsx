@@ -49,10 +49,7 @@ export default function SubmitBtn({
       };
       const requestParams = { uniID: uniID };
       if (uniID === null) {
-        const { status, data } = await APIsCaller({
-          api: createUni,
-          requestBody,
-        });
+        const { status, data } = await APIsCaller({api: createUni,requestBody,});
         const { message , uniID } = data;
         if (status === OK || status === CREATED) {
           Swal.fire("Message", message, "success");
