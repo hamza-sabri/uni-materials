@@ -16,8 +16,8 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 	const MySwal = withReactContent(Swal);
 	const message: string = 'Click to Add\n Or drag and drop a PDF file';
 	const dropeHereRef = useRef<HTMLDivElement>(null);
+	const dropeZoneContainerRef = useRef<HTMLDivElement>(null);
 	const LIMIT = 10000000;
-
 	useEffect(() => {
 		lottie.loadAnimation({
 			container: dropeHereRef.current!,
@@ -26,13 +26,13 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 			loop: true,
 			animationData: dropeHere
 		});
-	}, []);
+	}, );
 
 	const DefualtDrooeZone = () => {
 		return (
 			<div>
 				<pre>{message}</pre>
-				<div id="upload-here" ref={dropeHereRef} style={{width: "15%", marginLeft:"1.5rem"}} />
+				<div id="upload-here" ref={dropeHereRef}  style={{width: "15%", marginLeft:"1.5rem"}} />
 			</div>
 		);
 	};
@@ -121,8 +121,8 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 	return (
-		<div className="drop-zoon-container">
-			<div {...getRootProps()}>
+		<div className="drop-zoon-container" >
+			<div {...getRootProps()} ref={dropeZoneContainerRef}>
 				<input {...getInputProps()} />
 				{isDragActive ? <pre className="active-pre">Drop here !!!</pre> : dropedFile}
 			</div>

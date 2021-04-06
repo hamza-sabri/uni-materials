@@ -20,6 +20,9 @@ const allMaterialsRoute: string = '/unis/all-materials';
 const updateMaterialRoute: string = '/materials/update';
 const createByBookRoute: string = '/materials/topic/create/all';
 
+// create topic
+const createTopicRoute: string = '/materials/topic/create';
+
 // functions
 const urlConcatenator = (seconderyPath: string[]): string => {
 	let apiPath: string = rootURL;
@@ -40,5 +43,6 @@ export {
 	splitURl,
 	allMaterialsRoute,
 	updateMaterialRoute,
-	createByBookRoute
+	createByBookRoute,
+	createTopicRoute
 };

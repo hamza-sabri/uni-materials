@@ -9,6 +9,8 @@ const bookEntryRoute: string = '/book-entry';
 const manualEntryRoute: string = '/manual-entry';
 const uniMangerRoute: string = '/uni-maneger';
 const cretateTopics: string = '/topics/create';
+const updateTopic: string = '/topics/update';
+const addResMethods:string = '/topic/res/add';
 
 
 export {
@@ -20,5 +22,7 @@ export {
 	bookEntryRoute,
 	manualEntryRoute,
 	uniMangerRoute,
-	cretateTopics
+	cretateTopics,
+	updateTopic,
+	addResMethods
 };

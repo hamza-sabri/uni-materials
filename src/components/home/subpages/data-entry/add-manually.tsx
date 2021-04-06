@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import '../../../../styles/data-entry-styles/manual/manual-entry.css';
 import lottie from 'lottie-web';
 import floattingLaptop from '../../../../assets/data-entry-assets/floatting-laptop.json';
 import emptySVG from '../../../../assets/data-entry-assets/empty.svg';
 import Swal from 'sweetalert2';
 import { APIsCaller } from '../../../../requestes/apis-caller';
-import { createNewMaerial, updateMaterial } from '../../../../requestes/material-requests/mateirla';
+import { createNewMaerial, createTopic, updateMaterial } from '../../../../requestes/material-requests/mateirla';
 import { CREATED, OK } from '../../../../constants/status-codes';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
+import { NavLink } from 'react-router-dom';
+import { addResMethods } from '../../../../constants/pages-route';
 
 type cardCreateorInterface = { 
 	inputs: string[]; 
@@ -15,15 +17,18 @@ type cardCreateorInterface = {
 	values:string[];
 	localMaterialID ?:string;
 	rate?:number;
+	resRoute:string;
+	setResRoute: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function CardCreateor({ inputs, descriptionInput, values, localMaterialID,rate  }:cardCreateorInterface ) {
+export default function CardCreateor({ inputs, descriptionInput, values, localMaterialID, rate, resRoute, setResRoute  }:cardCreateorInterface ) {
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
 	const previewer = useRef<HTMLImageElement>(null);
 	const emptyName: string = '???? ????';
 	const results: string[] = (values.length === inputs.length)? values : new Array(inputs.length).fill('');
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
+	const addResButtonRef = useRef<HTMLDivElement>(null);
 	const {materialsTable, setMaterialsTable } = useContext(DynamicContentContext);
 
 	useEffect(() => {
@@ -34,7 +39,7 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 			loop: true,
 			animationData: floattingLaptop
 		});
-	}, []);
+	}, [materialsTable, resRoute]);
 
 	const inputHandler = (e: any, index: number) => {
 		const value: string = e.target.value || '';
@@ -50,15 +55,14 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		results.forEach((result,index) =>(result === '' || !result)? emptyIndex = index: '')
 		if(emptyIndex !== -1) Swal.fire('Ops!',`Sorry but the "${inputs[emptyIndex]}" is required`, 'error' );
 		else{
-			if(values.length !== 0) updateDocument();
+			if(inputs[0].includes('Topic')) submitTopic();
+			else if(values.length !== 0) updateDocument();
 			else if(descriptionInput) submitMaterial();
 			// to add the topic later
 			}
 	}
 
 	const updateDocument = async()=>{
-		// TODO: check if the url is for material or topic
-
 		Swal.showLoading();
 		const requestBody:any = {
 			materialName: results[0],
@@ -92,6 +96,26 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		const {message, materialID} = data;
 		updateMaterialLocally(materialID,requestBody);
 		if (status === CREATED) Swal.fire('Thanks', message, 'success' );
+		else Swal.fire('Ops!','Something went wrong', 'error' );
+	
+	}
+
+	const submitTopic = async()=>{
+		Swal.showLoading();
+		const requestBody = {
+			topicName: results[0],
+			topicPhoto: results[1],
+			topicDes: textAreaRef?.current?.value || ''
+		}
+		const requestParams = {materialID: localMaterialID}
+		const {data, status} = await APIsCaller({api:createTopic, requestBody, requestParams});
+		const {message, topicID} = data;
+		// TODO if the request is a success then show a button to go to the resorses of the topic
+		if (status === CREATED || status === OK) {
+			setResRoute((currentRoute)=>`${currentRoute}/${topicID}`);
+			addResButtonRef.current!.style.display = 'flex';
+			Swal.fire('Thanks', message, 'success' );
+		}
 		else Swal.fire('Ops!','Something went wrong', 'error' );
 	
 	}
@@ -135,9 +159,16 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 						{(values.length>=2)? values[0] :emptyName}
 					</pre>
 				</div>
+				{addResButton()}
 			</div>
 		);
 	};
+
+	const addResButton = () => {
+		return  <NavLink to={resRoute}>
+		<div className="add-res-button" ref={addResButtonRef}>Add resources</div>
+		</NavLink>
+	}
 
 	return (
 		<div className="manual-entry-method">

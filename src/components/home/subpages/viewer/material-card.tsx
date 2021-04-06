@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/card/mateiral-card.css';
 import triangle from '../../../../assets/home/triangle.svg';
 
 export default function MaterialCard({ cardPhoto, cardTitle, cardRate, cardID, routeTo }: cardInterface) {
-	return (
-		<NavLink to={routeTo}>
+	const Card = () => {
+		return (
 			<div className="mateiral-card">
 				<img src={cardPhoto} alt="card-img" />
 				<div className="rate-container">
@@ -17,10 +17,11 @@ export default function MaterialCard({ cardPhoto, cardTitle, cardRate, cardID, r
 						/>
 					</svg>
 					<span>{cardRate}</span>
-					<img src={triangle} alt="background"/>
+					<img src={triangle} alt="background" />
 				</div>
 				<pre className="material-name-container">{cardTitle}</pre>
 			</div>
-		</NavLink>
-	);
+		);
+	};
+	return <Fragment>{routeTo ? <NavLink to={routeTo}><Card /></NavLink> : <Card />}</Fragment>;
 }

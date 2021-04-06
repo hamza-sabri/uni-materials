@@ -8,7 +8,9 @@ import {
 	dataEntryRoute,
 	manualEntryRoute,
 	updatematerialsRoute,
-	uniMangerRoute
+	uniMangerRoute,
+	updateTopic,
+	addResMethods
 } from '../../../constants/pages-route';
 
 // components
@@ -28,6 +30,8 @@ export default function DynamicContentSection() {
 				<Route path={uniMangerRoute} exact component={UniManagerPage} />
 				<Route path={updatematerialsRoute} exact component={ViewerPage} />
 				<Route path={cretateTopics} exact component={ViewerPage} />
+				<Route path={`${addResMethods}/:matID/:topicID`} exact component={DataEntryPage} />
+				<Route path={`${updateTopic}/:id/`} component={AddManuallyPage} />
 				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />
 			</Switch>
 		</div>
