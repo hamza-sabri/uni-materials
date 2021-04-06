@@ -11,6 +11,7 @@ const uniMangerRoute: string = '/uni-maneger';
 const cretateTopics: string = '/topics/create';
 const updateTopic: string = '/topics/update';
 const addResMethods:string = '/topic/res/add';
+const materialInfoRoute:string = '/material/info';
 
 
 export {
@@ -24,5 +25,6 @@ export {
 	uniMangerRoute,
 	cretateTopics,
 	updateTopic,
-	addResMethods
+	addResMethods,
+	materialInfoRoute
 };

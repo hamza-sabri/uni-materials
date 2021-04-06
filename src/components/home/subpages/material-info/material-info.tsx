@@ -1,11 +1,10 @@
 import React from 'react';
-
-export default function MaterialInfo() {
+import {match as infoPageMatch} from 'react-router-dom';
+export default function MaterialInfo({match}:{match: infoPageMatch<{matID:string}>}) {
+	console.log(match.params.matID)
 	return (
 		<div>
-			{
-				// TODO hussien here write any code you want this will be the component we will use for your page
-			}
+			hussien's component
 		</div>
 	);
 }
