@@ -3,5 +3,5 @@ export type cardInterface = {
 	cardTitle: string;
 	cardRate: number;
 	cardID?: string;
-	routeTo: string;
+	routeTo?: string;
 };

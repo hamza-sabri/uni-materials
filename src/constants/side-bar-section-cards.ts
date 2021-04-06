@@ -13,7 +13,7 @@ const dataEntrySectionCards: sideBarSectionInterface = {
 		{ cardName: 'Create Material', routeTo: dataEntryRoute, cardIcon: tempIcon },
 		{ cardName: 'Update Materials', routeTo: updatematerialsRoute, cardIcon: tempIcon },
 		{ cardName: 'Create Topic', routeTo: cretateTopics, cardIcon: tempIcon },
-		{ cardName: 'Update Topics', routeTo: cretateTopics, cardIcon: tempIcon },
+		{ cardName: 'Update Topics', routeTo: '/', cardIcon: tempIcon },
 		{ cardName: 'Uni manager', routeTo: uniMangerRoute, cardIcon: tempIcon }
 	]
 };
