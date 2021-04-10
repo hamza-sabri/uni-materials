@@ -22,6 +22,10 @@ const createByBookRoute: string = '/materials/topic/create/all';
 
 // create topic
 const createTopicRoute: string = '/materials/topic/create';
+const getAllTopicsRoute:string ='/materials/topic/get';
+const updateTopicRoute:string = '/materials/topic/update';
+const deleteTopicRoute:string = '/materials/topic/delete';
+
 
 // functions
 const urlConcatenator = (seconderyPath: string[]): string => {
@@ -44,5 +48,8 @@ export {
 	allMaterialsRoute,
 	updateMaterialRoute,
 	createByBookRoute,
-	createTopicRoute
+	createTopicRoute,
+	getAllTopicsRoute,
+	updateTopicRoute,
+	deleteTopicRoute
 };
