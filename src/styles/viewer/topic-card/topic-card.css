@@ -1,0 +1,106 @@
+.topic-card {
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  width: 175px;
+  height: 175px;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.topic-card img {
+  min-height: 100%;
+  min-width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.topic-card:hover {
+  width: 180px;
+  cursor: pointer;
+}
+
+.topic-card .topic-name-container {
+  font-size: 12px;
+}
+
+.topic-name-card-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  bottom: 0.6rem;
+  width: 100%;
+  height: 2rem;
+  padding: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.topic-rate-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 50%;
+  width: 50%;
+  color: white;
+  overflow: hidden;
+}
+
+.topic-rate-container svg {
+  display: block;
+  position: relative;
+  top: -0.9rem;
+  left: 1.2rem;
+  z-index: 60;
+}
+
+.topic-rate-container span {
+  display: block;
+  position: relative;
+  left: 1.2rem;
+  top: -0.6rem;
+  z-index: 60;
+}
+
+.topic-rate-container img {
+  width: 10%;
+  position: absolute;
+  z-index: 50;
+}
+/*# sourceMappingURL=topic-card.css.map */

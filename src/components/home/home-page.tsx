@@ -14,7 +14,7 @@ export default function HomePage() {
 	const [ materialsTable, setMaterialsTable ] = useState<any>({});
 	const [unisDataList, setUnisDataList] = useState<any[]>([]);
 	// TODO very very very very important
-	// refactor this shit
+	// refactor this shit (language)
 	// do a check on the status if its ok or not for all the requests
 	useEffect(() => {
 		const getData = async () => {
