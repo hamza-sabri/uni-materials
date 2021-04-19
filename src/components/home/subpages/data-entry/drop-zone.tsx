@@ -26,7 +26,7 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 			loop: true,
 			animationData: dropeHere
 		});
-	}, );
+	}, [] );
 
 	const DefualtDrooeZone = () => {
 		return (
