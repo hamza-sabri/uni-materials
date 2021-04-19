@@ -108,12 +108,15 @@
 
 .res-adder {
   cursor: pointer;
-  width: 45%;
-  height: 50%;
+  min-width: 300px;
+  max-width: 30%;
+  height: 35vh;
   border-radius: 15px;
   margin: 1rem 0;
   overflow: hidden;
   padding: 0;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
 }
 
 .res-adder .animation-container {
@@ -131,6 +134,14 @@
       -ms-flex-align: center;
           align-items: center;
   position: relative;
+  border-radius: 15px;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+}
+
+.res-adder .animation-container svg {
+  max-width: 80%;
+  max-height: 50%;
 }
 
 .res-adder .res-type-container {
@@ -146,7 +157,7 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  bottom: 2.5rem;
+  bottom: 1.5rem;
   color: white;
   font-size: 20px;
   font-weight: 500;

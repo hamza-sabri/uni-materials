@@ -81,12 +81,14 @@
 
 .res-adder {
 	cursor: pointer;
-	width: 45%;
-	height: 50%;
+	min-width: 300px;
+	max-width: 30%;
+	height: 35vh;
 	border-radius: 15px;
 	margin: 1rem 0;
 	overflow: hidden;
 	padding: 0;
+	@include floating;
 	.animation-container {
 		min-height: 100%;
 		min-width: 100%;
@@ -96,6 +98,13 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
+		border-radius: 15px;
+		@include floating;
+
+		svg {
+			max-width: 80%;
+			max-height: 50%;
+		}
 	}
 
 	.res-type-container {
@@ -105,7 +114,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		bottom: 2.5rem;
+		bottom: 1.5rem;
 		color: white;
 		font-size: 20px;
 		font-weight: 500;
