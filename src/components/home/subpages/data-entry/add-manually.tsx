@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import '../../../../styles/data-entry-styles/manual/manual-entry.css';
 import lottie from 'lottie-web';
 import floattingLaptop from '../../../../assets/data-entry-assets/floatting-laptop.json';
@@ -9,7 +9,6 @@ import { createNewMaerial, createTopic, updateMaterial } from '../../../../reque
 import { CREATED, OK } from '../../../../constants/status-codes';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
 import { NavLink } from 'react-router-dom';
-import { addResMethods } from '../../../../constants/pages-route';
 
 type cardCreateorInterface = { 
 	inputs: string[]; 
@@ -110,7 +109,6 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		const requestParams = {materialID: localMaterialID}
 		const {data, status} = await APIsCaller({api:createTopic, requestBody, requestParams});
 		const {message, topicID} = data;
-		// TODO if the request is a success then show a button to go to the resorses of the topic
 		if (status === CREATED || status === OK) {
 			setResRoute((currentRoute)=>`${currentRoute}/${topicID}`);
 			addResButtonRef.current!.style.display = 'flex';
@@ -164,6 +162,7 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		);
 	};
 
+	// TODO if I recived the topic ID then the button should be display flex by defualt
 	const addResButton = () => {
 		return  <NavLink to={resRoute}>
 		<div className="add-res-button" ref={addResButtonRef}>Add resources</div>
