@@ -9,10 +9,11 @@ import dropeHere from '../../../../assets/data-entry-assets/drop-here.json';
 
 type dropZoneInterface = {
 	bookLinkInput: React.RefObject<HTMLInputElement>;
+	pdfNameInput?: React.RefObject<HTMLInputElement>;
 	results: string[];
 };
 
-export default function DropZone({ bookLinkInput, results }: dropZoneInterface) {
+export default function DropZone({ bookLinkInput, results, pdfNameInput }: dropZoneInterface) {
 	const MySwal = withReactContent(Swal);
 	const message: string = 'Click to Add\n Or drag and drop a PDF file';
 	const dropeHereRef = useRef<HTMLDivElement>(null);
@@ -71,7 +72,29 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 				html: `<pre>Wrong Type\n pleas add a <b>PDF</b> file insted</pre>`,
 				icon: 'error'
 			});
-		} else {
+		} 
+		else if (pdfNameInput){
+			try {
+				setDropedFile(<LoadingUpload />);
+				const { url } = await uploadFile(acceptedFiles[0]);
+				setDropedFile(
+					<div>
+						<img style={{ width: '2.5rem', height: '2.5rem' }} src={pdfImage} alt="pdficon" />
+						<pre> </pre>
+						<p style={{ fontSize: '1.8rem' }}>{acceptedFiles[0].name}</p>
+					</div>
+				);
+				updateBookLink(url, acceptedFiles[0].name);
+			} catch (err) {
+				console.log(err);
+				Swal.fire({
+					title: 'Ops!',
+					html: `<pre style='font-size:1.8rem; font-weight:600'>Something went wrong\nPlease try again</pre>`,
+					icon: 'error'
+				});
+			}
+		}
+		else {
 			showLoading();
 			try {
 				const { url } = await uploadFile(acceptedFiles[0]);
@@ -82,7 +105,7 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 						<p style={{ fontSize: '1.8rem' }}>{acceptedFiles[0].name}</p>
 					</div>
 				);
-				updateBookLink(url);
+				updateBookLink(url, acceptedFiles[0].name);
 				hideLoading();
 			} catch (err) {
 				console.log(err);
@@ -94,14 +117,18 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 				});
 			}
 		}
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const updateBookLink = (url: string) => {
+	const updateBookLink = (url: string, name:string) => {
 		results[bookLinkIndex] = url;
 		bookLinkInput.current!.value = url;
 		bookLinkInput.current!.disabled = true;
+		if(pdfNameInput){
+			name = name.replace('.pdf','');
+			pdfNameInput.current!.value = name;
+			pdfNameInput.current!.disabled = true;
+		}
 	};
 
 	const hideLoading = () => {

@@ -8,8 +8,9 @@ import lottie from 'lottie-web';
 
 export function PDFAdder() {
 	const results: string[] = [ '', '', '' ];
-	const pdfUrlRef = useRef<HTMLInputElement>(null);
+	const bookLinkInput = useRef<HTMLInputElement>(null);
 	const divRef = useRef<HTMLInputElement>(null);
+	const pdfNameInput = useRef<HTMLInputElement>(null);
 	useEffect(() => {
 		lottie
 			.loadAnimation({
@@ -22,13 +23,16 @@ export function PDFAdder() {
 			.setSpeed(0.8);
 	}, []);
 
-	const submitHandler = () => {};
+	const submitHandler = () => {
+		console.log(bookLinkInput);
+	};
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<input type="text" className="res-input" placeholder="PDF Name" />
-			<input ref={pdfUrlRef} type="url" className="res-input" placeholder="PDF link" />
-			<DropZone bookLinkInput={pdfUrlRef} results={results} />
+			<input type="text" className="res-input" placeholder="PDF Name" ref={pdfNameInput} />
+			<input type="url" className="res-input" placeholder="PDF link"  ref={bookLinkInput}/>
+			
+			<DropZone {...{ bookLinkInput, results, pdfNameInput }} />
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
 			</div>

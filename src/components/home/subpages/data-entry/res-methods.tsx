@@ -24,18 +24,11 @@ export default function ResMethods({ resType, divRef, action, anim }: resMethods
 	}, [divRef, anim]);
 
 	const actionHandler = () => {
-		switch (action) {
-			case addPDFResCode:
-				MySwal.fire('PDFs', <PDFAdder />);
-				break;
-			case addVideoResCode:
-				MySwal.fire('Videos', <VideoAdder />);
-				break;
-			case addQAndAResCode:
-				MySwal.fire('Q & A', <QAAdder />);
-				break;
-		}
+		if (action === addPDFResCode)   MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder />});
+		if (action === addVideoResCode)	MySwal.fire({showConfirmButton:false, title:'Videos', html: <VideoAdder />});
+		if (action === addQAndAResCode)	MySwal.fire({showConfirmButton:false, title:'Q & A',  html: <QAAdder />});
 	};
+	
 	return (
 		<div className="res-adder" onClick={actionHandler}>
 			<div className="animation-container" ref={divRef} 

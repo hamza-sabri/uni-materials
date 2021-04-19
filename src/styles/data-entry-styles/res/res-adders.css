@@ -72,11 +72,6 @@
   width: 30%;
 }
 
-.swal2-actions,
-.swal2-timer-progress-bar-container {
-  display: none;
-}
-
 .swal2-header {
   margin-top: 1rem;
   margin-bottom: 0;
