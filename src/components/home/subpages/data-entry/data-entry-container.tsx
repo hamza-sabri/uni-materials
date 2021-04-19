@@ -9,10 +9,8 @@ import qAndA from '../../../../assets/data-entry-assets/Q-and-A.json';
 import videoAnimatedIcon from '../../../../assets/data-entry-assets/video-animated-icon.json';
 import ResMethods from './res-methods';
 import { resMethodsInterface } from '../../../../interfaces/res/res-interface';
+import { addPDFResCode, addQAndAResCode, addVideoResCode } from '../../../../constants/action-cods';
 
-
-// testing youtube
-var fetchVideoInfo = require('youtube-info');
 // TODO:
 /* call this big boy with some props so you can check later on
  if the values are not undefined then it means we have some context 
@@ -22,7 +20,7 @@ var fetchVideoInfo = require('youtube-info');
 export default function DataEntryContainer({ match }: { match: dataEntryMatch<{ matID: string; topicID: string }> }) {
 	const { matID, topicID } = match.params;
 	const dataEntryMessage: string = 'Data Entry Methods';
-	const resEntryMessage: string = 'Resorses Entry Methods';
+	const resEntryMessage: string = 'Resources Entry Methods';
 	const pdfRef = useRef<HTMLDivElement>(null);
 	const videoRef = useRef<HTMLDivElement>(null);
 	const QARef = useRef<HTMLDivElement>(null);
@@ -36,20 +34,13 @@ export default function DataEntryContainer({ match }: { match: dataEntryMatch<{ 
 		);
 	};
 
-	const videoAdder = ()=>{
-		fetchVideoInfo('7DpyhKu_dko', function (err:any, videoInfo:any) {
-			if (err) throw new Error(err);
-			console.log(videoInfo);
-		  });
-	}
-
 	const topicRes = () => {
 		const resRefs: resMethodsInterface[] = [
-			{ divRef: pdfRef, resType: 'PDFs',  anim: pdfAnimation, action:()=>{console.log('hello')}},
-			{ divRef: videoRef, resType: 'Vidoes', anim: videoAnimatedIcon, action:videoAdder},
-			{ divRef: QARef, resType: 'Q & A', anim: qAndA, action:()=>{console.log('hello')}},
+			{ divRef: pdfRef, resType: 'PDFs', anim: pdfAnimation, action: addPDFResCode },
+			{ divRef: videoRef, resType: 'Vidoes', anim: videoAnimatedIcon, action: addVideoResCode },
+			{ divRef: QARef, resType: 'Q & A', anim: qAndA, action: addQAndAResCode }
 		];
-		return resRefs.map((current,index) => <ResMethods {...current} key={index}/>);
+		return resRefs.map((current, index) => <ResMethods {...current} key={index} />);
 	};
 
 	return (

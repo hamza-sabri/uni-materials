@@ -1,0 +1,109 @@
+@import '../../shared-styles/shared-effects';
+.adder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+
+    svg{
+        max-height: 200px;
+    }
+}
+
+.res-input {
+	display: block;
+	width: 75%;
+	height: 20px;
+	display: block;
+	margin-top: 1.8rem;
+	outline: none;
+	border: none;
+	border-bottom: 0.5px solid #c8c3c3;
+	transition: .3s;
+	&:hover,
+	&:focus {
+		width: 80%;
+		border: none;
+		border-bottom: .5px solid rgb(2, 58, 241);
+	}
+}
+
+.res-submit-btn {
+	padding: .6rem;
+	background: rgb(117, 109, 255);
+	width: 22%;
+	font-size: 20px;
+	color: white;
+	font-weight: 500;
+	border-radius: 6px;
+	@include smallShadow;
+	transition: .3s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+	&:hover {
+		cursor: pointer;
+		@include floating;
+		background: rgb(143, 138, 238);
+		width: 30%;
+	}
+}
+
+.swal2-actions,
+.swal2-timer-progress-bar-container {
+	display: none;
+}
+
+.swal2-header{
+	margin-top: 1rem;
+	margin-bottom: 0;
+	font-weight: 800;
+}
+
+.swal2-popup {
+	padding: 0;
+	border-radius: 15px;
+	min-width: 35vw;
+}
+
+.res-text-area{
+    min-height: 15vh;
+    border: 1.5px dotted gray;
+    border-radius: 15px;
+    transition: .3s;
+    padding: .4rem;
+	&:hover,
+	&:focus {
+		width: 80%;
+		border: 1.5px solid rgb(2, 58, 241);
+	}
+}
+
+
+.video-previewer {
+    margin-top: 1.5rem;
+    width: 280px;
+	height: 220px;
+	background: white;
+	border-radius: 12px;
+	@include smallShadow;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+    transition: .3s ease-in-out;
+	img {
+		min-height: 100%;
+		min-width: 100%;
+		object-fit: cover;
+	}
+	&:hover {
+        @include floating;
+		cursor: pointer;
+	}
+}

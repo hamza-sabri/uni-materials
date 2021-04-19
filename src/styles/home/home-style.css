@@ -48,6 +48,7 @@
 
 .bar-options {
   background: greenyellow;
+  display: none;
 }
 
 .nav-bar {

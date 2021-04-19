@@ -6,7 +6,7 @@
 }
 
 .data-entry-container {
-	width: 80%;
+	width: 90%;
 	height: 90%;
 	background: white;
 	border-radius: 18px;
@@ -27,7 +27,7 @@
 	font-size: 24px;
 	font-weight: 700;
 	margin-top: 1rem;
-	height: 20%;
+	height: 25%;
 }
 
 .data-entry-container::-webkit-scrollbar {
@@ -82,13 +82,14 @@
 .res-adder {
 	cursor: pointer;
 	min-width: 300px;
-	max-width: 30%;
+	max-width: 22%;
 	height: 35vh;
 	border-radius: 15px;
 	margin: 1rem 0;
 	overflow: hidden;
 	padding: 0;
 	@include floating;
+	transition: .3s ease-in-out;
 	.animation-container {
 		min-height: 100%;
 		min-width: 100%;
@@ -120,5 +121,9 @@
 		font-weight: 500;
 		z-index: 1000;
 		position: absolute;
+	}
+
+	.hidden-div{
+		display: none;
 	}
 }
