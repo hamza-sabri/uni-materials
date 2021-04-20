@@ -4,7 +4,7 @@
 }
 
 .data-entry-container {
-  width: 90%;
+  width: 80%;
   height: 90%;
   background: white;
   border-radius: 18px;
@@ -108,8 +108,8 @@
 
 .res-adder {
   cursor: pointer;
-  min-width: 300px;
-  max-width: 22%;
+  min-width: 30%;
+  max-width: 30%;
   height: 35vh;
   border-radius: 15px;
   margin: 1rem 0;
@@ -142,8 +142,7 @@
 }
 
 .res-adder .animation-container svg {
-  max-width: 80%;
-  max-height: 50%;
+  max-width: 60%;
 }
 
 .res-adder .res-type-container {
