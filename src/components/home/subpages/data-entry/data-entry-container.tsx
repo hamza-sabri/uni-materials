@@ -6,11 +6,12 @@ import DataEntryMethods from './data-entry-methods';
 import { match as dataEntryMatch } from 'react-router-dom';
 import pdfAnimation from '../../../../assets/data-entry-assets/pdf-animation.json';
 import qAndA from '../../../../assets/data-entry-assets/Q-and-A.json';
+import RulesAnimation from '../../../../assets/data-entry-assets/rules.json';
 import usefulResAnimation from '../../../../assets/data-entry-assets/useful-resources.json';
 import videoAnimatedIcon from '../../../../assets/data-entry-assets/video-animated-icon.json';
 import ResMethods from './res-methods';
 import { resMethodsInterface } from '../../../../interfaces/res/res-interface';
-import { addPDFResCode, addQAndAResCode, addUsefulResCode, addVideoResCode } from '../../../../constants/action-cods';
+import { addPDFResCode, addQAndAResCode, addRulesCode, addUsefulResCode, addVideoResCode } from '../../../../constants/action-cods';
 
 // TODO:
 /* call this big boy with some props so you can check later on
@@ -26,6 +27,7 @@ export default function DataEntryContainer({ match }: { match: dataEntryMatch<{ 
 	const videoRef = useRef<HTMLDivElement>(null);
 	const QARef = useRef<HTMLDivElement>(null);
 	const usefulResRef = useRef<HTMLDivElement>(null);
+	const rulesRef = useRef<HTMLDivElement>(null);
 
 	const normalDataMethods = () => {
 		return (
@@ -38,10 +40,11 @@ export default function DataEntryContainer({ match }: { match: dataEntryMatch<{ 
 
 	const topicRes = () => {
 		const resRefs: resMethodsInterface[] = [
-			{ divRef: pdfRef, resType: 'PDFs', anim: pdfAnimation, action: addPDFResCode },
-			{ divRef: videoRef, resType: 'Vidoes', anim: videoAnimatedIcon, action: addVideoResCode },
-			{ divRef: QARef, resType: 'Q & A', anim: qAndA, action: addQAndAResCode },
-			{ divRef: usefulResRef, resType: 'resources', anim: usefulResAnimation, action: addUsefulResCode }
+			{ divRef: pdfRef, resType: 'PDFs', anim: pdfAnimation, action: addPDFResCode, matID, topicID },
+			{ divRef: videoRef, resType: 'Vidoes', anim: videoAnimatedIcon, action: addVideoResCode, matID, topicID },
+			{ divRef: QARef, resType: 'Q & A', anim: qAndA, action: addQAndAResCode, matID, topicID },
+			{ divRef: usefulResRef, resType: 'Resources', anim: usefulResAnimation, action: addUsefulResCode, matID, topicID },
+			{ divRef: rulesRef, resType: 'Rules', anim: RulesAnimation, action: addRulesCode, matID, topicID },
 		];
 		return resRefs.map((current, index) => <ResMethods {...current} key={index} />);
 	};

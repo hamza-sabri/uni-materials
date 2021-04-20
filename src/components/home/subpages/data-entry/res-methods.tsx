@@ -3,10 +3,10 @@ import lottie, { AnimationItem } from 'lottie-web';
 import { resMethodsInterface } from '../../../../interfaces/res/res-interface';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { addPDFResCode, addQAndAResCode, addUsefulResCode, addVideoResCode } from '../../../../constants/action-cods';
-import { PDFAdder, QAAdder, UsefulRes, VideoAdder } from './res-adders/res-adders';
+import { addPDFResCode, addQAndAResCode, addRulesCode, addUsefulResCode, addVideoResCode } from '../../../../constants/action-cods';
+import { PDFAdder, QAAdder, Rules, UsefulRes, VideoAdder } from './res-adders/res-adders';
 
-export default function ResMethods({ resType, divRef, action, anim }: resMethodsInterface) {
+export default function ResMethods({ resType, divRef, action, anim, matID, topicID }: resMethodsInterface) {
 	const MySwal = withReactContent(Swal);
 	const [ controller, setController ] = useState<AnimationItem>();
 	useEffect(() => {
@@ -24,10 +24,11 @@ export default function ResMethods({ resType, divRef, action, anim }: resMethods
 	}, [divRef, anim]);
 
 	const actionHandler = () => {
-		if (action === addPDFResCode)    MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder />});
+		if (action === addPDFResCode)    MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder {...{matID,topicID}}/>});
 		if (action === addVideoResCode)	 MySwal.fire({showConfirmButton:false, title:'Videos', html: <VideoAdder />});
 		if (action === addQAndAResCode)	 MySwal.fire({showConfirmButton:false, title:'Q & A',  html: <QAAdder />});
 		if (action === addUsefulResCode) MySwal.fire({showConfirmButton:false, title:'fix me later',  html: <UsefulRes />});
+		if (action === addRulesCode)	 MySwal.fire({showConfirmButton:false, title:'rules',  html: <Rules />});
 	};
 
 	return (
