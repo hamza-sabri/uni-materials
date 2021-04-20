@@ -27,6 +27,10 @@ const updateTopicRoute:string = '/materials/topic/update';
 const deleteTopicRoute:string = '/materials/topic/delete';
 
 
+// res
+const createResRoute: string = '/materials/topic/res/create';
+
+
 // functions
 const urlConcatenator = (seconderyPath: string[]): string => {
 	let apiPath: string = rootURL;
@@ -51,5 +55,6 @@ export {
 	createTopicRoute,
 	getAllTopicsRoute,
 	updateTopicRoute,
-	deleteTopicRoute
+	deleteTopicRoute,
+	createResRoute
 };
