@@ -34,9 +34,9 @@ export default function FormButtons({ formPage, setFormPage, signupResult }: for
 
 	const submitSignupResults = async () => {
 		// TODO validate the whole oject before sending it to backend
-		const filnaUserData = addSelectedValues(signupResult, keysAndIDs, unisTabel);
+		const finalUserData = addSelectedValues(signupResult, keysAndIDs, unisTabel);
 		Swal.showLoading();
-		const { result, message } = await signup(filnaUserData);
+		const { result, message } = await signup(finalUserData);
 		if (result) {
 			showAlert({
 				title: 'Congrats',
