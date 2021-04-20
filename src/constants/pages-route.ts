@@ -9,6 +9,8 @@ const bookEntryRoute: string = '/book-entry';
 const manualEntryRoute: string = '/manual-entry';
 const uniMangerRoute: string = '/uni-maneger';
 const cretateTopics: string = '/topics/create';
+const profileRoute: string = '/profile';
+
 
 
 export {
@@ -20,5 +22,6 @@ export {
 	bookEntryRoute,
 	manualEntryRoute,
 	uniMangerRoute,
-	cretateTopics
+	cretateTopics,
+	profileRoute
 };

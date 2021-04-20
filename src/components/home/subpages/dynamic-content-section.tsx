@@ -8,7 +8,8 @@ import {
 	dataEntryRoute,
 	manualEntryRoute,
 	updatematerialsRoute,
-	uniMangerRoute
+	uniMangerRoute,
+	profileRoute
 } from '../../../constants/pages-route';
 
 // components
@@ -17,6 +18,7 @@ import AddByBookPage from '../../../pages/book-entry-page';
 import AddManuallyPage from '../../../pages/manual-entry';
 import UniManagerPage from '../../../pages/uni-manager-page';
 import ViewerPage from '../../../pages/view-page';
+import Profile from '../../../pages/profile';
 
 export default function DynamicContentSection() {
 	return (
@@ -28,6 +30,7 @@ export default function DynamicContentSection() {
 				<Route path={uniMangerRoute} exact component={UniManagerPage} />
 				<Route path={updatematerialsRoute} exact component={ViewerPage} />
 				<Route path={cretateTopics} exact component={ViewerPage} />
+				<Route path={profileRoute} exact component={Profile} />
 				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />
 			</Switch>
 		</div>

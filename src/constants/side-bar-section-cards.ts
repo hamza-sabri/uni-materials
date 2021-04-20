@@ -4,7 +4,7 @@ import { sideBarSectionInterface } from '../interfaces/side-bar/side-bar-section
 import tempIcon from '../assets/home-assets/search.svg';
 
 // pages
-import { cretateTopics, dataEntryRoute, homePageRoute, updatematerialsRoute, uniMangerRoute } from './pages-route';
+import { cretateTopics, dataEntryRoute, homePageRoute, updatematerialsRoute, uniMangerRoute, profileRoute } from './pages-route';
 
 const dataEntrySectionCards: sideBarSectionInterface = {
 	sectionTitle: 'Data Entry',
@@ -14,7 +14,9 @@ const dataEntrySectionCards: sideBarSectionInterface = {
 		{ cardName: 'Update Materials', routeTo: updatematerialsRoute, cardIcon: tempIcon },
 		{ cardName: 'Create Topic', routeTo: cretateTopics, cardIcon: tempIcon },
 		{ cardName: 'Update Topics', routeTo: cretateTopics, cardIcon: tempIcon },
-		{ cardName: 'Uni manager', routeTo: uniMangerRoute, cardIcon: tempIcon }
+		{ cardName: 'Uni manager', routeTo: uniMangerRoute, cardIcon: tempIcon },
+		{ cardName: 'Profile', routeTo: profileRoute, cardIcon: tempIcon }
+
 	]
 };
 
