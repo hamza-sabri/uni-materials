@@ -3,4 +3,6 @@ export type resMethodsInterface = {
 	divRef: React.RefObject<HTMLDivElement>;
 	action: number;
 	anim: any;
+	matID:string;
+	topicID:string;
 };
