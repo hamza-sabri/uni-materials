@@ -34,7 +34,12 @@
     }
 
     .topic-name-container{
+        display: inline;
         font-size: 12px;
+
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        text-align: center;
     }
 }
 
@@ -91,8 +96,6 @@
         z-index: 60;
     }
     img {
-        width: 10%;
-
         position: absolute;
         z-index: 50;
     }

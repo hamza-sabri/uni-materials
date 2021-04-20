@@ -35,7 +35,11 @@
 }
 
 .topic-card .topic-name-container {
+  display: inline;
   font-size: 12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: center;
 }
 
 .topic-name-card-container {
@@ -99,7 +103,6 @@
 }
 
 .topic-rate-container img {
-  width: 10%;
   position: absolute;
   z-index: 50;
 }

@@ -18,6 +18,9 @@ export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, rout
 					</svg>
 					<span>{cardRate}</span>
 					<img src={triangle} alt="background" />
+
+
+					
 				</div>
 				<pre className="material-name-container topic-name-container">{cardTitle}</pre>
 			</div>
