@@ -10,7 +10,6 @@ const manualEntryRoute: string = '/manual-entry';
 const uniMangerRoute: string = '/uni-maneger';
 const cretateTopics: string = '/topics/create';
 const profileRoute: string = '/profile';
-
 const updateTopic: string = '/topics/update';
 const addResMethods:string = '/topic/res/add';
 const materialInfoRoute:string = '/material/info';

@@ -16,10 +16,7 @@ const dataEntrySectionCards: sideBarSectionInterface = {
 		{ cardName: 'Update Topics', routeTo: cretateTopics, cardIcon: tempIcon },
 		{ cardName: 'Uni manager', routeTo: uniMangerRoute, cardIcon: tempIcon },
 		{ cardName: 'Profile', routeTo: profileRoute, cardIcon: tempIcon },
-
-		{ cardName: 'Update Topics', routeTo: '/', cardIcon: tempIcon },
 		{ cardName: 'Materials info', routeTo: materialInfoRoute, cardIcon: tempIcon },
-		{ cardName: 'Uni manager', routeTo: uniMangerRoute, cardIcon: tempIcon }
 	]
 };
 
