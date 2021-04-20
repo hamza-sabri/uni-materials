@@ -127,6 +127,7 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 	}
 
 	const MaterialInputs = () => {
+		
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => {
@@ -134,7 +135,9 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
 				})}
 				{
-					descriptionInput ? <textarea placeholder={descriptionInput} ref={textAreaRef} onFocus={()=>{
+					descriptionInput ? <textarea placeholder={descriptionInput} ref={textAreaRef} 
+					defaultValue={(localMaterialID)? materialsTable[localMaterialID].materialDesc:'' }
+					onFocus={()=>{
 						textAreaRef.current!.style.overflowY ='scroll';
 					}} onBlur={()=> {
 						textAreaRef.current!.style.overflow ='hidden';

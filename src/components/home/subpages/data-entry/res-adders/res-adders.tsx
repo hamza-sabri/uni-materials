@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import '../../../../../styles/data-entry-styles/res/res-adders.css';
 import pdfAnimation from '../../../../../assets/data-entry-assets/pdf-animation.json';
 import qAndA from '../../../../../assets/data-entry-assets/Q-and-A.json';
+import usefulResAnimation from '../../../../../assets/data-entry-assets/useful-resources.json';
 import videoAnimatedIcon from '../../../../../assets/data-entry-assets/video-animated-icon.json';
 import DropZone from '../drop-zone';
 import lottie from 'lottie-web';
@@ -51,6 +52,32 @@ export function VideoAdder() {
 				renderer: 'svg',
 				loop: true,
 				animationData: videoAnimatedIcon
+			})
+			.setSpeed(0.8);
+	}, []);
+	return (
+		<div className="adder">
+			<div className="res-animation-container" ref={divRef} />
+			<input type="text" className="res-input" placeholder="video link" />
+			<div className="video-previewer" />
+			<div className="res-submit-btn" onClick={submitHandler}>
+				submit
+			</div>
+		</div>
+	);
+}
+
+export function UsefulRes() {
+	const divRef = useRef<HTMLInputElement>(null);
+	const submitHandler = () => {};
+	useEffect(() => {
+		lottie
+			.loadAnimation({
+				container: divRef.current!,
+				autoplay: true,
+				renderer: 'svg',
+				loop: true,
+				animationData: usefulResAnimation
 			})
 			.setSpeed(0.8);
 	}, []);

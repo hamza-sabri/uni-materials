@@ -3,8 +3,8 @@ import lottie, { AnimationItem } from 'lottie-web';
 import { resMethodsInterface } from '../../../../interfaces/res/res-interface';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { addPDFResCode, addQAndAResCode, addVideoResCode } from '../../../../constants/action-cods';
-import { PDFAdder, QAAdder, VideoAdder } from './res-adders/res-adders';
+import { addPDFResCode, addQAndAResCode, addUsefulResCode, addVideoResCode } from '../../../../constants/action-cods';
+import { PDFAdder, QAAdder, UsefulRes, VideoAdder } from './res-adders/res-adders';
 
 export default function ResMethods({ resType, divRef, action, anim }: resMethodsInterface) {
 	const MySwal = withReactContent(Swal);
@@ -24,11 +24,12 @@ export default function ResMethods({ resType, divRef, action, anim }: resMethods
 	}, [divRef, anim]);
 
 	const actionHandler = () => {
-		if (action === addPDFResCode)   MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder />});
-		if (action === addVideoResCode)	MySwal.fire({showConfirmButton:false, title:'Videos', html: <VideoAdder />});
-		if (action === addQAndAResCode)	MySwal.fire({showConfirmButton:false, title:'Q & A',  html: <QAAdder />});
+		if (action === addPDFResCode)    MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder />});
+		if (action === addVideoResCode)	 MySwal.fire({showConfirmButton:false, title:'Videos', html: <VideoAdder />});
+		if (action === addQAndAResCode)	 MySwal.fire({showConfirmButton:false, title:'Q & A',  html: <QAAdder />});
+		if (action === addUsefulResCode) MySwal.fire({showConfirmButton:false, title:'fix me later',  html: <UsefulRes />});
 	};
-	
+
 	return (
 		<div className="res-adder" onClick={actionHandler}>
 			<div className="animation-container" ref={divRef} 
