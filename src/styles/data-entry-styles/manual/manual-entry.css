@@ -11,6 +11,7 @@
   display: grid;
   -ms-grid-columns: 50% 50%;
       grid-template-columns: 50% 50%;
+  position: relative;
 }
 
 .inputs-container {
@@ -95,6 +96,10 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .material-previewer {
@@ -148,6 +153,42 @@
   font-weight: 500;
 }
 
+.add-res-button {
+  padding: .6rem;
+  background: #756dff;
+  width: 20%;
+  font-size: 20px;
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
+  -webkit-transition: .3s;
+  transition: .3s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 1rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  display: none;
+}
+
+.add-res-button:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  background: #8f8aee;
+  width: 22%;
+}
+
 @media (max-width: 1450px), (max-height: 540px) {
   .manual-entry-method {
     display: -ms-grid;
@@ -181,6 +222,14 @@
   .material-previewer {
     max-height: 70vh;
   }
+  .add-res-button {
+    position: static;
+    width: 90%;
+    margin-top: 5rem;
+  }
+  .add-res-button:hover {
+    width: 95%;
+  }
 }
 
 .lottie-input-container {
@@ -203,6 +252,14 @@ textarea {
     width: 80%;
     height: auto;
   }
+  .add-res-button {
+    position: static;
+    width: 90%;
+    margin-top: 5rem;
+  }
+  .add-res-button:hover {
+    width: 95%;
+  }
 }
 
 @media (max-height: 680px) {
@@ -218,6 +275,14 @@ textarea {
     width: 80%;
     height: auto;
     min-height: 200px;
+  }
+  .add-res-button {
+    position: static;
+    width: 90%;
+    margin-top: 5rem;
+  }
+  .add-res-button:hover {
+    width: 95%;
   }
 }
 
@@ -239,6 +304,14 @@ textarea {
     width: 60%;
     height: auto;
     min-height: 10vh;
+  }
+  .add-res-button {
+    position: static;
+    width: 90%;
+    margin-top: 5rem;
+  }
+  .add-res-button:hover {
+    width: 95%;
   }
 }
 /*# sourceMappingURL=manual-entry.css.map */

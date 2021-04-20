@@ -1,22 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import CardCreateor from '../components/home/subpages/data-entry/add-manually';
 import { match as matchType } from 'react-router-dom';
 import { DynamicContentContext } from '../contexts/home-context/dynamic-content-state-context';
+import { addResMethods, updateTopic } from '../constants/pages-route';
 
-export default function AddManuallyPage({ match }: { match: matchType<{ id: string }> }) {
-	const inputs = [ 'Material Name', 'Material Image', 'Material Number' ];
-	const descriptionInput = 'Describe the Material';
+export default function AddManuallyPage({ match }: { match: matchType<any> }) {
+	let inputs = [ 'Material Name', 'Material Image', 'Material Number' ];
+	let descriptionInput = 'Describe the Material';
 	let values: string[] = [];
 	const { materialsTable } = useContext(DynamicContentContext);
 	const { id } = match.params;
 	let rate:number = 5;
+	const basicTopicRoute:string = `${addResMethods}/${id}`;
+	const [resRoute, setResRoute] = useState<string>(basicTopicRoute);
+
 
 	// TODO
 	// check if the match parameters have an ID, and if they do
 	// get the values of that ID and send them as values to the next child
 	// then display the values thier
-	const update = () => {
-		if (id) {
+	const updateUI = () => {
+		if(match.url.includes(updateTopic)){
+			inputs =[ 'Topic Name', 'Topic Image' ];
+			descriptionInput = 'Describe the Topic';
+		}
+		else if (id) {
 			values = [];
 			const material = materialsTable[id];
 			if (material) {
@@ -28,10 +36,10 @@ export default function AddManuallyPage({ match }: { match: matchType<{ id: stri
 		}
 	};
 
-	update();
+	updateUI();
 	return (
 		<div className="dynamic-subpage">
-			<CardCreateor {...{ inputs, descriptionInput, values, localMaterialID:id, rate }} />
+			<CardCreateor {...{ inputs, descriptionInput, values, localMaterialID:id, rate, resRoute, setResRoute }} />
 		</div>
 	);
 }

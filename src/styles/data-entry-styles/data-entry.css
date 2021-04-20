@@ -36,6 +36,7 @@
   font-size: 24px;
   font-weight: 700;
   margin-top: 1rem;
+  height: 20%;
 }
 
 .data-entry-container::-webkit-scrollbar {
@@ -103,5 +104,53 @@
   color: white;
   font-size: 1.3rem;
   margin-bottom: 1.5rem;
+}
+
+.res-adder {
+  cursor: pointer;
+  width: 45%;
+  height: 50%;
+  border-radius: 15px;
+  margin: 1rem 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.res-adder .animation-container {
+  min-height: 100%;
+  min-width: 100%;
+  overflow: hidden;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.res-adder .res-type-container {
+  width: 100%;
+  height: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  bottom: 2.5rem;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  z-index: 1000;
+  position: absolute;
 }
 /*# sourceMappingURL=data-entry.css.map */
