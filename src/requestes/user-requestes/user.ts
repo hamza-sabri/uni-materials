@@ -66,4 +66,5 @@ const saveLocaly = (localStorageKey: string, data: string) => localStorage.setIt
 
 const getStoredItems = (localStorageKey: string): string | null => localStorage.getItem(localStorageKey);
 
-export { signin, getStoredItems, signup, getUserCredentials };
+const clearStorage = () => localStorage.clear();
+export { signin, getStoredItems, signup, getUserCredentials, clearStorage };

@@ -17,11 +17,11 @@
 	width: 75%;
 	height: 20px;
 	display: block;
-	margin-top: 1.8rem;
 	outline: none;
 	border: none;
 	border-bottom: 0.5px solid #c8c3c3;
 	transition: .3s;
+	margin-top: .5rem;
 	&:hover,
 	&:focus {
 		width: 80%;
@@ -101,4 +101,17 @@
         @include floating;
 		cursor: pointer;
 	}
+}
+
+#pdf-link{
+	margin-top: 1.2rem;
+}
+
+.swal2-header h2 {
+	margin: 0;
+	padding: 0;
+}
+
+.swal2-actions{
+	margin-bottom: 1.2rem;
 }

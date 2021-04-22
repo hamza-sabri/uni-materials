@@ -1,17 +1,16 @@
 import '../../../../styles/data-entry-styles/book/book-entry.css';
-import React, { useContext, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import '../../../../styles/data-entry-styles/manual/manual-entry.css';
 import emptySVG from '../../../../assets/data-entry-assets/empty.svg';
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import DropZone from './drop-zone';
-import OCR from './ocr';
 import axios from 'axios';
 import { splitURl } from '../../../../constants/urls';
 import { APIsCaller } from '../../../../requestes/apis-caller';
 import { addMaterialByBook } from '../../../../requestes/material-requests/mateirla';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
 import { CREATED, OK } from '../../../../constants/status-codes';
+import { hideLoading, showLoading } from '../../../../utilities/alearts';
 
 export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const materialName = useRef<HTMLPreElement>(null);
@@ -20,7 +19,6 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 	const emptyName: string = '???? ????';
 	const results: string[] = new Array(inputs.length).fill('');
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
-	const MySwal = withReactContent(Swal);
 	const {materialsTable, setMaterialsTable } = useContext(DynamicContentContext);
 
 
@@ -49,7 +47,7 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 			materialDesc: textAreaRef?.current?.value || '',
 			totalRate: 5
 		}
-		showLoading();
+		showLoading(1);
 		try{
 			const {data,status} = await axios.post(splitURl, { filename: requestBody.materialName, url: results[3] });
 			// check if the status from husieen is not somthing then show an err
@@ -80,21 +78,6 @@ export default function AddByBook({ inputs }: { inputs: string[]; }) {
 		}
 		setMaterialsTable(()=> newData);
 	}
-
-	const hideLoading = () => {
-		let temp = document.querySelector('.transparent-background');
-		temp!.className = 'empty-div'
-		temp = document.querySelector('.swal2-container');
-		temp!.className = 'empty-div';
-		MySwal.clickCancel();
-		Swal.clickCancel();
-	};
-
-	const showLoading = () => {
-		MySwal.fire(<OCR />);
-		const temp = document.querySelector('.swal2-popup');
-		temp!.className = 'transparent-background'
-	};
 
 	const MaterialInputs = () => {
 		return (

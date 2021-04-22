@@ -75,11 +75,11 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		}
 		const {data, status} = await APIsCaller({api: updateMaterial, requestBody, requestParams});
 		const {message} = data;
-		console.log("requestBody",requestBody);
-		updateMaterialLocally(localMaterialID!,requestBody);
-		if (status === OK) Swal.fire('Thanks', message, 'success' );
+		if (status === OK) {
+			updateMaterialLocally(localMaterialID!,requestBody);
+			Swal.fire('Thanks', message, 'success' );
+		}
 		else Swal.fire('Ops!','Something went wrong', 'error' );
-	
 	}
 
 	const submitMaterial = async()=>{
@@ -93,10 +93,12 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		}
 		const {data, status} = await APIsCaller({api:createNewMaerial, requestBody});
 		const {message, materialID} = data;
-		updateMaterialLocally(materialID,requestBody);
-		if (status === CREATED) Swal.fire('Thanks', message, 'success' );
-		else Swal.fire('Ops!','Something went wrong', 'error' );
-	
+		
+		if (status === CREATED) {
+			updateMaterialLocally(materialID,requestBody);
+			Swal.fire('Thanks', message, 'success' );
+		}
+		else Swal.fire('Ops!',message || 'Something went wrong', 'error' );
 	}
 
 	const submitTopic = async()=>{
@@ -131,8 +133,8 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => {
-					if(values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} />
-					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
+					if(values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} type={hint.includes("Number")?"number":"text"} />
+					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)}  type={hint.includes("Number")?"number":"text"}/>
 				})}
 				{
 					descriptionInput ? <textarea placeholder={descriptionInput} ref={textAreaRef} 

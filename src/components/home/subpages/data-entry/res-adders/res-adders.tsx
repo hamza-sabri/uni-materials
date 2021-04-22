@@ -11,29 +11,16 @@ import Swal from 'sweetalert2';
 import { APIsCaller } from '../../../../../requestes/apis-caller';
 import { createNewRes } from '../../../../../requestes/res-requests/res';
 import { pdfsType } from '../../../../../constants/res-types';
-import LoadingUpload from '../loading-upload';
-import withReactContent from 'sweetalert2-react-content';
+import { hideLoading, showLoading } from '../../../../../utilities/alearts';
+import { CREATED, OK } from '../../../../../constants/status-codes';
+
 
 export function PDFAdder({ matID, topicID }: { matID: string; topicID: string }) {
 	const results: string[] = [ '', '', '' ];
 	const bookLinkInput = useRef<HTMLInputElement>(null);
 	const divRef = useRef<HTMLDivElement>(null);
 	const pdfNameInput = useRef<HTMLInputElement>(null);
-	const MySwal = withReactContent(Swal);
-	const hideLoading = () => {
-		let temp = document.querySelector('.transparent-background');
-		temp!.className = 'empty-div';
-		temp = document.querySelector('.swal2-container');
-		temp!.className = 'empty-div';
-		MySwal.clickCancel();
-		Swal.clickCancel();
-	};
-
-	const showLoading = () => {
-		MySwal.fire(<LoadingUpload />);
-		const temp = document.querySelector('.swal2-popup');
-		temp!.className = 'transparent-background';
-	};
+	
 
 	useEffect(() => {
 		lottie
@@ -61,18 +48,18 @@ export function PDFAdder({ matID, topicID }: { matID: string; topicID: string })
 				fileName: pdfName,
 				link: pdfLink,
 			};
-			showLoading();
+			showLoading(0);
 			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
 			console.log(status, data);
-			hideLoading();
+			if(status === OK || status === CREATED) Swal.fire('Congrats',data.message,'success');
+			else Swal.fire('Ops!',data.message,'error');
 		}
 	};
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
 			<input type="text" className="res-input" placeholder="PDF Name" ref={pdfNameInput} />
-			<input type="url" className="res-input" placeholder="PDF link" ref={bookLinkInput} />
-
+			<input type="url" className="res-input" id='pdf-link' placeholder="PDF link" ref={bookLinkInput} />
 			<DropZone {...{ bookLinkInput, results, pdfNameInput }} />
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
@@ -150,7 +137,6 @@ export function QAAdder() {
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<input type="text" className="res-input" placeholder="Question Name" />
 			<textarea className="res-text-area" placeholder="Question" />
 			<textarea className="res-text-area" placeholder="Answer" />
 			<div className="res-submit-btn" onClick={submitHandler}>
@@ -177,9 +163,9 @@ export function Rules() {
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<input type="text" className="res-input" placeholder="Question Name" />
-			<textarea className="res-text-area" placeholder="Question" />
-			<textarea className="res-text-area" placeholder="Answer" />
+			<input type="text" className="res-input" placeholder="ٌRule name" />
+			<textarea className="res-text-area" placeholder="Rule content" />
+			<textarea className="res-text-area" placeholder="Example" />
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
 			</div>

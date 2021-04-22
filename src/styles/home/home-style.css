@@ -46,9 +46,40 @@
   border-bottom: 0.5px solid #023af1;
 }
 
-.bar-options {
-  background: greenyellow;
-  display: none;
+.option-wrpper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.option-wrpper .user-avatar {
+  max-width: 45px;
+  max-height: 45px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.option-wrpper .user-avatar img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+.option-wrpper span {
+  font-weight: 900;
+  font-size: 1.5em;
+  padding-top: .6rem;
+  color: #6466ae;
 }
 
 .nav-bar {

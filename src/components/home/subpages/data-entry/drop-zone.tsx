@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import pdfImage from '../../../../assets/data-entry-assets/pdf.svg';
 import LoadingUpload from './loading-upload';
 import lottie from 'lottie-web';
 import dropeHere from '../../../../assets/data-entry-assets/drop-here.json';
+import { hideLoading, showLoading } from '../../../../utilities/alearts';
 
 type dropZoneInterface = {
 	bookLinkInput: React.RefObject<HTMLInputElement>;
@@ -14,11 +14,11 @@ type dropZoneInterface = {
 };
 
 export default function DropZone({ bookLinkInput, results, pdfNameInput }: dropZoneInterface) {
-	const MySwal = withReactContent(Swal);
 	const message: string = 'Click to Add\n Or drag and drop a PDF file';
 	const dropeHereRef = useRef<HTMLDivElement>(null);
 	const dropeZoneContainerRef = useRef<HTMLDivElement>(null);
 	const LIMIT = 10000000;
+	
 	useEffect(() => {
 		lottie.loadAnimation({
 			container: dropeHereRef.current!,
@@ -95,7 +95,7 @@ export default function DropZone({ bookLinkInput, results, pdfNameInput }: dropZ
 			}
 		}
 		else {
-			showLoading();
+			showLoading(0);
 			try {
 				const { url } = await uploadFile(acceptedFiles[0]);
 				setDropedFile(
@@ -129,21 +129,6 @@ export default function DropZone({ bookLinkInput, results, pdfNameInput }: dropZ
 			pdfNameInput.current!.value = name;
 			pdfNameInput.current!.disabled = true;
 		}
-	};
-
-	const hideLoading = () => {
-		let temp = document.querySelector('.transparent-background');
-		temp!.className = 'empty-div';
-		temp = document.querySelector('.swal2-container');
-		temp!.className = 'empty-div';
-		MySwal.clickCancel();
-		Swal.clickCancel();
-	};
-
-	const showLoading = () => {
-		MySwal.fire(<LoadingUpload />);
-		const temp = document.querySelector('.swal2-popup');
-		temp!.className = 'transparent-background';
 	};
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
