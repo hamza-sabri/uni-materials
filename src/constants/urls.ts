@@ -7,6 +7,9 @@ const rootURL: string = 'https://us-central1-uni-materials-412a2.cloudfunctions.
 // user routes
 const signinRoute: string = '/users/signin';
 const signupRoute: string = '/users/signup';
+const userProfileRoute:string = '/users/profile';
+const updateProfileRoute:string = '/users/update';
+
 
 // uni routes
 const getUnisRoute: string = '/unis/all';
@@ -27,29 +30,36 @@ const updateTopicRoute:string = '/materials/topic/update';
 const deleteTopicRoute:string = '/materials/topic/delete';
 
 
+// res
+const createResRoute: string = '/materials/topic/res/create';
+
+
 // functions
 const urlConcatenator = (seconderyPath: string[]): string => {
-	let apiPath: string = rootURL;
-	seconderyPath.forEach((route) => (apiPath += route));
-	return apiPath;
+    let apiPath: string = rootURL;
+    seconderyPath.forEach((route) => (apiPath += route));
+    return apiPath;
 };
 
 export {
-	rootURL,
-	signinRoute,
-	signupRoute,
-	urlConcatenator,
-	getUnisRoute,
-	updateUniRoute,
-	createUniRoute,
-	deleteUniRoute,
-	createMaterialRoute,
-	splitURl,
-	allMaterialsRoute,
-	updateMaterialRoute,
-	createByBookRoute,
-	createTopicRoute,
-	getAllTopicsRoute,
-	updateTopicRoute,
-	deleteTopicRoute
+    rootURL,
+    signinRoute,
+    signupRoute,
+    urlConcatenator,
+    getUnisRoute,
+    updateUniRoute,
+    createUniRoute,
+    deleteUniRoute,
+    createMaterialRoute,
+    splitURl,
+    allMaterialsRoute,
+    updateMaterialRoute,
+    createByBookRoute,
+    createTopicRoute,
+    getAllTopicsRoute,
+    updateTopicRoute,
+    deleteTopicRoute,
+    createResRoute,
+    userProfileRoute,
+	updateProfileRoute
 };
