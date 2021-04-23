@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { match as infoPageMatch } from 'react-router-dom';
 import MaterialCard from "./../viewer/material-card";
 import TopicCard from "./../viewer/topic-card";
@@ -28,6 +28,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	const [topicsToDisplay, setTopicsToDisplay] = useState([]);
 	const [nextTopicsIndex, setNextTopicsIndex] = useState(0);
 
+	const parentDivRef = useRef<HTMLDivElement>(null);
+
 	// let material =	async function () {return await materialsTable[materialID];}();
 	let material = materialsTable[materialID];
 
@@ -48,6 +50,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 				const getData = async () => {
 					const requestParams = { materialID: materialID };
 					const { data: topicsTable } = await APIsCaller({ api: getAllTopics, requestParams });
+					console.log('request');
 
 					if (topicsTable) setAllTopics(topicsTable.topicsTable);
 				};
@@ -56,6 +59,11 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			} else {
 				setAllTopics(res.topics);
 			}
+		}
+
+		// delete currentTopics from localstorage, when component is unmounted. 
+		return () => {
+			localStorage.removeItem('currentTopics');
 		}
 	}, []);
 
@@ -75,6 +83,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			addNewSetOfTopicsToDisplay(allTopics);
 		}
 	}, [allTopics]);
+
+
 
 	// disblay waiting for conext result
 	// show spining circle, a moneky eating a banana or a cat photo anything.
@@ -100,10 +110,13 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 				<p>Topics: </p>
 				<div id="topics">
 					{
-						topicsToDisplay.map((topic: any, index) => {
-							return <TopicCard key={index} cardTitle={topic.topicName || material.materialName} cardPhoto={topic.topicPhoto || material.materialPhoto} cardRate={topic.topicRate || material.totalRate} />
-						})
+						(allTopics.length != 0) ?
+							topicsToDisplay.map((topic: any, index) => {
+								return <TopicCard key={index} cardTitle={topic.topicName || material.materialName} cardPhoto={topic.topicPhoto || material.materialPhoto} cardRate={topic.topicRate || material.totalRate} />
+							})
+							: null
 					}
+
 				</div>
 
 				{
