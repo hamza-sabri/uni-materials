@@ -14,6 +14,7 @@ import settingsIcon from '../assets/home/side-bar/settings.svg';
 import tableIcon from '../assets/home/side-bar/table.svg';
 import feedbackIcon from '../assets/home/side-bar/feedback.svg';
 import logOutIcon from '../assets/home/side-bar/logout.svg';
+import guideIcon from '../assets/home/side-bar/guide.svg';
 
 // pages
 import { cretateTopics, dataEntryRoute, homePageRoute, updatematerialsRoute, uniMangerRoute, materialInfoRoute, singinPageRoute } from './pages-route';
@@ -33,6 +34,7 @@ const dataEntrySectionCards: sideBarSectionInterface = {
 		{ cardName: 'Settings', routeTo: uniMangerRoute, cardIcon: settingsIcon },
 		{ cardName: 'Feedback', routeTo: uniMangerRoute, cardIcon: feedbackIcon },
 		{ cardName: 'Uni managers', routeTo: uniMangerRoute, cardIcon: managerIcon },
+		{ cardName: 'Guidance', routeTo: uniMangerRoute, cardIcon: guideIcon },
 		{ cardName: 'Log out', routeTo: singinPageRoute, cardIcon: logOutIcon },
 
 	]

@@ -100,12 +100,12 @@
 
 .video-previewer {
   margin-top: 1.5rem;
-  width: 280px;
-  height: 220px;
+  width: 320px;
+  height: 250px;
   background: white;
   border-radius: 12px;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
-          box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -124,13 +124,11 @@
 .video-previewer img {
   min-height: 100%;
   min-width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: fill;
+     object-fit: fill;
 }
 
 .video-previewer:hover {
-  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
-          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
   cursor: pointer;
 }
 

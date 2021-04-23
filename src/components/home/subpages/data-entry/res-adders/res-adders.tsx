@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../../../../../styles/data-entry-styles/res/res-adders.css';
 import pdfAnimation from '../../../../../assets/data-entry-assets/pdf-animation.json';
 import qAndA from '../../../../../assets/data-entry-assets/Q-and-A.json';
@@ -10,17 +10,17 @@ import lottie from 'lottie-web';
 import Swal from 'sweetalert2';
 import { APIsCaller } from '../../../../../requestes/apis-caller';
 import { createNewRes } from '../../../../../requestes/res-requests/res';
-import { pdfsType } from '../../../../../constants/res-types';
+import { pdfsType, questionAndAnswerType, videosType } from '../../../../../constants/res-types';
 import { hideLoading, showLoading } from '../../../../../utilities/alearts';
 import { CREATED, OK } from '../../../../../constants/status-codes';
-
+import youtubeImage from '../../../../../assets/data-entry-assets/youtube.jpg';
+import * as ytdl from 'ytdl-core';
 
 export function PDFAdder({ matID, topicID }: { matID: string; topicID: string }) {
 	const results: string[] = [ '', '', '' ];
 	const bookLinkInput = useRef<HTMLInputElement>(null);
 	const divRef = useRef<HTMLDivElement>(null);
 	const pdfNameInput = useRef<HTMLInputElement>(null);
-	
 
 	useEffect(() => {
 		lottie
@@ -46,20 +46,20 @@ export function PDFAdder({ matID, topicID }: { matID: string; topicID: string })
 			const requestBody = {
 				resType: pdfsType,
 				fileName: pdfName,
-				link: pdfLink,
+				link: pdfLink
 			};
 			showLoading(0);
 			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
 			console.log(status, data);
-			if(status === OK || status === CREATED) Swal.fire('Congrats',data.message,'success');
-			else Swal.fire('Ops!',data.message,'error');
+			if (status === OK || status === CREATED) Swal.fire('Congrats', data.message, 'success');
+			else Swal.fire('Ops!', data.message, 'error');
 		}
 	};
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
 			<input type="text" className="res-input" placeholder="PDF Name" ref={pdfNameInput} />
-			<input type="url" className="res-input" id='pdf-link' placeholder="PDF link" ref={bookLinkInput} />
+			<input type="url" className="res-input" id="pdf-link" placeholder="PDF link" ref={bookLinkInput} />
 			<DropZone {...{ bookLinkInput, results, pdfNameInput }} />
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
@@ -68,9 +68,44 @@ export function PDFAdder({ matID, topicID }: { matID: string; topicID: string })
 	);
 }
 
-export function VideoAdder() {
-	const divRef = useRef<HTMLInputElement>(null);
-	const submitHandler = () => {};
+// TODO add loading after when the user adds the link
+export function VideoAdder({ matID, topicID }: { matID: string; topicID: string }) {
+	const divRef = useRef<HTMLDivElement>(null);
+	const videoRef = useRef<HTMLInputElement>(null);
+	const [ imgURl, setImgURL ] = useState<string>(youtubeImage);
+	const submitHandler = async () => {
+		const VideoLink: string = videoRef.current!.value;
+		if (VideoLink === '') Swal.fire('Ops!', 'Sorry but all fields must not be empty', 'error');
+		else {
+			const requestParams = {
+				materialID: matID,
+				topicID: topicID
+			};
+			const requestBody = {
+				resType: videosType,
+				fileName: "video title", //TODO get the title of the video some how
+				link: VideoLink
+			};
+			showLoading(0);
+			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
+			console.log(status, data);
+			if (status === OK || status === CREATED) Swal.fire('Congrats', data.message, 'success');
+			else Swal.fire('Ops!', data.message, 'error');
+		}
+	};
+	const getVideoID = () => {
+		const link = videoRef.current!.value || '';
+		const firstAndIndex: number = link.indexOf('&');
+		const idIndex: number = link.indexOf('=') + 1;
+		return link.substring(idIndex, firstAndIndex === -1 ? link.length : firstAndIndex);
+	};
+
+	const changeVideCard = () => {
+		const videoID = getVideoID();
+		if (videoID === '' || videoID.length < 3) setImgURL(youtubeImage);
+		else setImgURL(`https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`);
+	};
+
 	useEffect(() => {
 		lottie
 			.loadAnimation({
@@ -85,8 +120,17 @@ export function VideoAdder() {
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<input type="text" className="res-input" placeholder="video link" />
-			<div className="video-previewer" />
+			<input
+				type="text"
+				className="res-input"
+				placeholder="video link"
+				ref={videoRef}
+				onChange={changeVideCard}
+				onBlur={changeVideCard}
+			/>
+			<div className="video-previewer">
+				<img src={imgURl} alt="youtube" />
+			</div>
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
 			</div>
@@ -111,7 +155,7 @@ export function UsefulRes() {
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<input type="text" className="res-input" placeholder="video link" />
+			<input type="text" className="res-input" placeholder="Resource link" />
 			<div className="video-previewer" />
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
@@ -120,9 +164,31 @@ export function UsefulRes() {
 	);
 }
 
-export function QAAdder() {
+export function QAAdder({ matID, topicID }: { matID: string; topicID: string }) {
 	const divRef = useRef<HTMLInputElement>(null);
-	const submitHandler = () => {};
+	const questionRef = useRef<HTMLTextAreaElement>(null);
+	const answerRef = useRef<HTMLTextAreaElement>(null);
+	const submitHandler = async () => {
+		const question: string = questionRef.current!.value;
+		const answer: string = answerRef.current!.value;
+		if (question === '' || answer === '') Swal.fire('Ops!', 'Sorry but all fields must not be empty', 'error');
+		else {
+			const requestParams = {
+				materialID: matID,
+				topicID: topicID
+			};
+			const requestBody = {
+				resType: questionAndAnswerType,
+				question,
+				answer,
+			};
+			showLoading(0);
+			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
+			console.log(status, data);
+			if (status === OK || status === CREATED) Swal.fire('Congrats', data.message, 'success');
+			else Swal.fire('Ops!', data.message, 'error');
+		}
+	};
 	useEffect(() => {
 		lottie
 			.loadAnimation({
@@ -137,8 +203,8 @@ export function QAAdder() {
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<textarea className="res-text-area" placeholder="Question" />
-			<textarea className="res-text-area" placeholder="Answer" />
+			<textarea className="res-text-area" placeholder="Question" ref={questionRef}/>
+			<textarea className="res-text-area" placeholder="Answer" ref={answerRef}/>
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
 			</div>
@@ -163,8 +229,8 @@ export function Rules() {
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<input type="text" className="res-input" placeholder="ٌRule name" />
-			<textarea className="res-text-area" placeholder="Rule content" />
+			<input type="text" className="res-input" placeholder="Law name" />
+			<textarea className="res-text-area" placeholder="Law content" />
 			<textarea className="res-text-area" placeholder="Example" />
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit

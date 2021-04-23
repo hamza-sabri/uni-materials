@@ -24,11 +24,11 @@ export default function ResMethods({ resType, divRef, action, anim, matID, topic
 	}, [divRef, anim]);
 
 	const actionHandler = () => {
-		if (action === addPDFResCode)    MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder {...{matID,topicID}}/>});
-		if (action === addVideoResCode)	 MySwal.fire({showConfirmButton:false, title:'Videos', html: <VideoAdder />});
-		if (action === addQAndAResCode)	 MySwal.fire({showConfirmButton:false, title:'Q & A',  html: <QAAdder />});
+		if (action === addPDFResCode)    MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder   {...{matID,topicID}}/>});
+		if (action === addVideoResCode)	 MySwal.fire({showConfirmButton:false, title:'Videos', html: <VideoAdder {...{matID,topicID}}/>});
+		if (action === addQAndAResCode)	 MySwal.fire({showConfirmButton:false, title:'Q & A',  html: <QAAdder    {...{matID,topicID}}/>});
 		if (action === addUsefulResCode) MySwal.fire({showConfirmButton:false, title:'fix me later',  html: <UsefulRes />});
-		if (action === addRulesCode)	 MySwal.fire({showConfirmButton:false, title:'rules',  html: <Rules />});
+		if (action === addRulesCode)	 MySwal.fire({showConfirmButton:false, title:'Laws',  html: <Rules />});
 	};
 
 	return (

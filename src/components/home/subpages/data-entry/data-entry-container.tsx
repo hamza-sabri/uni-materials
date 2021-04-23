@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import addByBookImg from '../../../../assets/data-entry-assets/book-entry.svg';
 import manualAddingImg from '../../../../assets/data-entry-assets/manual-entry.svg';
 import { bookEntryRoute, manualEntryRoute } from '../../../../constants/pages-route';
@@ -12,6 +12,7 @@ import videoAnimatedIcon from '../../../../assets/data-entry-assets/video-animat
 import ResMethods from './res-methods';
 import { resMethodsInterface } from '../../../../interfaces/res/res-interface';
 import { addPDFResCode, addQAndAResCode, addRulesCode, addUsefulResCode, addVideoResCode } from '../../../../constants/action-cods';
+import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
 
 // TODO:
 /* call this big boy with some props so you can check later on
@@ -28,6 +29,14 @@ export default function DataEntryContainer({ match }: { match: dataEntryMatch<{ 
 	const QARef = useRef<HTMLDivElement>(null);
 	const usefulResRef = useRef<HTMLDivElement>(null);
 	const rulesRef = useRef<HTMLDivElement>(null);
+	const [matName, setMatName] = useState<string>("");
+	const {materialsTable } = useContext(DynamicContentContext);
+
+	useEffect(()=>{
+		if(!materialsTable) return;
+		const name = materialsTable[matID]?.materialName || "";
+		setMatName(name || "");
+	},[matID, setMatName, materialsTable])
 
 	const normalDataMethods = () => {
 		return (
@@ -44,15 +53,19 @@ export default function DataEntryContainer({ match }: { match: dataEntryMatch<{ 
 			{ divRef: videoRef, resType: 'Vidoes', anim: videoAnimatedIcon, action: addVideoResCode, matID, topicID },
 			{ divRef: QARef, resType: 'Q & A', anim: qAndA, action: addQAndAResCode, matID, topicID },
 			{ divRef: usefulResRef, resType: 'Resources', anim: usefulResAnimation, action: addUsefulResCode, matID, topicID },
-			{ divRef: rulesRef, resType: 'Rules', anim: RulesAnimation, action: addRulesCode, matID, topicID },
+			{ divRef: rulesRef, resType: 'Laws', anim: RulesAnimation, action: addRulesCode, matID, topicID },
 		];
 		return resRefs.map((current, index) => <ResMethods {...current} key={index} />);
 	};
 
 	return (
 		<div className="data-entry-container">
-			<div className="methods-header">{topicID ? resEntryMessage : dataEntryMessage}</div>
-			{topicID ? topicRes() : normalDataMethods()}
+			<div className="methods-header">{topicID ? resEntryMessage : dataEntryMessage}
+			<h3>{matName}</h3>
+			</div>
+			<div className="cards-wrpper">
+				{topicID ? topicRes() : normalDataMethods()}
+			</div>
 		</div>
 	);
 }

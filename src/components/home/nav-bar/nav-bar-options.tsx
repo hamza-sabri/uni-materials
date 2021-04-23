@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import defualtUserImage from '../../../assets/home/nav-bar/user.svg';
+import { DynamicContentContext } from '../../../contexts/home-context/dynamic-content-state-context';
 export default function NavBarOptions() {
+	const {user} = useContext(DynamicContentContext);
+	const [UserName, setUserName] = useState<string>("");
+
+	useEffect(()=> {
+		const firstName:string = user.userProfile?.firstName || "";
+		const lastName:string = user.userProfile?.lastName || "";
+		if(firstName === "" || lastName === "") setUserName("");
+		else setUserName(`${firstName} ${lastName}`);
+	},[user]);
+
 	return (
 		<div className="bar-options">
 			<div className="option-wrpper">
 				<div className="user-avatar">
 					<img alt="" src={defualtUserImage} />
 				</div>
-                <span>log out</span>
+				<div className="user-name">{UserName}</div>
 			</div>
 		</div>
 	);
