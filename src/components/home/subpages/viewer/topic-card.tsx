@@ -1,38 +1,37 @@
-import React, { Fragment, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/topic-card/topic-card.css';
 import deleteIcon from '../../../../assets/material-info-assets/Delete_icon.json';
 import editIcon from '../../../../assets/material-info-assets/Edit_icon.json';
-import lottie from 'lottie-web';
+import lottie, { AnimationItem } from 'lottie-web';
 // import editIcon from '../../../../assets/material-info-assets/Edit_icon.png';
 
 export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, routeTo }: cardInterface) {
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
+		const [deleteAnim,setDeleteAnim] = useState<AnimationItem>();
+		const [editAnim,setEditAnim] = useState<AnimationItem>();
 
-
-		let deleteAnim: any = null;
-		let editAnim: any = null;
 
 		useEffect(() => {
-			deleteAnim = lottie.loadAnimation({
+			setDeleteAnim(lottie.loadAnimation({
 				container: deleteBtnRef.current!,
 				autoplay: false,
 				renderer: 'svg',
 				loop: false,
 				animationData: deleteIcon,
-			});
+			}))
 
-			editAnim = lottie.loadAnimation({
+			setEditAnim( lottie.loadAnimation({
 				container: editBtnRef.current!,
 				autoplay: false,
 				renderer: 'svg',
 				loop: false,
 				animationData: editIcon,
-			});
-		}, [deleteAnim, editAnim])
+			}))
+		}, [setDeleteAnim, setEditAnim])
 
 
 
@@ -42,9 +41,9 @@ export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, rout
 				<div className="top-part-container">
 					<div className="icons-contianer">
 						{/*  onClick: Apicall */}
-						<div className="icon delete-icon" ref={deleteBtnRef} onMouseEnter={()=>{deleteAnim.play()}} onMouseLeave={()=>{deleteAnim.stop()}}></div>
+						<div className="icon delete-icon" ref={deleteBtnRef} onMouseEnter={()=>{deleteAnim?.play()}} onMouseLeave={()=>{deleteAnim?.stop()}}></div>
 						{/* onClick: Route */}
-						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={()=>{editAnim.play()}} onMouseLeave={()=>{editAnim.stop()}}></div>
+						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={()=>{editAnim?.play()}} onMouseLeave={()=>{editAnim?.stop()}}></div>
 					</div>
 					
 					<div className="topic-rate-container">

@@ -91,7 +91,7 @@ export default function FourOFour() {
                 // Clear the current points
                 this.points = [];
 
-                var width, height, i, j;
+                var i, j;
 
                 var colors = this.bgContextPixelData.data;
 
@@ -102,11 +102,12 @@ export default function FourOFour() {
                         var pixelPosition = (j + i * this.bgContextPixelData.width) * 4;
 
                         // Dont use whiteish pixels
+                        // eslint-disable-next-line no-mixed-operators
                         if (colors[pixelPosition] > 200 && (colors[pixelPosition + 1]) > 200 && (colors[pixelPosition + 2]) > 200 || colors[pixelPosition + 3] === 0) {
                             continue;
                         }
 
-                        var color = 'rgba(' + colors[pixelPosition] + ',' + colors[pixelPosition + 1] + ',' + colors[pixelPosition + 2] + ',' + '1)';
+                        var color = 'rgba(' + colors[pixelPosition] + ',' + colors[pixelPosition + 1] + ',' + colors[pixelPosition + 2] + ',1)';
                         this.points.push({ x: j, y: i, originalX: j, originalY: i, color: color });
 
                     }
@@ -140,7 +141,7 @@ export default function FourOFour() {
 
             drawLines: function () {
 
-                var i, j, currentPoint, otherPoint, distance, lineThickness;
+                var i, j, currentPoint, otherPoint, distance;
 
                 for (i = 0; i < this.points.length; i++) {
 
@@ -155,7 +156,7 @@ export default function FourOFour() {
                         // Distaqnce between two points.
                         otherPoint = this.points[j];
 
-                        if (otherPoint == currentPoint) {
+                        if (otherPoint === currentPoint) {
                             continue;
                         }
 
@@ -207,13 +208,14 @@ export default function FourOFour() {
             },
 
             clear: function () {
+                // eslint-disable-next-line no-self-assign
                 this.canvas.width = this.canvas.width;
             },
 
             // The filereader has loaded the image... add it to image object to be drawn
             loadData: function (data) {
 
-                this.bgImage = new Image;
+                this.bgImage = new Image();
                 this.bgImage.src = data;
 
                 this.bgImage.onload = function () {
@@ -288,20 +290,11 @@ export default function FourOFour() {
         start();
     }, []);
 
-    const pStyle: React.CSSProperties = {
-        position: "absolute",
-        bottom: "15%",
-        width: "100%",
-        left: "15%",
-        zIndex: "100",
-
-    };
-
     return (
         <div style={{ display: "felx", justifyContent: "center", alignItems: "center", height: "100%" }}>
             <canvas style={{zIndex:"-1"}} id="canvas"></canvas>
             <hgroup style={{ display: "felx", justifyContent: "center", alignItems: "center", width:"100%", marginTop:"-14%"}}>
-                <h1 style={{textAlign:"center"}}>The page you are looking for doesn't exist.<br></br>It's under development now<br></br>Move over the 404</h1>
+                <h1 style={{textAlign:"center"}}>The page you are looking for doesn't exist.<br></br>It's under development now</h1>
             </hgroup>
         </div>
     );

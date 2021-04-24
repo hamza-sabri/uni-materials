@@ -40,6 +40,7 @@ export default function UnisNames({
   let index = 0;
   const animated: any = useRef(null);
   const [flag, setFlag] = useState(true); // to clear data (locations and majors) depending on the name
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const setUniDex = (uni: string) => { // set the uni index to fill data locations and majors if founds
     if (unisNames.includes(uni)) {
       // setSearch(uni);
@@ -125,7 +126,7 @@ export default function UnisNames({
       setUniDex(temp);
       setSearch(temp);
     }
-  }, []);
+  }, [setUniDex, unisNames]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutSide);
@@ -143,10 +144,6 @@ export default function UnisNames({
     if (wrap && !wrap.contains(e.target)) {
       setDisplay(false);
     }
-  };
-  const makeChange = () => {
-    console.log(search);
-    setUniDex(search);
   };
 
   return (
