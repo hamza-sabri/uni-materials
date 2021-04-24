@@ -10,6 +10,8 @@
   -ms-grid-columns: 1fr 3fr;
       grid-template-columns: 1fr 3fr;
   grid-column-gap: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #materials-info-container #material-card {
@@ -60,23 +62,20 @@
   visibility: hidden;
 }
 
-#materials-info-container #topics-contianer {
+#materials-info-container #topics-section {
   width: 99%;
   height: 100%;
-  display: block;
+  text-align: center;
   -ms-grid-row: 2;
   -ms-grid-row-span: 3;
   grid-row: 2 / span 3;
   -ms-grid-column: 1;
   -ms-grid-column-span: 3;
   grid-column: 1 / span 3;
-  border: 1px solid black;
   border-radius: 15px;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
-#materials-info-container #topics-contianer p {
+#materials-info-container #topics-section p {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -88,8 +87,9 @@
   font-size: 1.5rem;
 }
 
-#materials-info-container #topics-contianer #topics {
+#materials-info-container #topics-section #topics {
   width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -99,22 +99,43 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  gap: 1rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-#materials-info-container #topics-contianer .load-more-btn {
-  border: none;
-  color: aqua;
-  font-size: 16px;
-  margin-left: 50%;
+#materials-info-container #topics-section #topics .load-more-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  width: 260px;
+  height: 220px;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  background: #f5f3f3;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-#materials-info-container #topics-contianer::-webkit-scrollbar {
+#materials-info-container #topics-section #topics p {
+  background-color: transparent;
+}
+
+#materials-info-container::-webkit-scrollbar {
   visibility: hidden;
   display: none;
 }

@@ -8,8 +8,8 @@
 
     position: relative;
 
-    width: 175px;
-    height: 175px;
+    width: 260px;
+    height: 220px;
 
     margin: 0.5rem;
     margin-bottom: 1rem;
@@ -30,13 +30,11 @@
         z-index: 0;
     }
     &:hover {
-        width: 180px;
-
         cursor: pointer;
 
         .top-part-container {
-            height: 25%;
-            justify-content: space-between;
+            height: 20%;
+            justify-content: space-around;
 
             padding: 0;
             margin: 0;
@@ -50,16 +48,28 @@
             display: flex;
             flex-direction: row;
             // align-items: flex-end;
+
+            width: 100%;
+            height: 100%;
         }
     }
 
     .topic-name-container {
-        display: inline;
-        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        text-align: center;
+        padding: 10px 0;
+
+        pre {
+            width: 90%;
+
+            font-size: 16px;
+            font-weight: 600;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: center;
+        }
     }
 }
 
@@ -103,6 +113,7 @@
         // background-color: green;
         float: left;
 
+        // triangle-stuff
         border-top: 2.5rem solid rgba(20, 20, 20, 0.85);
         border-right: 2.5rem solid rgba(20, 20, 20, 0.85);
         border-bottom: 2.5rem solid transparent;
@@ -127,47 +138,46 @@
     }
 
     .icons-contianer {
-        width: 100%;
-        height: 100%;
+        display: flex;
 
         margin: 0;
         padding: 0;
 
         display: none;
 
+        background: rgb(0, 0, 0);
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 68%, rgba(0, 0, 0, 0) 100%);
+
         .icon {
             display: flex;
             justify-content: center;
             align-items: center;
 
-            width: 50%;
+            flex: 50%;
+
             height: 200%;
 
             margin: 0;
             padding: 0;
-
-            background-color: rgba(20, 20, 20, 0.85);
-
-            border-left: 1px solid white;
         }
 
         .delete-icon {
             position: absolute;
-            left: 25%;
+            left: 15%;
             top: 50%;
             transform: translate(-50%, -50%);
         }
 
         .edit-icon {
             position: absolute;
-            left: 75%;
+            left: 85%;
             top: 50%;
             transform: translate(-50%, -50%);
         }
 
-        .edit-icon svg{
-            width: 50% !important;
-            height: 50% !important;
+        .edit-icon svg {
+            width: 45% !important;
+            height: 45% !important;
         }
     }
 }

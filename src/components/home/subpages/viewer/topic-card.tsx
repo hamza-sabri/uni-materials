@@ -18,8 +18,6 @@ export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, rout
 		let editAnim: any = null;
 
 		useEffect(() => {
-			console.log('loading image');
-
 			deleteAnim = lottie.loadAnimation({
 				container: deleteBtnRef.current!,
 				autoplay: false,
@@ -43,9 +41,10 @@ export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, rout
 			<div className="topic-card">
 				<img src={cardPhoto} alt="card-img" />
 				<div className="top-part-container">
-
 					<div className="icons-contianer">
+						{/*  onClick: Apicall */}
 						<div className="icon delete-icon" ref={deleteBtnRef} onMouseEnter={()=>{deleteAnim.play()}} onMouseLeave={()=>{deleteAnim.stop()}}></div>
+						{/* onClick: Route */}
 						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={()=>{editAnim.play()}} onMouseLeave={()=>{editAnim.stop()}}></div>
 					</div>
 					
@@ -62,7 +61,9 @@ export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, rout
 					</div>
 				</div>
 
-				<pre className="material-name-container topic-name-container">{cardTitle}</pre>
+				<div className="material-name-container topic-name-container">
+					<pre>{cardTitle}</pre>
+				</div>
 			</div>
 		);
 	};

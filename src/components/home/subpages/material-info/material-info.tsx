@@ -5,39 +5,42 @@ import TopicCard from "./../viewer/topic-card";
 import { APIsCaller } from './../../../../requestes/apis-caller'
 import { getAllTopics } from './../../../../requestes/material-requests/mateirla'
 import { DynamicContentContext } from './../../../../contexts/home-context/dynamic-content-state-context';
+import loadMoreIcon from '../../../../assets/material-info-assets/load-more-icon.json';
+import lottie from 'lottie-web';
 
 import './../../../../styles/materials-info/materials-info.css';
 
-// 	materialName: "Bashar (23)"
-// materialNumber: "98129837129"
-// materialPhoto: "https://scontent.ftlv13-1.fna.fbcdn.net/v/t1.0-9/101747520_3488375791245532_1863491575640752128_o.jpg?_nc_cat=101&ccb=1-3&_nc_sid=e3f864&_nc_ohc=RKUB55cmJ3EAX_t73rl&_nc_ht=scontent.ftlv13-1.fna&oh=155c3be30eef75c4c19198b056e99515&oe=60815E10"
-// totalRate: 5
-
-// TODO: fix This :).
-let getDesc = () => { return "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo eius sint officiis, laudantium unde non aliquam voluptatem recusandae fugit vero veniam! Doloribus odio id minus sunt quisquam beatae ut." };
-
-
 export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: string }> }) {
 	const materialID = match.params.matID;
-	const TOPIC_SEGEMENT_LENGTH = 12; // how many topics each load more action will be added
+	const TOPIC_SEGEMENT_LENGTH = 11; // how many topic in each page (initial viwed topics count and how many to add each load more click).
 
 	const { materialsTable } = useContext(DynamicContentContext);
-	let desc = getDesc(); // material.decription
 
 	const [allTopics, setAllTopics] = useState([]);
 	const [topicsToDisplay, setTopicsToDisplay] = useState([]);
 	const [nextTopicsIndex, setNextTopicsIndex] = useState(0);
+	const [topicsFound, setTopicsFound] = useState(true);
 
-	const parentDivRef = useRef<HTMLDivElement>(null);
+	const loadMoreDivRef = useRef(null);
 
-	// let material =	async function () {return await materialsTable[materialID];}();
 	let material = materialsTable[materialID];
+	let loadMoreAnimation: any;
 
 	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
 		setTopicsToDisplay(Object.entries(allTopics).slice(0, nextTopicsIndex + length).map(entry => entry[1]) as any);
 		setNextTopicsIndex(nextTopicsIndex + length);
 	}
+
+	useEffect(() => {
+		loadMoreAnimation = lottie.loadAnimation({
+			container: loadMoreDivRef.current!,
+			autoplay: false,
+			renderer: 'svg',
+			loop: true,
+			animationData: loadMoreIcon,
+		});
+	}, [nextTopicsIndex]);
 
 	useEffect(() => {
 		// I think this is a bit overkill but why not :).
@@ -50,12 +53,9 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 				const getData = async () => {
 					const requestParams = { materialID: materialID };
 					const { data: topicsTable } = await APIsCaller({ api: getAllTopics, requestParams });
-					console.log('request');
-
 					if (topicsTable) setAllTopics(topicsTable.topicsTable);
 				};
 				getData();
-				// setAllTopics(allFetchedTopics);
 			} else {
 				setAllTopics(res.topics);
 			}
@@ -79,7 +79,10 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			// store current fetched topics for if page is refresed.
 			localStorage.setItem('currentTopics', JSON.stringify({ id: materialID, topics: allTopics }) as any)
 
-			// add the first n topics to be displied on the initial refresh.
+
+			setTopicsFound((Object.keys(allTopics).length != 0) ? true : false);
+
+			// add the first n topics to be displied on the initial refresh,(where n=TOPIC_SEGEMENT_LENGTH).
 			addNewSetOfTopicsToDisplay(allTopics);
 		}
 	}, [allTopics]);
@@ -102,28 +105,29 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			<div id="material-card">
 				<MaterialCard cardTitle={material.materialName} cardPhoto={material.materialPhoto} cardRate={material.totalRate} />
 			</div>
+
 			<div id="desc">
 				<p id="desc-title">Description: </p>
 				<p id="desc-text">{material.materialDesc || "No Description"}</p>
 			</div>
-			<div id="topics-contianer">
-				<p>Topics: </p>
+
+			<div id="topics-section">
+				{/* <p>Topics: </p> */}
 				<div id="topics">
 					{
-						(allTopics.length != 0) ?
+						(topicsFound) ?
 							topicsToDisplay.map((topic: any, index) => {
 								return <TopicCard key={index} cardTitle={topic.topicName || material.materialName} cardPhoto={topic.topicPhoto || material.materialPhoto} cardRate={topic.topicRate || material.totalRate} />
 							})
-							: null
+							: <p>No Topics Found</p>
 					}
 
+					{
+						(nextTopicsIndex < Object.keys(allTopics).length) ?
+							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={()=>{loadMoreAnimation!.play()}} onMouseLeave={()=>{loadMoreAnimation!.stop()}}></div>)
+							: null
+					}
 				</div>
-
-				{
-					(nextTopicsIndex < Object.keys(allTopics).length) ?
-						(<button id="load-more-topics-btn" className="load-more-btn" onClick={() => addNewSetOfTopicsToDisplay(allTopics)}>load More...</button>)
-						: null
-				}
 			</div>
 		</div>
 
