@@ -2,7 +2,7 @@
 // https://www.youtube.com/watch?v=_NNYI8VbFyY&ab_channel=UselezzUtuber
 // @ts-nocheck 
 
-import {useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default function FourOFour() {
     function start() {
@@ -61,8 +61,8 @@ export default function FourOFour() {
                 this.canvas = document.getElementById('canvas');
                 this.context = this.canvas.getContext('2d');
                 this.context.globalCompositeOperation = "lighter";
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
+                this.canvas.width = window.innerWidth - (window.innerWidth * 20 / 100);
+                this.canvas.height = window.innerHeight - (window.innerHeight * 10 / 100);
                 this.canvas.style.display = 'block'
 
                 this.imageInput = document.createElement('input');
@@ -182,6 +182,8 @@ export default function FourOFour() {
 
                     currentPoint = this.points[i];
 
+                    currentPoint.color = "#6c63ff";
+
                     // Draw the dot.
                     this.context.fillStyle = currentPoint.color;
                     this.context.strokeStyle = currentPoint.color;
@@ -286,9 +288,21 @@ export default function FourOFour() {
         start();
     }, []);
 
+    const pStyle: React.CSSProperties = {
+        position: "absolute",
+        bottom: "15%",
+        width: "100%",
+        left: "15%",
+        zIndex: "100",
+
+    };
+
     return (
-        <div style={{display:"felx", justifyContent:"center", alignItems:"center"}}>
-            <canvas id="canvas"></canvas>
+        <div style={{ display: "felx", justifyContent: "center", alignItems: "center", height: "100%" }}>
+            <canvas style={{zIndex:"-1"}} id="canvas"></canvas>
+            <hgroup style={{ display: "felx", justifyContent: "center", alignItems: "center", width:"100%"}}>
+                <h1 style={{textAlign:"center"}}>The page you were looking for doesn't exist.</h1>
+            </hgroup>
         </div>
     );
 }
