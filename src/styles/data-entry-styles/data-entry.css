@@ -129,6 +129,7 @@
   cursor: pointer;
   min-width: 300px;
   max-width: 30%;
+  min-width: 300px;
   height: 35vh;
   max-height: 300px;
   border-radius: 15px;
