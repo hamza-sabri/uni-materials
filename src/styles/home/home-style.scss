@@ -12,3 +12,15 @@
 	grid-template-rows: 8% 92%;
 	grid-template-columns: 20% 80%;
 }
+
+@media (max-width:1200px){
+	.home-page {
+		grid-template-columns: 25% 75%;
+	}	
+}
+
+@media (max-width:980px){
+	.home-page {
+		grid-template-columns: 35% 65%;
+	}	
+}

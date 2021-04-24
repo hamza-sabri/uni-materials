@@ -1,29 +1,40 @@
 body,
 #root,
 .page {
-	width: 100%;
-	height: 100vh;
-	overflow: hidden;
-	padding: 0;
-	margin: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 .page {
-	background: #faf9f9;
+  background: #faf9f9;
 }
 
 .dynamic-subpage {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	padding: 0;
-	margin: 0;
-	background: #faf9f9;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: linear-gradient(120deg, white, #f5f4fa, #f1f0f8, #c7c5f5);
+}
+
+.subpage {
+  background: linear-gradient(120deg, white, #f5f4fa, #f1f0f8, #c7c5f5);
 }
 
 select:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
+/*# sourceMappingURL=page.css.map */

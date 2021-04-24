@@ -7,6 +7,7 @@ const rootURL: string = 'https://us-central1-uni-materials-412a2.cloudfunctions.
 // user routes
 const signinRoute: string = '/users/signin';
 const signupRoute: string = '/users/signup';
+const userProfileRoute:string = '/users/profile';
 
 // uni routes
 const getUnisRoute: string = '/unis/all';
@@ -25,6 +26,10 @@ const createTopicRoute: string = '/materials/topic/create';
 const getAllTopicsRoute:string ='/materials/topic/get';
 const updateTopicRoute:string = '/materials/topic/update';
 const deleteTopicRoute:string = '/materials/topic/delete';
+
+
+// res
+const createResRoute: string = '/materials/topic/res/create';
 
 
 // functions
@@ -51,5 +56,7 @@ export {
 	createTopicRoute,
 	getAllTopicsRoute,
 	updateTopicRoute,
-	deleteTopicRoute
+	deleteTopicRoute,
+	createResRoute,
+	userProfileRoute
 };

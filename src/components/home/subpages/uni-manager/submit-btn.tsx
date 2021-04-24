@@ -17,15 +17,8 @@ type submitData = {
   setUnisNames: any;
   setUniID: any;
 };
-type university = {
-  id: string;
-  doc: doc;
-};
-type doc = {
-  name: string;
-  fields: string[];
-  locations: string[];
-};
+
+
 export default function SubmitBtn({
   uniID,
   uniName,
