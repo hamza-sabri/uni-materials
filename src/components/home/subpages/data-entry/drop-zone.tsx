@@ -1,23 +1,24 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import pdfImage from '../../../../assets/data-entry-assets/pdf.svg';
 import LoadingUpload from './loading-upload';
 import lottie from 'lottie-web';
 import dropeHere from '../../../../assets/data-entry-assets/drop-here.json';
+import { hideLoading, showLoading } from '../../../../utilities/alearts';
 
 type dropZoneInterface = {
 	bookLinkInput: React.RefObject<HTMLInputElement>;
+	pdfNameInput?: React.RefObject<HTMLInputElement>;
 	results: string[];
 };
 
-export default function DropZone({ bookLinkInput, results }: dropZoneInterface) {
-	const MySwal = withReactContent(Swal);
+export default function DropZone({ bookLinkInput, results, pdfNameInput }: dropZoneInterface) {
 	const message: string = 'Click to Add\n Or drag and drop a PDF file';
 	const dropeHereRef = useRef<HTMLDivElement>(null);
 	const dropeZoneContainerRef = useRef<HTMLDivElement>(null);
 	const LIMIT = 10000000;
+	
 	useEffect(() => {
 		lottie.loadAnimation({
 			container: dropeHereRef.current!,
@@ -71,8 +72,30 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 				html: `<pre>Wrong Type\n pleas add a <b>PDF</b> file insted</pre>`,
 				icon: 'error'
 			});
-		} else {
-			showLoading();
+		} 
+		else if (pdfNameInput){
+			try {
+				setDropedFile(<LoadingUpload />);
+				const { url } = await uploadFile(acceptedFiles[0]);
+				setDropedFile(
+					<div>
+						<img style={{ width: '2.5rem', height: '2.5rem' }} src={pdfImage} alt="pdficon" />
+						<pre> </pre>
+						<p style={{ fontSize: '1.8rem' }}>{acceptedFiles[0].name}</p>
+					</div>
+				);
+				updateBookLink(url, acceptedFiles[0].name);
+			} catch (err) {
+				console.log(err);
+				Swal.fire({
+					title: 'Ops!',
+					html: `<pre style='font-size:1.8rem; font-weight:600'>Something went wrong\nPlease try again</pre>`,
+					icon: 'error'
+				});
+			}
+		}
+		else {
+			showLoading(0);
 			try {
 				const { url } = await uploadFile(acceptedFiles[0]);
 				setDropedFile(
@@ -82,7 +105,7 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 						<p style={{ fontSize: '1.8rem' }}>{acceptedFiles[0].name}</p>
 					</div>
 				);
-				updateBookLink(url);
+				updateBookLink(url, acceptedFiles[0].name);
 				hideLoading();
 			} catch (err) {
 				console.log(err);
@@ -94,29 +117,18 @@ export default function DropZone({ bookLinkInput, results }: dropZoneInterface) 
 				});
 			}
 		}
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const updateBookLink = (url: string) => {
+	const updateBookLink = (url: string, name:string) => {
 		results[bookLinkIndex] = url;
 		bookLinkInput.current!.value = url;
 		bookLinkInput.current!.disabled = true;
-	};
-
-	const hideLoading = () => {
-		let temp = document.querySelector('.transparent-background');
-		temp!.className = 'empty-div';
-		temp = document.querySelector('.swal2-container');
-		temp!.className = 'empty-div';
-		MySwal.clickCancel();
-		Swal.clickCancel();
-	};
-
-	const showLoading = () => {
-		MySwal.fire(<LoadingUpload />);
-		const temp = document.querySelector('.swal2-popup');
-		temp!.className = 'transparent-background';
+		if(pdfNameInput){
+			name = name.replace('.pdf','');
+			pdfNameInput.current!.value = name;
+			pdfNameInput.current!.disabled = true;
+		}
 	};
 
 	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });

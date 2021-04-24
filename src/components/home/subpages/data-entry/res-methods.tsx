@@ -1,20 +1,48 @@
-import React, { useEffect } from 'react';
-import lottie from 'lottie-web';
+import React, { useEffect, useState } from 'react';
+import lottie, { AnimationItem } from 'lottie-web';
 import { resMethodsInterface } from '../../../../interfaces/res/res-interface';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { addPDFResCode, addQAndAResCode, addRulesCode, addUsefulResCode, addVideoResCode } from '../../../../constants/action-cods';
+import { PDFAdder, QAAdder, Rules, UsefulRes, VideoAdder } from './res-adders/res-adders';
 
-export default function ResMethods({ resType, divRef, action, anim }: resMethodsInterface) {
+export default function ResMethods({ resType, divRef, action, anim, matID, topicID }: resMethodsInterface) {
+	const MySwal = withReactContent(Swal);
+	const [ controller, setController ] = useState<AnimationItem>();
 	useEffect(() => {
-		lottie.loadAnimation({
+		const temp = lottie.loadAnimation({
 			container: divRef.current!,
-			autoplay: true,
+			autoplay: false,
 			renderer: 'svg',
-			loop: true,
-			animationData: anim
+			loop: false,
+			animationData: anim,
+			rendererSettings:{
+			}
 		});
-	}, []);
+		temp.setSpeed(1.1);
+		setController(temp);
+	}, [divRef, anim]);
+
+	const actionHandler = () => {
+		if (action === addPDFResCode)    MySwal.fire({showConfirmButton:false, title:'PDFs',   html: <PDFAdder   {...{matID,topicID}}/>});
+		if (action === addVideoResCode)	 MySwal.fire({showConfirmButton:false, title:'Videos', html: <VideoAdder {...{matID,topicID}}/>});
+		if (action === addQAndAResCode)	 MySwal.fire({showConfirmButton:false, title:'Q & A',  html: <QAAdder    {...{matID,topicID}}/>});
+		if (action === addUsefulResCode) MySwal.fire({showConfirmButton:false, title:'fix me later',  html: <UsefulRes />});
+		if (action === addRulesCode)	 MySwal.fire({showConfirmButton:false, title:'Laws',  html: <Rules />});
+	};
+
 	return (
-		<div className="res-adder" onClick={action}>
-			<div className="animation-container" ref={divRef}>
+		<div className="res-adder" onClick={actionHandler}>
+			<div className="animation-container" ref={divRef} 
+			onMouseEnter ={()=> {
+				controller!.setDirection(1);
+				controller!.loop = true;
+				controller!.play()}}
+			onMouseLeave ={()=> {
+				controller!.setDirection(-1);
+				controller!.loop = false;
+				}}
+			>
 				<div className="res-type-container">{resType}</div>
 			</div>
 		</div>

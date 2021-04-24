@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import '../../../../styles/data-entry-styles/manual/manual-entry.css';
 import lottie from 'lottie-web';
 import floattingLaptop from '../../../../assets/data-entry-assets/floatting-laptop.json';
@@ -9,7 +9,6 @@ import { createNewMaerial, createTopic, updateMaterial } from '../../../../reque
 import { CREATED, OK } from '../../../../constants/status-codes';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
 import { NavLink } from 'react-router-dom';
-import { addResMethods } from '../../../../constants/pages-route';
 
 type cardCreateorInterface = { 
 	inputs: string[]; 
@@ -76,11 +75,11 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		}
 		const {data, status} = await APIsCaller({api: updateMaterial, requestBody, requestParams});
 		const {message} = data;
-		console.log("requestBody",requestBody);
-		updateMaterialLocally(localMaterialID!,requestBody);
-		if (status === OK) Swal.fire('Thanks', message, 'success' );
+		if (status === OK) {
+			updateMaterialLocally(localMaterialID!,requestBody);
+			Swal.fire('Thanks', message, 'success' );
+		}
 		else Swal.fire('Ops!','Something went wrong', 'error' );
-	
 	}
 
 	const submitMaterial = async()=>{
@@ -94,10 +93,12 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		}
 		const {data, status} = await APIsCaller({api:createNewMaerial, requestBody});
 		const {message, materialID} = data;
-		updateMaterialLocally(materialID,requestBody);
-		if (status === CREATED) Swal.fire('Thanks', message, 'success' );
-		else Swal.fire('Ops!','Something went wrong', 'error' );
-	
+		
+		if (status === CREATED) {
+			updateMaterialLocally(materialID,requestBody);
+			Swal.fire('Thanks', message, 'success' );
+		}
+		else Swal.fire('Ops!',message || 'Something went wrong', 'error' );
 	}
 
 	const submitTopic = async()=>{
@@ -110,7 +111,6 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		const requestParams = {materialID: localMaterialID}
 		const {data, status} = await APIsCaller({api:createTopic, requestBody, requestParams});
 		const {message, topicID} = data;
-		// TODO if the request is a success then show a button to go to the resorses of the topic
 		if (status === CREATED || status === OK) {
 			setResRoute((currentRoute)=>`${currentRoute}/${topicID}`);
 			addResButtonRef.current!.style.display = 'flex';
@@ -129,14 +129,17 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 	}
 
 	const MaterialInputs = () => {
+		
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => {
-					if(values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} />
-					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} />
+					if(values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} type={hint.includes("Number")?"number":"text"} />
+					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)}  type={hint.includes("Number")?"number":"text"}/>
 				})}
 				{
-					descriptionInput ? <textarea placeholder={descriptionInput} ref={textAreaRef} onFocus={()=>{
+					descriptionInput ? <textarea placeholder={descriptionInput} ref={textAreaRef} 
+					defaultValue={(localMaterialID)? materialsTable[localMaterialID].materialDesc:'' }
+					onFocus={()=>{
 						textAreaRef.current!.style.overflowY ='scroll';
 					}} onBlur={()=> {
 						textAreaRef.current!.style.overflow ='hidden';
@@ -164,6 +167,7 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		);
 	};
 
+	// TODO if I recived the topic ID then the button should be display flex by defualt
 	const addResButton = () => {
 		return  <NavLink to={resRoute}>
 		<div className="add-res-button" ref={addResButtonRef}>Add resources</div>

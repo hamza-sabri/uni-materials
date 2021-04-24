@@ -1,23 +1,9 @@
-import { userCredentials } from "../../interfaces/user/credentials";
-import {
-  urlConcatenator,
-  signinRoute,
-  signupRoute,
-  userProfileRoute,
-  updateProfileRoute,
-} from "../../constants/urls";
-import {
-  emailKey,
-  IDTokenKey,
-  passwordKey,
-} from "../../constants/local-storage-keys";
-import { CREATED, getErrorStatusCode, OK } from "../../constants/status-codes";
-import {
-  signinError,
-  signUpError,
-  userCreated,
-} from "../../constants/messages";
-import axios, { AxiosInstance } from "axios";
+import { userCredentials } from '../../interfaces/user/credentials';
+import { urlConcatenator, signinRoute, signupRoute, userProfileRoute } from '../../constants/urls';
+import { emailKey, IDTokenKey, passwordKey } from '../../constants/local-storage-keys';
+import { CREATED, getErrorStatusCode, OK } from '../../constants/status-codes';
+import { signinError, signUpError, userCreated } from '../../constants/messages';
+import axios, { AxiosInstance } from 'axios';
 
 // this function is called if the user wants to signin or to refresh his IDToken if needed
 const signin = async (userData: userCredentials): Promise<any> => {
@@ -80,27 +66,18 @@ const getUserCredentials = (): userCredentials => {
 };
 
 const getUserProfile = async (axios: AxiosInstance) => {
-  try {
-    const { status, data } = await axios.get(userProfileRoute);
-    return { data, status };
-  } catch (err) {
-    return { status: getErrorStatusCode(err.message), data: err };
-  }
-};
-const updateUserProfile = async (axios: AxiosInstance, requestBody: any) => {
 	try {
-	  const { status, data } = await axios.put(updateProfileRoute, requestBody);
-	  return { data, status };
+		const { status, data } = await axios.get(userProfileRoute);
+		return { data, status };
 	} catch (err) {
-	  return { status: getErrorStatusCode(err.message), data: err };
+		return { status: getErrorStatusCode(err.message), data: err };
 	}
-  };
+};
 
-
-const saveLocaly = (localStorageKey: string, data: string) =>
-  localStorage.setItem(localStorageKey, data);
+const saveLocaly = (localStorageKey: string, data: string) => localStorage.setItem(localStorageKey, data);
 
 const getStoredItems = (localStorageKey: string): string | null =>
   localStorage.getItem(localStorageKey);
 
-export { signin, getStoredItems, signup, getUserCredentials, getUserProfile, updateUserProfile };
+const clearStorage = () => localStorage.clear();
+export { signin, getStoredItems, signup, getUserCredentials, clearStorage, getUserProfile};

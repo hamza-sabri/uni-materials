@@ -8,8 +8,6 @@ const rootURL: string = 'https://us-central1-uni-materials-412a2.cloudfunctions.
 const signinRoute: string = '/users/signin';
 const signupRoute: string = '/users/signup';
 const userProfileRoute:string = '/users/profile';
-const updateProfileRoute:string = '/users/update';
-
 
 // uni routes
 const getUnisRoute: string = '/unis/all';
@@ -42,24 +40,23 @@ const urlConcatenator = (seconderyPath: string[]): string => {
 };
 
 export {
-    rootURL,
-    signinRoute,
-    signupRoute,
-    urlConcatenator,
-    getUnisRoute,
-    updateUniRoute,
-    createUniRoute,
-    deleteUniRoute,
-    createMaterialRoute,
-    splitURl,
-    allMaterialsRoute,
-    updateMaterialRoute,
-    createByBookRoute,
-    createTopicRoute,
-    getAllTopicsRoute,
-    updateTopicRoute,
-    deleteTopicRoute,
-    createResRoute,
-    userProfileRoute,
-	updateProfileRoute
+	rootURL,
+	signinRoute,
+	signupRoute,
+	urlConcatenator,
+	getUnisRoute,
+	updateUniRoute,
+	createUniRoute,
+	deleteUniRoute,
+	createMaterialRoute,
+	splitURl,
+	allMaterialsRoute,
+	updateMaterialRoute,
+	createByBookRoute,
+	createTopicRoute,
+	getAllTopicsRoute,
+	updateTopicRoute,
+	deleteTopicRoute,
+	createResRoute,
+	userProfileRoute
 };
