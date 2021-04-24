@@ -12,7 +12,7 @@ const cretateTopics: string = '/topics/create';
 const updateTopic: string = '/topics/update';
 const addResMethods:string = '/topic/res/add';
 const materialInfoRoute:string = '/material/info';
-const notFoundRoute:string = '/404';
+const notFoundRoute:string = '/not-found';
 
 
 export {

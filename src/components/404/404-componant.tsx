@@ -300,8 +300,8 @@ export default function FourOFour() {
     return (
         <div style={{ display: "felx", justifyContent: "center", alignItems: "center", height: "100%" }}>
             <canvas style={{zIndex:"-1"}} id="canvas"></canvas>
-            <hgroup style={{ display: "felx", justifyContent: "center", alignItems: "center", width:"100%"}}>
-                <h1 style={{textAlign:"center"}}>The page you were looking for doesn't exist.</h1>
+            <hgroup style={{ display: "felx", justifyContent: "center", alignItems: "center", width:"100%", marginTop:"-14%"}}>
+                <h1 style={{textAlign:"center"}}>The page you are looking for doesn't exist.<br></br>It's under development now<br></br>Move over the 404</h1>
             </hgroup>
         </div>
     );
