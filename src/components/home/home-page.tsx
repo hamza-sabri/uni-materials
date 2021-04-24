@@ -2,6 +2,8 @@ import { validateUserOrSignHimIn } from '../../utilities/user-checker';
 import NavBar from './nav-bar/nav-bar';
 import SideBar from './side-bar/side-bar';
 
+import FourOFour from './../404/404-componant';
+
 import '../../styles/home/home-style.css';
 import DynamicContentSection from './subpages/dynamic-content-section';
 import { useEffect, useState } from 'react';
