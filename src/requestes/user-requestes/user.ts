@@ -4,6 +4,22 @@ import { emailKey, IDTokenKey, passwordKey } from '../../constants/local-storage
 import { CREATED, getErrorStatusCode, OK } from '../../constants/status-codes';
 import { signinError, signUpError, userCreated } from '../../constants/messages';
 import axios, { AxiosInstance } from 'axios';
+import * as firebase from 'firebase';
+
+// TODO add them to the env file
+const firebaseConfig = {
+	apiKey: 'AIzaSyDuwEpjOh-6ZX1pO44Sx1XRQ88DpGtn6_0',
+	authDomain: 'uni-materials-412a2.firebaseapp.com',
+	projectId: 'uni-materials-412a2',
+	storageBucket: 'uni-materials-412a2.appspot.com',
+	messagingSenderId: '22309204619',
+	appId: '1:22309204619:web:a183ad7372ae8b27951a8e',
+	measurementId: 'G-GDFQC61GXN'
+};
+
+// Initialize Firebase
+firebase.default.initializeApp(firebaseConfig);
+const { auth } = firebase.default;
 
 // this function is called if the user wants to signin or to refresh his IDToken if needed
 const signin = async (userData: userCredentials): Promise<any> => {
@@ -46,11 +62,11 @@ const signup = async (userData: userCredentials): Promise<any> => {
 };
 
 const saveUserCredentials = (userData: userCredentials, IDToken: string) => {
-	console.log('saving!!!')
+	console.log('saving!!!');
 	saveLocaly(IDTokenKey, IDToken);
 	saveLocaly(emailKey, userData.email);
 	saveLocaly(passwordKey, userData.password);
-	console.log('done saving')
+	console.log('done saving');
 };
 
 const getUserCredentials = (): userCredentials => {
@@ -75,5 +91,8 @@ const saveLocaly = (localStorageKey: string, data: string) => localStorage.setIt
 
 const getStoredItems = (localStorageKey: string): string | null => localStorage.getItem(localStorageKey);
 
-const clearStorage = () => localStorage.clear();
-export { signin, getStoredItems, signup, getUserCredentials, clearStorage, getUserProfile};
+const clearStorage = async() => {
+	localStorage.clear();
+	await auth().signOut();
+};
+export { signin, getStoredItems, signup, getUserCredentials, clearStorage, getUserProfile };
