@@ -1,6 +1,6 @@
 import { getUserCredentials } from '../requestes/user-requestes/user';
 import history from '../history/credationls-history';
-import { singinPageRoute } from '../constants/pages-route';
+import { homePageRoute, singinPageRoute } from '../constants/pages-route';
 
 // checking if the user is already loged in or not by checking his/her email
 const validateUserOrSignHimIn = () => {
@@ -8,4 +8,9 @@ const validateUserOrSignHimIn = () => {
 	if (!email) history.push(singinPageRoute);
 };
 
-export { validateUserOrSignHimIn };
+const alreadyLogedIn = ()=>{
+	const { email: storedEmail} = getUserCredentials();
+	if(storedEmail)  history.push(homePageRoute);
+}
+
+export { validateUserOrSignHimIn, alreadyLogedIn };

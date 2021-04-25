@@ -8,8 +8,10 @@ const getAxiosInstance = () => {
 		baseURL: rootURL,
 		headers: {
 			Authorization: getStoredItems(IDTokenKey),
-			ContentType: 'application/json'
-		}
+			ContentType: 'application/json',
+			'Access-Control-Allow-Origin': '*'
+		},
+		
 	});
 };
 
