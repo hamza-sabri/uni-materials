@@ -99,7 +99,7 @@ export function VideoAdder({ matID, topicID }: { matID: string; topicID: string 
 
 	const changeVideCard = async () => {
 		const url: string = videoRef.current!.value || '';
-		const { data } = await axios.get(`http://api.linkpreview.net/?key=d71742f9c4c457e68276f6288fdfc4d0&q=${url}`);
+		const { data } = await axios.get(`https://api.linkpreview.net/?key=d71742f9c4c457e68276f6288fdfc4d0&q=${url}`);
 		const { image, title } = data;
 		if (image) {
 			setImgURL(image);
@@ -153,7 +153,7 @@ export function UsefulRes({ matID, topicID }: { matID: string; topicID: string }
 
 	const changeVideCard = async () => {
 		const url: string = urlRef.current!.value || '';
-		const { data } = await axios.get(`http://api.linkpreview.net/?key=d71742f9c4c457e68276f6288fdfc4d0&q=${url}`);
+		const { data } = await axios.get(`https://api.linkpreview.net/?key=d71742f9c4c457e68276f6288fdfc4d0&q=${url}`);
 		const { image, title } = data;
 		if (image) {
 			setImgURL(image);
