@@ -6,6 +6,7 @@ import DeleteUni from "./delete-uni";
 interface SelectProtected {
   readonly wrapperElement: HTMLDivElement;
 }
+
 type uniNames = {
   unisDataList: any;
   setUnisDataList: any;
@@ -124,15 +125,13 @@ export default function UnisNames({
       setUniDex(temp);
       setSearch(temp);
     }
-  }, []);
 
-
-  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutSide);
     return () => {
       document.removeEventListener("mousedown", handleClickOutSide);
     };
   }, []);
+
   const selectProtected: SelectProtected = {
     wrapperElement: document.createElement("div"),
   };
