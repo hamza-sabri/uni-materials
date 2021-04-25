@@ -118,15 +118,14 @@ export default function UnisNames({
       autoplay: true,
       animationData: uniManagerPic,
     });
-  }, []);
 
-  useEffect(() => {
     if (unisNames[0].length > 0) {
       const temp = unisNames[0];
       setUniDex(temp);
       setSearch(temp);
     }
-  }, [setUniDex, unisNames]);
+  }, []);
+
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutSide);
