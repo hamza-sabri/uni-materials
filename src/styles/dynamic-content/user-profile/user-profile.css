@@ -1,11 +1,10 @@
 .head-div {
-  background: #d8d7d7;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -13,32 +12,19 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 17% 30%;
+      grid-template-columns: 17% 30%;
 }
 
-.head-div .head-left-div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.head-div .head-left-div .profile-avatar {
+.head-div .profile-avatar {
   border-radius: 100%;
-  background: yellowgreen;
-  width: 100%;
-  height: 100%;
+  width: 12rem;
+  margin: 3rem;
 }
 
-.head-div .head-left-div .profile-info {
+.head-div .profile-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -48,13 +34,72 @@
           flex-direction: column;
 }
 
-.head-div .head-left-div .profile-info .profile-info-data {
-  font-size: 27px;
-  margin: 13px;
+.head-div .profile-info .profile-info-data {
+  font-size: 25px;
+  margin: 16px;
+  font-weight: 600;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border: none;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-transition: font-size 0.3s;
+  transition: font-size 0.3s;
 }
 
-.head-div .head-left-div .profile-info .user-name,
-.head-div .head-left-div .profile-info .user-uniname {
+.head-div .profile-info .profile-info-data:hover {
+  font-size: 30px;
+}
+
+.head-div .profile-info .profile-info-data:disabled {
+  background: none;
+}
+
+.head-div .profile-info .profile-info-data:enabled {
+  background: white;
+}
+
+.head-div .profile-info .autoContainer {
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  position: absolute;
+  left: 33.7%;
+  top: 32vh;
+  background: #ffffff;
+  z-index: 3;
+  border-radius: 2px;
+  max-height: 50%;
+  overflow-x: hidden;
+}
+
+.head-div .profile-info .autoContainer .option {
+  cursor: pointer;
+  width: 100%;
+}
+
+.head-div .profile-info .autoContainer .option :hover {
+  background: #cfcdcd;
+}
+
+.head-div .profile-info .autoContainer .option .uni-name-option {
+  display: block;
+  padding: 10px 0px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.head-div .profile-info .autoContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.head-div .profile-info .user-name,
+.head-div .profile-info .user-uniName {
   margin-left: 0px;
 }
 
