@@ -22,7 +22,8 @@ export default function LoginPage() {
 			Swal.clickCancel();
 			history.push(homePageRoute);
 		} else {
-			showAlert({ title: 'Ops', text: message, icon: 'error', confirmButtonText: 'Ok' });
+			if(message) showAlert({ title: 'Ops', text: message, icon: 'error', confirmButtonText: 'Ok' });
+			else showAlert({ title: 'Ops', text: "sorry somethig went wrong pleas try again", icon: 'error', confirmButtonText: 'Ok' });
 		}
 	};
 

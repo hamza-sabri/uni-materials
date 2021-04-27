@@ -1,7 +1,4 @@
 .head-div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -12,21 +9,24 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  display: -ms-grid;
-  display: grid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -ms-grid-columns: 17% 30%;
       grid-template-columns: 17% 30%;
 }
 
 .head-div .profile-avatar {
   border-radius: 100%;
-  max-width: 12rem;
-  min-width: 12rem;
-  max-height: 12rem;
-  min-height: 12rem;
-  margin: 3rem;
+  max-width: 8rem;
+  min-width: 8rem;
+  max-height: 8rem;
+  min-height: 8rem;
+  margin: 2.5rem;
+  margin-right: 0;
   -o-object-fit: cover;
      object-fit: cover;
+  cursor: pointer;
 }
 
 .head-div .profile-info {
@@ -40,10 +40,11 @@
 }
 
 .head-div .profile-info .profile-info-data {
-  font-size: 25px;
-  margin: 16px;
+  font-size: 20px;
+  margin: 12px;
+  padding-left: 1rem;
   font-weight: 600;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border: none;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -54,6 +55,7 @@
 
 .head-div .profile-info .profile-info-data:hover {
   font-size: 30px;
+  cursor: pointer;
 }
 
 .head-div .profile-info .profile-info-data:disabled {
@@ -96,7 +98,7 @@
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .head-div .profile-info .autoContainer::-webkit-scrollbar {
@@ -136,5 +138,51 @@
   background: #6f67fd;
   width: 40%;
   cursor: pointer;
+}
+
+.save-button {
+  width: 3.5rem;
+  height: 3.5rem;
+  overflow: hidden;
+  background: #6f67fd;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 1rem;
+  right: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+}
+
+.save-button img {
+  max-width: 50%;
+  max-height: 50%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.save-button:hover {
+  cursor: pointer;
+  width: 3.8rem;
+  height: 3.8rem;
+}
+
+.profile-page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(120deg, white, #f5f4fa, #f1f0f8, #c7c5f5);
 }
 /*# sourceMappingURL=user-profile.css.map */
