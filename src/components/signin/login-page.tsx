@@ -9,8 +9,10 @@ import { showAlert } from '../../utilities/alearts';
 import { homePageRoute } from '../../constants/pages-route';
 import history from '../../history/credationls-history';
 import Swal from 'sweetalert2';
+import { alreadyLogedIn } from '../../utilities/user-checker';
 
 export default function LoginPage() {
+	alreadyLogedIn();
 	const [ { email, password }, setCredentials ] = useState({ email: '', password: '' });
 
 	const login = async () => {

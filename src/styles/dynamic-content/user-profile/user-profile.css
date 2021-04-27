@@ -20,8 +20,13 @@
 
 .head-div .profile-avatar {
   border-radius: 100%;
-  width: 12rem;
+  max-width: 12rem;
+  min-width: 12rem;
+  max-height: 12rem;
+  min-height: 12rem;
   margin: 3rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .head-div .profile-info {

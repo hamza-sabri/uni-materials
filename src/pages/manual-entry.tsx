@@ -36,6 +36,9 @@ export default function AddManuallyPage({ match }: { match: matchType<any> }) {
 		}
 	};
 
+	console.log('123-materialsTable', materialsTable);
+	
+
 	updateUI();
 	return (
 		<div className="dynamic-subpage">

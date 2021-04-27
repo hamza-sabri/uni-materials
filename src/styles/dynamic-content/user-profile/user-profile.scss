@@ -11,8 +11,12 @@
   .profile-avatar {
     border-radius: 100%;
     // background: yellowgreen;
-    width: 12rem;
+    max-width: 12rem;
+    min-width: 12rem;
+    max-height: 12rem;
+    min-height: 12rem;
     margin: 3rem;
+    object-fit: cover;
   }
 
   .profile-info {

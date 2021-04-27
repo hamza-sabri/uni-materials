@@ -1,11 +1,17 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import avatar from "./avatar.png";
 import "../../../../styles/dynamic-content/user-profile/user-profile.css";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import ProfileDropZone from "./profile-dropzone";
+import { SHARE_ENV } from "worker_threads";
 interface SelectProtected {
   readonly wrapperElement: HTMLDivElement;
 }
 
 export default function Avatar({ data, unisDataList }: any) {
+  const MySwal = withReactContent(Swal);
+
   const src = avatar;
   const { userProfile } = data;
   const { firstName, lastName, email, universityName } = userProfile;
@@ -17,6 +23,7 @@ export default function Avatar({ data, unisDataList }: any) {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const uniNameRef = useRef<HTMLInputElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   const [disabled, setDisabled] = useState(false);
 
@@ -63,7 +70,20 @@ export default function Avatar({ data, unisDataList }: any) {
 
   return (
     <div className="head-div">
-      <img className="profile-avatar" src={src} />
+      <img
+        ref={imgRef}
+        className="profile-avatar"
+        src={src}
+        onDoubleClick={() =>
+          MySwal.fire({
+            title: "select image",
+            html: <ProfileDropZone imageRef={imgRef} />,
+            confirmButtonText: "save",
+            confirmButtonColor: "#766ffa",
+            
+          })
+        }
+      />
       <div className="profile-info">
         <input
           ref={nameRef}
@@ -84,7 +104,6 @@ export default function Avatar({ data, unisDataList }: any) {
           disabled={disabled}
           onDoubleClick={() => (emailRef.current!.disabled = false)}
           onBlur={() => (emailRef.current!.disabled = true)}
-          
         ></input>
         <input
           ref={uniNameRef}

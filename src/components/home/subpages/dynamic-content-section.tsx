@@ -12,7 +12,8 @@ import {
 	profileRoute,
 	updateTopic,
 	addResMethods,
-	materialInfoRoute
+	materialInfoRoute,
+	notFoundRoute
 } from '../../../constants/pages-route';
 
 // components
@@ -23,6 +24,7 @@ import UniManagerPage from '../../../pages/uni-manager-page';
 import ViewerPage from '../../../pages/view-page';
 import ProfilePage from '../../../pages/profile-page';
 import MaterialInfoPage from '../../../pages/material-info-page';
+import FourOFour from '../../404/404-componant';
 
 export default function DynamicContentSection() {
 	return (
@@ -34,6 +36,7 @@ export default function DynamicContentSection() {
 				<Route path={uniMangerRoute} exact component={UniManagerPage} />
 				<Route path={updatematerialsRoute} exact component={ViewerPage} />
 				<Route path={materialInfoRoute} exact component={ViewerPage} />
+				<Route path={notFoundRoute} exact component={FourOFour} />
 				<Route path={`${materialInfoRoute}/:matID`} exact component={MaterialInfoPage} />
 				<Route path={cretateTopics} exact component={ViewerPage} />
 				<Route path={profileRoute} exact component={ProfilePage} />

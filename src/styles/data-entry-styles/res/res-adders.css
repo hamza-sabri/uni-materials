@@ -128,6 +128,29 @@
      object-fit: fill;
 }
 
+.video-previewer .name-wrapper {
+  width: 100%;
+  height: 2.5rem;
+  background: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.5rem 0;
+}
+
+.video-previewer .name-wrapper .name {
+  color: #e0dff7;
+  font-weight: 700;
+}
+
 .video-previewer:hover {
   cursor: pointer;
 }
