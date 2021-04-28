@@ -1,4 +1,4 @@
-import {  useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { match as infoPageMatch } from 'react-router-dom';
 import MaterialCard from "./../viewer/material-card";
 import TopicCard from "./../viewer/topic-card";
@@ -6,7 +6,7 @@ import { APIsCaller } from './../../../../requestes/apis-caller'
 import { getAllTopics } from './../../../../requestes/material-requests/mateirla'
 import { DynamicContentContext } from './../../../../contexts/home-context/dynamic-content-state-context';
 import loadMoreIcon from '../../../../assets/material-info-assets/load-more-icon.json';
-import lottie, { AnimationItem } from 'lottie-web';
+import lottie from 'lottie-web';
 
 import './../../../../styles/materials-info/materials-info.css';
 
@@ -24,21 +24,22 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	const loadMoreDivRef = useRef(null);
 
 	let material = materialsTable[materialID];
-	const [loadMoreAnimation, setLoadMoreAnimation] = useState<AnimationItem>();
+	let loadMoreAnimation: any;
 
+	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
 		setTopicsToDisplay(Object.entries(allTopics).slice(0, nextTopicsIndex + length).map(entry => entry[1]) as any);
 		setNextTopicsIndex(nextTopicsIndex + length);
 	}
 
 	useEffect(() => {
-		setLoadMoreAnimation(lottie.loadAnimation({
+		loadMoreAnimation = lottie.loadAnimation({
 			container: loadMoreDivRef.current!,
 			autoplay: false,
 			renderer: 'svg',
 			loop: true,
 			animationData: loadMoreIcon,
-		}));
+		});
 	}, [nextTopicsIndex]);
 
 	useEffect(() => {
@@ -46,9 +47,9 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		// this is to retrive sutiable topics in localstoreage.
 		// if topics retrived is valid then update "allTopics" with it's value
 		// else send a request to retrive data from database.
-		if (allTopics.length === 0 || allTopics === undefined) {
+		if (allTopics.length == 0 || allTopics == undefined) {
 			let res = JSON.parse(localStorage.getItem('currentTopics') as any) || [];
-			if (res.length === 0 || res === undefined || res.id !== materialID) {
+			if (res.length == 0 || res == undefined || res.id != materialID) {
 				const getData = async () => {
 					const requestParams = { materialID: materialID };
 					const { data: topicsTable } = await APIsCaller({ api: getAllTopics, requestParams });
@@ -74,12 +75,12 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		// the second when the other useEffect populates allTopics with fetched data
 		// so this if statment servers as a gaurd for that.
 		// note: if we found better way to handle this I'll change it, but for now i think it's working.
-		if (allTopics.length !== 0) {
+		if (allTopics.length != 0) {
 			// store current fetched topics for if page is refresed.
 			localStorage.setItem('currentTopics', JSON.stringify({ id: materialID, topics: allTopics }) as any)
 
 
-			setTopicsFound((Object.keys(allTopics).length !== 0) ? true : false);
+			setTopicsFound((Object.keys(allTopics).length != 0) ? true : false);
 
 			// add the first n topics to be displied on the initial refresh,(where n=TOPIC_SEGEMENT_LENGTH).
 			addNewSetOfTopicsToDisplay(allTopics);
@@ -111,6 +112,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			</div>
 
 			<div id="topics-section">
+				{/* <p>Topics: </p> */}
 				<div id="topics">
 					{
 						(topicsFound) ?
@@ -122,7 +124,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 					{
 						(nextTopicsIndex < Object.keys(allTopics).length) ?
-							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={()=>{loadMoreAnimation?.play()}} onMouseLeave={()=>{loadMoreAnimation?.stop()}}></div>)
+							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={()=>{loadMoreAnimation!.play()}} onMouseLeave={()=>{loadMoreAnimation!.stop()}}></div>)
 							: null
 					}
 				</div>
