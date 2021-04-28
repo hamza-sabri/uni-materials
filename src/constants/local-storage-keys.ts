@@ -1,6 +1,5 @@
 // keys
 const IDTokenKey: string = 'uni-mat-IDToken';
-const emailKey: string = 'uni-mat-email';
-const passwordKey: string = 'uni-mat-password';
+const refreshTokenKey: string = 'uni-mat-refresh-IDToken';
 
-export { IDTokenKey, emailKey, passwordKey };
+export { IDTokenKey, refreshTokenKey };

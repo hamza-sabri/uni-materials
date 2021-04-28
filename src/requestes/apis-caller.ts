@@ -2,7 +2,7 @@ import { ACCEPTED, OK, UNAUTHORIZED, refreshTokenLimit, BAD_REQUEST } from '../c
 import { apiCallerInterface } from '../interfaces/api-caller';
 import { responseInterface } from '../interfaces/responses';
 import { getAxiosInstance } from './axios-creation';
-import { getUserCredentials, signin } from './user-requestes/user';
+import { refreshUserToken } from './user-requestes/user';
 
 let times: number = 0;
 
@@ -19,7 +19,7 @@ const APIsCaller = async ({ api, requestBody, requestParams }: apiCallerInterfac
 		const { status } = response;
 		if (status >= OK && status <= ACCEPTED) return response;
 		if (status === UNAUTHORIZED) {
-			if ((await refreshIDToken()) && times < refreshTokenLimit) {
+			if ((await refreshUserToken()) && times < refreshTokenLimit) {
 				times++;
 				return APIsCaller({ api, requestBody, requestParams });
 			} else times = 0;
@@ -28,17 +28,6 @@ const APIsCaller = async ({ api, requestBody, requestParams }: apiCallerInterfac
 	} catch (err) {
 		console.error(err);
 		return { status: BAD_REQUEST, data: {} };
-	}
-};
-
-// this function would resign the user in again
-const refreshIDToken = async (): Promise<boolean> => {
-	const { email, password } = getUserCredentials();
-	if (!email || !password) return false;
-	try {
-		return await signin({ email, password });
-	} catch (err) {
-		return false;
 	}
 };
 
