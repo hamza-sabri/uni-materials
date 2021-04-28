@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import Avatar from './avatar';
 import '../../../../styles/dynamic-content/user-profile/user-profile.css';
 

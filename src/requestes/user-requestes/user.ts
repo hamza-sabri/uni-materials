@@ -40,6 +40,7 @@ const signin = async (userData: userCredentials): Promise<any> => {
   } catch (err) {
     if (err && err.response) {
       const { data } = err.response;
+      if(!data.error) return { result: false, message: "something went wrong please try again" };
       return { result: false, message: data.error.message };
     }
     return { result: false, message: signinError };
