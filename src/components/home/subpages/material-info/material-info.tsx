@@ -39,7 +39,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			loop: true,
 			animationData: loadMoreIcon,
 		}));
-	}, [setLoadMoreAnimation, nextTopicsIndex]);
+	}, [nextTopicsIndex]);
 
 	useEffect(() => {
 		// I think this is a bit overkill but why not :).
@@ -64,7 +64,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		return () => {
 			localStorage.removeItem('currentTopics');
 		}
-	}, [allTopics, materialID]);
+	}, []);
 
 
 
@@ -84,7 +84,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			// add the first n topics to be displied on the initial refresh,(where n=TOPIC_SEGEMENT_LENGTH).
 			addNewSetOfTopicsToDisplay(allTopics);
 		}
-	}, [allTopics, materialID, addNewSetOfTopicsToDisplay]);
+	}, [allTopics]);
 
 
 
