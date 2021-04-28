@@ -106,5 +106,6 @@ const forgetPassword = (email:string)=>{
 	.catch(()=> Swal.fire("Ops!","sorry but something went wrong :(", "error"))
 }
 
+// TODO convert this into a API on your backend
 const isLogedin =  ()=> getStoredItems(refreshTokenKey);
 export { signin, getStoredItems, signup, clearStorage, getUserProfile, refreshUserToken, isLogedin, forgetPassword };
