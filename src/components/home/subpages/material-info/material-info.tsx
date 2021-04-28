@@ -124,7 +124,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 					{
 						(nextTopicsIndex < Object.keys(allTopics).length) ?
-							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={()=>{loadMoreAnimation!.play()}} onMouseLeave={()=>{loadMoreAnimation!.stop()}}></div>)
+							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={()=>{loadMoreAnimation?.play()}} onMouseLeave={()=>{loadMoreAnimation?.stop()}}></div>)
 							: null
 					}
 				</div>
