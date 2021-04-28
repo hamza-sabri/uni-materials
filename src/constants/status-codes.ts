@@ -9,7 +9,7 @@ const UNAUTHORIZED: number = 401;
 const NOT_FOUND: number = 404;
 
 // related constants
-const refreshTokenLimit: number = 2;
+const refreshTokenLimit: number = 4;
 
 // functions
 const getErrorStatusCode = (message: string): number => {
