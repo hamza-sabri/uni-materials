@@ -1,19 +1,21 @@
 import React, { useEffect, useState, useRef } from 'react';
-import avatar from '../../../../assets/home/profile/avatar.png';
+import defualtAvatar from '../../../../assets/home/profile/avatar.png';
 import '../../../../styles/dynamic-content/user-profile/user-profile.css';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import ProfileDropZone from './profile-dropzone';
 import saveIcon from '../../../../assets/home/profile/save.svg';
+import { APIsCaller } from '../../../../requestes/apis-caller';
+import { updateUserProfile } from '../../../../requestes/user-requestes/user';
+import { OK } from '../../../../constants/status-codes';
 
 interface SelectProtected {
 	readonly wrapperElement: HTMLDivElement;
 }
 
-export default function Avatar({ data, unisDataList }: any) {
+export default function Avatar({ data, unisDataList, setUser }: any) {
 	const MySwal = withReactContent(Swal);
 
-	const src = avatar;
 	const { userProfile } = data;
 	const { firstName, lastName, email, universityName } = userProfile;
 	const fullName = firstName + ' ' + lastName;
@@ -29,7 +31,7 @@ export default function Avatar({ data, unisDataList }: any) {
 	const [ disabled, setDisabled ] = useState(false);
 
 	const tempUnisNames: string[] = unisDataList.map(({ doc }: any) => doc.name) || [];
-	const [ unisNames, setUnisNames ] = useState(tempUnisNames || []);
+	const [ unisNames, setUnisNames ] = useState(tempUnisNames);
 
 	let index = 0;
 	const [ search, setSearch ] = useState(uniName);
@@ -66,13 +68,46 @@ export default function Avatar({ data, unisDataList }: any) {
 		}
 	};
 
+	const submitHandler = async()=>{
+		Swal.showLoading();
+		try{
+			const name:string  = nameRef.current!.value;
+			const email:string = emailRef.current!.value;
+			const universityName:string = uniNameRef.current!.value;
+			const profileAvatar:string = imgRef.current!.src;
+			let uniID:string = "";
+			unisDataList.forEach(({doc}:any) =>(doc.name === universityName)? uniID = doc.id:"")
+			if(uniID === "") Swal.fire("Ops!", "The univeristy you choose no longer exist please try another","error");
+			else{
+				const [firstName, lastName] = name.split(" ");
+				const requestBody = {
+					uniID,
+					universityName,
+					email,
+					firstName,
+					lastName,
+					profileAvatar
+				}
+				
+			const {data, status} = 	await APIsCaller({api:updateUserProfile,requestBody});
+			if(status === OK) {
+				Swal.fire("Woow!", data.message, "success");
+			}else{
+				throw new Error("hello")
+			}
+			}
+		}catch(err){
+			Swal.fire("Ops!", "Sorry something went wrong please try again latter!","error");
+		}
+	}
+
 	return (
 		<div className="head-div">
 			<img
 				ref={imgRef}
 				alt=""
 				className="profile-avatar"
-				src={src}
+				src={userProfile.profileAvatar || defualtAvatar}
 				onDoubleClick={() =>
 					MySwal.fire({
 						title: 'select image',
@@ -138,7 +173,7 @@ export default function Avatar({ data, unisDataList }: any) {
 				)}
 			</div>
 
-			<div className="save-button">
+			<div className="save-button" onClick={submitHandler}>
 				<img alt="save" src={saveIcon} />
 			</div>
 		</div>

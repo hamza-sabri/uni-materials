@@ -8,6 +8,7 @@ const rootURL: string = 'https://us-central1-uni-materials-412a2.cloudfunctions.
 const signinRoute: string = '/users/signin';
 const signupRoute: string = '/users/signup';
 const userProfileRoute:string = '/users/profile';
+const updateProfileRoute:string = '/users/update';
 const refreshTokenRoute:string = "https://securetoken.googleapis.com/v1/token";
 
 // uni routes
@@ -60,5 +61,6 @@ export {
 	deleteTopicRoute,
 	createResRoute,
 	userProfileRoute,
-	refreshTokenRoute
+	refreshTokenRoute,
+	updateProfileRoute
 };

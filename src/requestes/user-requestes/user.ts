@@ -1,5 +1,5 @@
 import { userCredentials } from '../../interfaces/user/credentials';
-import { urlConcatenator, signinRoute, signupRoute, userProfileRoute, refreshTokenRoute } from '../../constants/urls';
+import { urlConcatenator, signinRoute, signupRoute, userProfileRoute, refreshTokenRoute, updateProfileRoute } from '../../constants/urls';
 import { IDTokenKey, refreshTokenKey } from '../../constants/local-storage-keys';
 import { CREATED, getErrorStatusCode, OK } from '../../constants/status-codes';
 import { signinError, signUpError, userCreated } from '../../constants/messages';
@@ -78,6 +78,15 @@ const getUserProfile = async (axios: AxiosInstance) => {
 	}
 };
 
+const updateUserProfile = async(axios:AxiosInstance, requestBody:any) =>{
+	try{
+		const { status, data } = await axios.put(updateProfileRoute,requestBody);
+		return { data, status };
+	}catch(err){
+		return { status: getErrorStatusCode(err.message), data: err };
+	}
+}
+
 const refreshUserToken = async () => {
 	console.log("refreshing");
 	const refreshToken = getStoredItems(refreshTokenKey);
@@ -112,4 +121,4 @@ const forgetPassword = (email:string)=>{
 
 // TODO convert this into a API on your backend
 const isLogedin =  ()=> getStoredItems(refreshTokenKey);
-export { signin, getStoredItems, signup, clearStorage, getUserProfile, refreshUserToken, isLogedin, forgetPassword };
+export { signin, getStoredItems, signup, clearStorage, getUserProfile, refreshUserToken, isLogedin, forgetPassword, updateUserProfile };

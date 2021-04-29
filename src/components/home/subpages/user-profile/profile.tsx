@@ -7,10 +7,12 @@ import { DynamicContentContext } from '../../../../contexts/home-context/dynamic
 export default function Profile() {
 	const { unisDataList, user, setUser } = useContext(DynamicContentContext);
 
+	// replace the empty div with a loading container
+
 	return (
 		<div>
-			{/* if the user in undefined or null .... show a loading screan */}
-			<Avatar data={user} unisDataList={unisDataList} />
+			{!user.userProfile? <div></div>: <Avatar data={user} unisDataList={unisDataList} setUser={setUser} />}
+			
 		</div>
 	);
 }
