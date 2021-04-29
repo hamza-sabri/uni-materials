@@ -63,7 +63,7 @@
 }
 
 .head-div .profile-info .profile-info-data:enabled {
-  background: white;
+  background: rgba(224, 216, 216, 0.6);
 }
 
 .head-div .profile-info .autoContainer {
