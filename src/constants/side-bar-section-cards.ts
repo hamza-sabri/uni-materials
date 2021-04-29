@@ -17,7 +17,7 @@ import logOutIcon from '../assets/home/side-bar/logout.svg';
 import guideIcon from '../assets/home/side-bar/guide.svg';
 
 // pages
-import { cretateTopics, dataEntryRoute, homePageRoute, updatematerialsRoute, uniMangerRoute, materialInfoRoute, singinPageRoute, notFoundRoute, profileRoute } from './pages-route';
+import { cretateTopics, dataEntryRoute, homePageRoute, updatematerialsRoute, uniMangerRoute, materialInfoRoute, singinPageRoute, notFoundRoute, profileRoute, guidanceRoute } from './pages-route';
 
 const dataEntrySectionCards: sideBarSectionInterface = {
 	sectionTitle: 'Data Entry',
@@ -34,7 +34,7 @@ const dataEntrySectionCards: sideBarSectionInterface = {
 		{ cardName: 'Settings', routeTo: notFoundRoute, cardIcon: settingsIcon },
 		{ cardName: 'Feedback', routeTo: notFoundRoute, cardIcon: feedbackIcon },
 		{ cardName: 'Uni managers', routeTo: uniMangerRoute, cardIcon: managerIcon },
-		{ cardName: 'Guidance', routeTo: notFoundRoute, cardIcon: guideIcon },
+		{ cardName: 'Guidance', routeTo: guidanceRoute, cardIcon: guideIcon }, 
 		{ cardName: 'Log out', routeTo: singinPageRoute, cardIcon: logOutIcon },
 
 	]

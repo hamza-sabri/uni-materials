@@ -13,6 +13,7 @@ const profileRoute: string = '/profile';
 const updateTopic: string = '/topics/update';
 const addResMethods:string = '/topic/res/add';
 const materialInfoRoute:string = '/material/info';
+const guidanceRoute:string = '/website/guidance';
 const notFoundRoute:string = '/not-found';
 
 
@@ -30,5 +31,6 @@ export {
 	updateTopic,
 	addResMethods,
 	materialInfoRoute,
-	notFoundRoute
+	notFoundRoute,
+	guidanceRoute
 };
