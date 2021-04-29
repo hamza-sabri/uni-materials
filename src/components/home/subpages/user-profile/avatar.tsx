@@ -108,6 +108,7 @@ export default function Avatar({ data, unisDataList, setUser }: any) {
 				alt=""
 				className="profile-avatar"
 				src={userProfile.profileAvatar || defualtAvatar}
+				onDrag={()=>  window.open(userProfile.profileAvatar || defualtAvatar, "_blank")}
 				onDoubleClick={() =>
 					MySwal.fire({
 						title: 'select image',

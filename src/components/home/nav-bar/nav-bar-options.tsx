@@ -16,7 +16,7 @@ export default function NavBarOptions() {
 		<div className="bar-options">
 			<div className="option-wrpper">
 				<div className="user-avatar">
-					<img alt="" src={defualtUserImage} />
+					<img alt="" src={user.userProfile?.profileAvatar || defualtUserImage} onClick={()=> console.log('TODO go to the profile page')}/>
 				</div>
 				<div className="user-name">{UserName}</div>
 			</div>
