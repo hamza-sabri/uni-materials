@@ -143,3 +143,12 @@
 	margin: 0;
 	background: $linearColor;
 }
+
+.user-profile-loading{
+	width:100%;
+	height:92vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #a5a0ff;
+}
