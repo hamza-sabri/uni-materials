@@ -42,9 +42,9 @@
 .head-div .profile-info .profile-info-data {
   font-size: 20px;
   margin: 12px;
-  padding-left: 1rem;
+  padding-left: .7rem;
   font-weight: 600;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border: none;
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -66,78 +66,32 @@
   background: rgba(224, 216, 216, 0.6);
 }
 
-.head-div .profile-info .autoContainer {
-  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
-          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
-  position: absolute;
-  left: 33.7%;
-  top: 32vh;
-  background: #ffffff;
-  z-index: 3;
-  border-radius: 2px;
-  max-height: 50%;
-  overflow-x: hidden;
-}
-
-.head-div .profile-info .autoContainer .option {
-  cursor: pointer;
-  width: 100%;
-}
-
-.head-div .profile-info .autoContainer .option :hover {
-  background: #cfcdcd;
-}
-
-.head-div .profile-info .autoContainer .option .uni-name-option {
-  display: block;
-  padding: 10px 0px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-
-.head-div .profile-info .autoContainer::-webkit-scrollbar {
-  display: none;
-}
-
-.head-div .profile-info .user-name,
-.head-div .profile-info .user-uniName {
-  margin-left: 0px;
-}
-
-.head-div .head-right-div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.head-div .head-right-div .edit-btn {
-  width: 80px;
-  font-weight: 600;
-  background: #766ffa;
-  color: white;
-  border-radius: 5px;
+.head-div .profile-info .dropdown-menu {
   border: none;
-  outline: none;
-  margin-top: 5%;
-  text-align: center;
-  padding: 0.8rem;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+  -webkit-appearance: none;
+  overflow: hidden;
+  font-size: 20px;
+  margin: 12px;
+  font-weight: 600;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif, "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border: none;
+  width: auto;
+  -webkit-transition: font-size 0.3s;
+  transition: font-size 0.3s;
 }
 
-.head-div .head-right-div .edit-btn:hover {
-  background: #6f67fd;
-  width: 40%;
+.head-div .profile-info .dropdown-menu:hover {
+  font-size: 30px;
   cursor: pointer;
+}
+
+.head-div .profile-info .dropdown-menu:disabled {
+  background: none;
+  color: #000000;
+}
+
+.head-div .profile-info .dropdown-menu:enabled {
+  background: rgba(224, 216, 216, 0.6);
 }
 
 .save-button {
@@ -158,8 +112,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
 }
