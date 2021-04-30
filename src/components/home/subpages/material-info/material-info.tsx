@@ -4,6 +4,7 @@ import MaterialCard from "./../viewer/material-card";
 import TopicCard from "./../viewer/topic-card";
 import { APIsCaller } from './../../../../requestes/apis-caller'
 import { getAllTopics } from './../../../../requestes/material-requests/mateirla'
+import { deleteTopic } from './../../../../requestes/material-requests/mateirla'
 import { DynamicContentContext } from './../../../../contexts/home-context/dynamic-content-state-context';
 import loadMoreIcon from '../../../../assets/material-info-assets/load-more-icon.json';
 import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
@@ -11,8 +12,6 @@ import lottie, { AnimationItem } from 'lottie-web';
 
 import './../../../../styles/materials-info/materials-info.css';
 
-// TODO: Show loading.
-// TODO: add text to the clearly titled load more btn.
 export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: string }> }) {
 	const materialID = match.params.matID;
 	const TOPIC_SEGEMENT_LENGTH = 11; // how many topic in each page (initial viwed topics count and how many to add each load more click).
@@ -34,8 +33,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
-		setTopicsToDisplay(Object.entries(allTopics).slice(0, nextTopicsIndex + length).map(entry => entry[1]) as any);
-		setNextTopicsIndex(nextTopicsIndex + length);
+		setTopicsToDisplay(Object.entries(allTopics).slice(0, nextTopicsIndex + length).map((entry) => entry[1]) as any);
+		setNextTopicsIndex(nextTopicsIndex + length)
 	}
 
 	useEffect(() => {
@@ -98,7 +97,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		}
 	}, [allTopics]);
 
-	useEffect(()=> {
+	useEffect(() => {
 		// loading animation for the loading more animation.
 		setLoadMoreAnimation(lottie.loadAnimation({
 			container: loadMoreDivRef.current!,
@@ -108,6 +107,17 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			animationData: loadMoreIcon,
 		}));
 	}, [loadMoreDivRef.current])
+
+	let deleteTopicFun = async (materialID: any, topicID: any) => {
+		const requestParams = { materialID: materialID, topicID: topicID };
+		const { data: topicsTable } = await APIsCaller({ api: deleteTopic, requestParams });
+		removeFromAllTopics(topicID);
+	}
+	
+	let removeFromAllTopics = (topicID: any)=>{
+		delete allTopics[topicID];
+		setAllTopics(allTopics);
+	}
 
 	// disblay waiting for conext result
 	// show spining circle, a moneky eating a banana or a cat photo anything.
@@ -138,7 +148,13 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 							<div ref={loadingDivRef}></div>
 							: (topicsFound) ?
 								topicsToDisplay.map((topic: any, index) => {
-									return <TopicCard key={index} cardTitle={topic.topicName || material.materialName} cardPhoto={topic.topicPhoto || material.materialPhoto} cardRate={topic.topicRate || material.totalRate} />
+									return <TopicCard key={index}
+										materialID={materialID}
+										cardID={Object.keys(allTopics)[index]}
+										cardTitle={topic.topicName || material.materialName}
+										cardPhoto={topic.topicPhoto || material.materialPhoto}
+										cardRate={topic.topicRate || material.totalRate}
+										deleteTopicFun={deleteTopicFun} />
 								})
 								: <p>No Topics Found</p>
 					}

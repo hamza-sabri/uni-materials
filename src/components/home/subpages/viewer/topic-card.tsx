@@ -1,13 +1,15 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { cardInterface } from '../../../../interfaces/cards/cards';
+// import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/topic-card/topic-card.css';
-import triangle from '../../../../assets/home/triangle.svg';
 import deleteIcon from '../../../../assets/material-info-assets/Delete_icon.json';
 import editIcon from '../../../../assets/material-info-assets/Edit_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
 
-export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, routeTo }: cardInterface) {
+
+// TODO: Check the card interface
+export default function TopicCard({materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, deleteTopicFun }: any) {
+	console.log(materialID,'-',cardID);
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
@@ -41,9 +43,9 @@ export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, rout
 				<img src={cardPhoto} alt="card-img" />
 				<div className="top-part-container">
 					<div className="icons-contianer">
-						{/*  onClick: Apicall */}
-						<div className="icon delete-icon" ref={deleteBtnRef} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
-						{/* onClick: Route */}
+						{/*  HTODO: onClick: Apicall */}
+						<div className="icon delete-icon" ref={deleteBtnRef} onClick={async()=> {let res= deleteTopicFun(materialID, cardID); console.log('delres', res)}} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
+						{/* HTODO: onClick: Route */}
 						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
 					</div>
 
