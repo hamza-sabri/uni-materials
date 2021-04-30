@@ -62,10 +62,11 @@
 }
 
 .option-wrpper .user-avatar {
-  width: 65px;
-  height: 65px;
+  width: 55px;
+  height: 55px;
   overflow: hidden;
   border-radius: 100%;
+  margin-top: .25rem;
 }
 
 .option-wrpper .user-avatar img {
