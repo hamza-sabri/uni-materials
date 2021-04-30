@@ -121,6 +121,24 @@
                 cursor: pointer;
 
                 overflow: hidden;
+
+                p {
+                    position: absolute;
+                    left: 35%;
+                    top: 48%;
+                    transform: translate(-50%, -50%);
+
+                    width: 100%;
+
+                    color: #9013FE;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+
+                svg {
+                    position: relative;
+                    left: 25%;
+                }
             }
 
             p {
