@@ -11,6 +11,7 @@ import loadingIcon from '../../../../assets/material-info-assets/loading_icon.js
 import lottie, { AnimationItem } from 'lottie-web';
 
 import './../../../../styles/materials-info/materials-info.css';
+import Swal from 'sweetalert2';
 
 export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: string }> }) {
 	const materialID = match.params.matID;
@@ -113,10 +114,13 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		const { data: topicsTable } = await APIsCaller({ api: deleteTopic, requestParams });
 		removeFromAllTopics(topicID);
 	}
-	
-	let removeFromAllTopics = (topicID: any)=>{
+
+	// Swal.showLoading
+	let removeFromAllTopics = (topicID: any) => {
 		delete allTopics[topicID];
-		setAllTopics(allTopics);
+		setAllTopics(() => allTopics);
+		localStorage.setItem('currentTopics', JSON.stringify({ id: materialID, topics: allTopics }) as any)
+		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
 	}
 
 	// disblay waiting for conext result
@@ -145,7 +149,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 				<div id="topics">
 					{
 						(loading) ?
-							<div ref={loadingDivRef}></div>
+							<div className="loading-div" ref={loadingDivRef}></div>
 							: (topicsFound) ?
 								topicsToDisplay.map((topic: any, index) => {
 									return <TopicCard key={index}

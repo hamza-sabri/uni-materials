@@ -148,6 +148,11 @@
   left: 25%;
 }
 
+#materials-info-container #topics-section #topics .loading-div {
+  width: 50%;
+  height: 50%;
+}
+
 #materials-info-container #topics-section #topics p {
   background-color: transparent;
 }

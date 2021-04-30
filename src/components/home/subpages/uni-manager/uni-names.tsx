@@ -6,6 +6,7 @@ import DeleteUni from "./delete-uni";
 interface SelectProtected {
   readonly wrapperElement: HTMLDivElement;
 }
+
 type uniNames = {
   unisDataList: any;
   setUnisDataList: any;
@@ -40,6 +41,7 @@ export default function UnisNames({
   let index = 0;
   const animated: any = useRef(null);
   const [flag, setFlag] = useState(true); // to clear data (locations and majors) depending on the name
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const setUniDex = (uni: string) => { // set the uni index to fill data locations and majors if founds
     if (unisNames.includes(uni)) {
       // setSearch(uni);
@@ -117,22 +119,19 @@ export default function UnisNames({
       autoplay: true,
       animationData: uniManagerPic,
     });
-  }, []);
 
-  useEffect(() => {
     if (unisNames[0].length > 0) {
       const temp = unisNames[0];
       setUniDex(temp);
       setSearch(temp);
     }
-  }, []);
 
-  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutSide);
     return () => {
       document.removeEventListener("mousedown", handleClickOutSide);
     };
   }, []);
+
   const selectProtected: SelectProtected = {
     wrapperElement: document.createElement("div"),
   };
@@ -143,10 +142,6 @@ export default function UnisNames({
     if (wrap && !wrap.contains(e.target)) {
       setDisplay(false);
     }
-  };
-  const makeChange = () => {
-    console.log(search);
-    setUniDex(search);
   };
 
   return (

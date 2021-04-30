@@ -7,6 +7,9 @@ const rootURL: string = 'https://us-central1-uni-materials-412a2.cloudfunctions.
 // user routes
 const signinRoute: string = '/users/signin';
 const signupRoute: string = '/users/signup';
+const userProfileRoute:string = '/users/profile';
+const updateProfileRoute:string = '/users/update';
+const refreshTokenRoute:string = "https://securetoken.googleapis.com/v1/token";
 
 // uni routes
 const getUnisRoute: string = '/unis/all';
@@ -27,11 +30,15 @@ const updateTopicRoute:string = '/materials/topic/update';
 const deleteTopicRoute:string = '/materials/topic/delete';
 
 
+// res
+const createResRoute: string = '/materials/topic/res/create';
+
+
 // functions
 const urlConcatenator = (seconderyPath: string[]): string => {
-	let apiPath: string = rootURL;
-	seconderyPath.forEach((route) => (apiPath += route));
-	return apiPath;
+    let apiPath: string = rootURL;
+    seconderyPath.forEach((route) => (apiPath += route));
+    return apiPath;
 };
 
 export {
@@ -51,5 +58,9 @@ export {
 	createTopicRoute,
 	getAllTopicsRoute,
 	updateTopicRoute,
-	deleteTopicRoute
+	deleteTopicRoute,
+	createResRoute,
+	userProfileRoute,
+	refreshTokenRoute,
+	updateProfileRoute
 };

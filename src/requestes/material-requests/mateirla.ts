@@ -16,8 +16,8 @@ const createNewMaerial = async (axios: AxiosInstance, requestBody: any): Promise
 		const { status, data } = await axios.post(createMaterialRoute, requestBody);
 		return { data, status };
 	} catch (err) {
-		console.log(JSON.stringify(err));
-		return { status: getErrorStatusCode(err.message), data: err };
+		const message = err.response.data.error.message;
+		return { status: getErrorStatusCode(err.message), data: {message} };
 	}
 };
 

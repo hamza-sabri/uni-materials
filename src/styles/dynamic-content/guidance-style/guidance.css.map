@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,2BAA2B,CAAA;EACvB,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,UAAU,EAAE,IAAI;EAChB,QAAQ,EAAE,MAAM;EAEhB,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,MAAM;EACnB,cAAc,EAAE,MAAM;CACzB;;AAED,AAAA,2BAA2B,AAAA,mBAAmB,CAAA;EAC1C,OAAO,EAAE,IAAI;CAChB",
+    "sources": [
+        "guidance.scss"
+    ],
+    "names": [],
+    "file": "guidance.css"
+}

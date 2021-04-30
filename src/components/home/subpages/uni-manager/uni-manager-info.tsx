@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { UniDataContext } from "../../../../contexts/signup-context/uni-data-context";
 import "../../../../styles/dynamic-content/uni-manager/uni-manager.css";
 import UnisNames from "./uni-names";
 import UniLocations from "./uni-locations";
@@ -8,8 +7,6 @@ import SubmitBtn from "./submit-btn";
 import { DynamicContentContext } from "../../../../contexts/home-context/dynamic-content-state-context";
 
 export default function UniManagerInfo() {
-  const unisDataListTemp = useContext(UniDataContext);
-  //const [unisDataList, setUnisDataList] = useState(unisDataListTemp);
   const {unisDataList, setUnisDataList} = useContext(DynamicContentContext);
 
 

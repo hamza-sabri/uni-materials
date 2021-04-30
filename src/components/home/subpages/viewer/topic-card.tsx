@@ -5,6 +5,7 @@ import '../../../../styles/viewer/topic-card/topic-card.css';
 import deleteIcon from '../../../../assets/material-info-assets/Delete_icon.json';
 import editIcon from '../../../../assets/material-info-assets/Edit_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
+// import editIcon from '../../../../assets/material-info-assets/Edit_icon.png';
 
 
 // TODO: Check the card interface
@@ -13,10 +14,8 @@ export default function TopicCard({materialID, cardPhoto, cardTitle, cardRate, c
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
-
-
-		let [deleteAnim, setDeleteAnim] = useState<AnimationItem>();
-		let [editAnim, setEditAnim] = useState<AnimationItem>();
+		const [deleteAnim,setDeleteAnim] = useState<AnimationItem>();
+		const [editAnim,setEditAnim] = useState<AnimationItem>();
 
 		useEffect(() => {
 			setDeleteAnim(lottie.loadAnimation({
@@ -44,7 +43,7 @@ export default function TopicCard({materialID, cardPhoto, cardTitle, cardRate, c
 				<div className="top-part-container">
 					<div className="icons-contianer">
 						{/*  HTODO: onClick: Apicall */}
-						<div className="icon delete-icon" ref={deleteBtnRef} onClick={async()=> {let res= deleteTopicFun(materialID, cardID); console.log('delres', res)}} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
+						<div className="icon delete-icon" ref={deleteBtnRef} onClick={async()=> {await deleteTopicFun(materialID, cardID)}} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
 						{/* HTODO: onClick: Route */}
 						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
 					</div>

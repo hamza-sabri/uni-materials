@@ -4,8 +4,10 @@ import SignupForm from './signup-forms';
 import SignupImage from './signup-image';
 import { namesForm } from '../../constants/form-arrays';
 import { formPageInterface } from '../../interfaces/forms/signup-form';
+import { alreadyLogedIn } from '../../utilities/user-checker';
 
 export default function SignupContainer() {
+	alreadyLogedIn();
 	const [ signupResult, setSignupResult ] = useState({
 		email: '',
 		password: '',

@@ -4,7 +4,7 @@
 }
 
 .data-entry-container {
-  width: 80%;
+  width: 85%;
   height: 90%;
   background: white;
   border-radius: 18px;
@@ -12,17 +12,26 @@
   overflow-x: hidden;
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+}
+
+.cards-wrpper {
+  width: 100%;
+  height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2.5rem;
 }
 
 .methods-header {
-  display: block;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -33,10 +42,20 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   font-size: 24px;
   font-weight: 700;
-  margin-top: 1rem;
-  height: 20%;
+  height: 25%;
+}
+
+.methods-header h3 {
+  margin: 0;
+  margin-top: .5rem;
+  font-weight: 650;
+  font-size: 26px;
 }
 
 .data-entry-container::-webkit-scrollbar {
@@ -44,8 +63,8 @@
 }
 
 .data-entry-method {
-  width: 40%;
-  height: 50%;
+  width: 35%;
+  height: 40vh;
   overflow: hidden;
   -webkit-box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 0 2px 4px 0 rgba(51, 51, 51, 0.4);
@@ -74,7 +93,7 @@
   -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
           box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
   width: 45%;
-  height: 55%;
+  height: 55vh;
 }
 
 .data-entry-method-img {
@@ -102,18 +121,24 @@
       -ms-flex-pack: center;
           justify-content: center;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .res-adder {
   cursor: pointer;
-  width: 45%;
-  height: 50%;
+  min-width: 300px;
+  max-width: 30%;
+  min-width: 300px;
+  height: 35vh;
+  max-height: 300px;
   border-radius: 15px;
   margin: 1rem 0;
   overflow: hidden;
-  padding: 0;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
 }
 
 .res-adder .animation-container {
@@ -131,6 +156,13 @@
       -ms-flex-align: center;
           align-items: center;
   position: relative;
+  border-radius: 15px;
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+}
+
+.res-adder .animation-container svg {
+  max-width: 60%;
 }
 
 .res-adder .res-type-container {
@@ -146,11 +178,15 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  bottom: 2.5rem;
+  bottom: 1.5rem;
   color: white;
   font-size: 20px;
   font-weight: 500;
   z-index: 1000;
   position: absolute;
+}
+
+.res-adder .hidden-div {
+  display: none;
 }
 /*# sourceMappingURL=data-entry.css.map */
