@@ -64,8 +64,13 @@ export default function UniLocations({ locations, setLocations }: uniLocation) {
             className="uni-locations-input input"
             placeholder="add location"
             autoComplete="off"
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                addLocation();
+              }
+            }}
           />
-          <div className='add-button-container'>
+          <div className="add-button-container">
             <button className="add-uni-location-button" onClick={addLocation}>
               Add Location
             </button>
