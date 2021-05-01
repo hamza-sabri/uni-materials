@@ -111,11 +111,49 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 	let deleteTopicFun = async (materialID: any, topicID: any) => {
 		const requestParams = { materialID: materialID, topicID: topicID };
-		const { data: topicsTable } = await APIsCaller({ api: deleteTopic, requestParams });
-		removeFromAllTopics(topicID);
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!',
+			showLoaderOnConfirm: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "Deleting Topic",
+					text: "Please Wait...",
+					didOpen: async () => {
+						Swal.showLoading();
+						let res = await APIsCaller({ api: deleteTopic, requestParams });
+						Swal.hideLoading();
+						console.log('del-res', res);
+						removeFromAllTopics(topicID);
+						if (res.status === 200) {
+							// after deleting completed
+							Swal.fire(
+								'Deleted!',
+								'Your file has been deleted.',
+								'success'
+							)
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Something went wrong!',
+								footer: '<a href>Please Try Agian</a>'
+							})
+						}
+
+					}
+				})
+			}
+		})
 	}
 
-	// Swal.showLoading
+	// 
 	let removeFromAllTopics = (topicID: any) => {
 		delete allTopics[topicID];
 		setAllTopics(() => allTopics);
