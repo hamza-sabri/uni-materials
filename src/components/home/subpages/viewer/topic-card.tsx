@@ -5,17 +5,17 @@ import '../../../../styles/viewer/topic-card/topic-card.css';
 import deleteIcon from '../../../../assets/material-info-assets/Delete_icon.json';
 import editIcon from '../../../../assets/material-info-assets/Edit_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
+import Swal from 'sweetalert2';
 // import editIcon from '../../../../assets/material-info-assets/Edit_icon.png';
 
 
 // TODO: Check the card interface
-export default function TopicCard({materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, deleteTopicFun }: any) {
-	console.log(materialID,'-',cardID);
+export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, deleteTopicFun }: any) {
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
-		const [deleteAnim,setDeleteAnim] = useState<AnimationItem>();
-		const [editAnim,setEditAnim] = useState<AnimationItem>();
+		const [deleteAnim, setDeleteAnim] = useState<AnimationItem>();
+		const [editAnim, setEditAnim] = useState<AnimationItem>();
 
 		useEffect(() => {
 			setDeleteAnim(lottie.loadAnimation({
@@ -35,7 +35,26 @@ export default function TopicCard({materialID, cardPhoto, cardTitle, cardRate, c
 			}));
 		}, [])
 
-
+		let handleDeleting = async () => {
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					deleteTopicFun(materialID, cardID)
+					Swal.fire(
+						'Deleted!',
+						'Your file has been deleted.',
+						'success'
+					)
+				}
+			})
+		}
 
 		return (
 			<div className="topic-card">
@@ -43,7 +62,7 @@ export default function TopicCard({materialID, cardPhoto, cardTitle, cardRate, c
 				<div className="top-part-container">
 					<div className="icons-contianer">
 						{/*  HTODO: onClick: Apicall */}
-						<div className="icon delete-icon" ref={deleteBtnRef} onClick={async()=> {await deleteTopicFun(materialID, cardID)}} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
+						<div className="icon delete-icon" ref={deleteBtnRef} onClick={() => { handleDeleting() }} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
 						{/* HTODO: onClick: Route */}
 						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
 					</div>
