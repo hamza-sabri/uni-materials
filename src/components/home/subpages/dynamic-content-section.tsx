@@ -27,6 +27,7 @@ import ProfilePage from '../../../pages/profile-page';
 import MaterialInfoPage from '../../../pages/material-info-page';
 import FourOFour from '../../404/404-componant';
 import GuidancePage from '../../../pages/guidance';
+import UpdateTopic from '../../../components/home/subpages/data-entry/update-topic'
 
 export default function DynamicContentSection() {
 	return (
@@ -43,6 +44,7 @@ export default function DynamicContentSection() {
 				<Route path={cretateTopics} exact component={ViewerPage} />
 				<Route path={profileRoute} exact component={ProfilePage} />
 				<Route path={`${addResMethods}/:matID/:topicID`} exact component={DataEntryPage} />
+				<Route path={`${updateTopic}`} component={UpdateTopic} />
 				<Route path={`${updateTopic}/:id/`} component={AddManuallyPage} />
 				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />
 				<Route path={guidanceRoute} component={GuidancePage} />

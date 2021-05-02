@@ -1,21 +1,22 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 // import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/topic-card/topic-card.css';
 import deleteIcon from '../../../../assets/material-info-assets/Delete_icon.json';
 import editIcon from '../../../../assets/material-info-assets/Edit_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
-import Swal from 'sweetalert2';
-// import editIcon from '../../../../assets/material-info-assets/Edit_icon.png';
+// import history from '../../../../history/home-history';
+import { updateTopic } from '../../../../constants/pages-route';
 
 
 // TODO: Check the card interface
-export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, deleteTopicFun }: any) {
+export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, deleteTopicFun, topicDes }: any) {
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
 		const [deleteAnim, setDeleteAnim] = useState<AnimationItem>();
 		const [editAnim, setEditAnim] = useState<AnimationItem>();
+		let history = useHistory();
 
 		useEffect(() => {
 			setDeleteAnim(lottie.loadAnimation({
@@ -47,7 +48,7 @@ export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, 
 						{/*  HTODO: onClick: Apicall */}
 						<div className="icon delete-icon" ref={deleteBtnRef} onClick={() => { handleDeleting() }} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
 						{/* HTODO: onClick: Route */}
-						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
+						<div className="icon edit-icon" ref={editBtnRef} onClick={()=>{history.push(updateTopic, {materialID: materialID, topicID: cardID, name: cardTitle, photo:cardPhoto, description: topicDes})}} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
 					</div>
 
 					<div className="topic-rate-container">

@@ -95,6 +95,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 			// add the first n topics to be displied on the initial refresh,(where n=TOPIC_SEGEMENT_LENGTH).
 			addNewSetOfTopicsToDisplay(allTopics);
+
+			console.log('allTopics', allTopics);
 		}
 	}, [allTopics]);
 
@@ -161,6 +163,10 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
 	}
 
+	// let editTopicFun = (topicID, topicName, topicPhoto, topicDes) => {
+
+	// }
+
 	// disblay waiting for conext result
 	// show spining circle, a moneky eating a banana or a cat photo anything.
 	if (!material) {
@@ -196,6 +202,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 										cardTitle={topic.topicName || material.materialName}
 										cardPhoto={topic.topicPhoto || material.materialPhoto}
 										cardRate={topic.topicRate || material.totalRate}
+										topicDes={topic.description || material.materialDesc || "No Description"}
 										deleteTopicFun={deleteTopicFun} />
 								})
 								: <p>No Topics Found</p>
