@@ -47,8 +47,8 @@ export default function DynamicContentSection() {
 				<Route path={profileRoute} exact component={ProfilePage} />
 				<Route path={scheduleRoute} exact component={SchedulePage} />
 				<Route path={`${addResMethods}/:matID/:topicID`} exact component={DataEntryPage} />
-				<Route path={`${updateTopic}`} component={UpdateTopic} />
-				<Route path={`${updateTopic}/:id/`} component={AddManuallyPage} />
+				<Route path={`${updateTopic}`} component={UpdateTopic}  exact={true}/>
+				<Route path={`${updateTopic}/:id/`} component={AddManuallyPage}   exact={true}/>
 				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />
 				<Route path={guidanceRoute} component={GuidancePage} />
 

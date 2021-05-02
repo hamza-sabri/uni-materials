@@ -120,8 +120,11 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		const { data, status } = await APIsCaller({ api: createTopic, requestBody, requestParams });
 		const { message, topicID } = data;
 		if (status === CREATED || status === OK) {
-			// setResRoute((currentRoute) => `${currentRoute}/${topicID}`);
-			Swal.fire('Thanks', message, 'success');
+			console.log(addResButtonRef.current)
+			setResRoute((currentRoute) => `${currentRoute}/${topicID}`);
+			await Swal.fire('Thanks', message, 'success');
+			addResButtonRef.current!.style.display = 'flex';
+
 		}
 		else Swal.fire('Ops!', 'Something went wrong', 'error');
 

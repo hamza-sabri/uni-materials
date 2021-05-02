@@ -272,8 +272,8 @@ export function QAAdder({ matID, topicID }: { matID: string; topicID: string }) 
 export function Rules({ matID, topicID }: { matID: string; topicID: string }) {
 	const divRef = useRef<HTMLDivElement>(null);
 	const lawNameRef = useRef<HTMLInputElement>(null);
-	const lawConentRef = useRef<HTMLInputElement>(null);
-	const lawExampleRef = useRef<HTMLInputElement>(null);
+	const lawConentRef = useRef<HTMLTextAreaElement>(null);
+	const lawExampleRef = useRef<HTMLTextAreaElement>(null);
 	const submitHandler = async () => {
 		const lawName: string = lawNameRef.current!.value;
 		const lawConent: string = lawConentRef.current!.value;
@@ -312,9 +312,9 @@ export function Rules({ matID, topicID }: { matID: string; topicID: string }) {
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
-			<input type="text" className="res-input" placeholder="Law name" />
-			<textarea className="res-text-area" placeholder="Law content" />
-			<textarea className="res-text-area" placeholder="Example" />
+			<input type="text" className="res-input" placeholder="Law name" ref={lawNameRef}/>
+			<textarea className="res-text-area" placeholder="Law content" ref={lawConentRef}/>
+			<textarea className="res-text-area" placeholder="Example" ref = {lawExampleRef}/>
 			<div className="res-submit-btn" onClick={submitHandler}>
 				submit
 			</div>
