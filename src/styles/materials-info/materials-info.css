@@ -131,6 +131,28 @@
   overflow: hidden;
 }
 
+#materials-info-container #topics-section #topics .load-more-card p {
+  position: absolute;
+  left: 35%;
+  top: 48%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+  color: #9013FE;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#materials-info-container #topics-section #topics .load-more-card svg {
+  position: relative;
+  left: 25%;
+}
+
+#materials-info-container #topics-section #topics .loading-div {
+  width: 50%;
+  height: 50%;
+}
+
 #materials-info-container #topics-section #topics p {
   background-color: transparent;
 }

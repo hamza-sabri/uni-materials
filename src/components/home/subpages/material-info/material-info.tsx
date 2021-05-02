@@ -4,11 +4,14 @@ import MaterialCard from "./../viewer/material-card";
 import TopicCard from "./../viewer/topic-card";
 import { APIsCaller } from './../../../../requestes/apis-caller'
 import { getAllTopics } from './../../../../requestes/material-requests/mateirla'
+import { deleteTopic } from './../../../../requestes/material-requests/mateirla'
 import { DynamicContentContext } from './../../../../contexts/home-context/dynamic-content-state-context';
 import loadMoreIcon from '../../../../assets/material-info-assets/load-more-icon.json';
-import lottie from 'lottie-web';
+import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
+import lottie, { AnimationItem } from 'lottie-web';
 
 import './../../../../styles/materials-info/materials-info.css';
+import Swal from 'sweetalert2';
 
 export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: string }> }) {
 	const materialID = match.params.matID;
@@ -19,55 +22,63 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	const [allTopics, setAllTopics] = useState([]);
 	const [topicsToDisplay, setTopicsToDisplay] = useState([]);
 	const [nextTopicsIndex, setNextTopicsIndex] = useState(0);
+	const [loading, setLoading] = useState(true);
 	const [topicsFound, setTopicsFound] = useState(true);
 
 	const loadMoreDivRef = useRef(null);
+	const loadingDivRef = useRef(null);
 
 	let material = materialsTable[materialID];
-	let loadMoreAnimation: any;
+	let [loadMoreAnimation, setLoadMoreAnimation] = useState<AnimationItem>();
+	let [loadingAnimation, setLoadingAnimation] = useState<AnimationItem>();
 
 	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
-		setTopicsToDisplay(Object.entries(allTopics).slice(0, nextTopicsIndex + length).map(entry => entry[1]) as any);
-		setNextTopicsIndex(nextTopicsIndex + length);
+		setTopicsToDisplay(Object.entries(allTopics).slice(0, nextTopicsIndex + length).map((entry) => entry[1]) as any);
+		setNextTopicsIndex(nextTopicsIndex + length)
 	}
 
 	useEffect(() => {
-		loadMoreAnimation = lottie.loadAnimation({
-			container: loadMoreDivRef.current!,
-			autoplay: false,
-			renderer: 'svg',
-			loop: true,
-			animationData: loadMoreIcon,
-		});
-	}, [nextTopicsIndex]);
-
-	useEffect(() => {
 		// I think this is a bit overkill but why not :).
-		// this is to retrive sutiable topics in localstoreage.
-		// if topics retrived is valid then update "allTopics" with it's value
-		// else send a request to retrive data from database.
+		// this is to retrieve suitable[topics for the current opened material] topics from local storage.
+		// if the retrived topics are valid then update "allTopics" with its value.
+		// else send a request to retrieve them from the database.
 		if (allTopics.length == 0 || allTopics == undefined) {
+			// get topics form localStorage
 			let res = JSON.parse(localStorage.getItem('currentTopics') as any) || [];
+			// is there is any data stored in localStorage [checked by res.length==0]
+			// see if it belongs to the current opend data by comperaint materialId.
 			if (res.length == 0 || res == undefined || res.id != materialID) {
+				// no data or incorrecnt strored, send request.
 				const getData = async () => {
 					const requestParams = { materialID: materialID };
 					const { data: topicsTable } = await APIsCaller({ api: getAllTopics, requestParams });
 					if (topicsTable) setAllTopics(topicsTable.topicsTable);
+					setLoading(false);
 				};
 				getData();
 			} else {
+				// correct data stored.
 				setAllTopics(res.topics);
+				setLoading(false);
 			}
 		}
+
+		// loading animation for the loading animation.
+		// this comment is intended to be confusing :);
+		setLoadingAnimation(lottie.loadAnimation({
+			container: loadingDivRef.current!,
+			autoplay: true,
+			renderer: 'svg',
+			loop: true,
+			animationData: loadingIcon,
+		}));
 
 		// delete currentTopics from localstorage, when component is unmounted. 
 		return () => {
 			localStorage.removeItem('currentTopics');
 		}
 	}, []);
-
-
 
 	useEffect(() => {
 		// this effect is entered twice when refreshing the page.
@@ -79,15 +90,82 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			// store current fetched topics for if page is refresed.
 			localStorage.setItem('currentTopics', JSON.stringify({ id: materialID, topics: allTopics }) as any)
 
-
+			// guess what this line of code does, and you will win the "I can read code" grand prize.
 			setTopicsFound((Object.keys(allTopics).length != 0) ? true : false);
 
 			// add the first n topics to be displied on the initial refresh,(where n=TOPIC_SEGEMENT_LENGTH).
 			addNewSetOfTopicsToDisplay(allTopics);
+
+			console.log('allTopics', allTopics);
 		}
 	}, [allTopics]);
 
+	useEffect(() => {
+		// loading animation for the loading more animation.
+		setLoadMoreAnimation(lottie.loadAnimation({
+			container: loadMoreDivRef.current!,
+			autoplay: false,
+			renderer: 'svg',
+			loop: true,
+			animationData: loadMoreIcon,
+		}));
+	}, [loadMoreDivRef.current])
 
+	let deleteTopicFun = async (materialID: any, topicID: any) => {
+		const requestParams = { materialID: materialID, topicID: topicID };
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!',
+			showLoaderOnConfirm: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "Deleting Topic",
+					text: "Please Wait...",
+					didOpen: async () => {
+						Swal.showLoading();
+						let res = await APIsCaller({ api: deleteTopic, requestParams });
+						Swal.hideLoading();
+						console.log('del-res', res);
+						removeFromAllTopics(topicID);
+						if (res.status === 200) {
+							// after deleting completed
+							Swal.fire(
+								'Deleted!',
+								'Your file has been deleted.',
+								'success'
+							)
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Something went wrong!',
+								footer: '<a href>Please Try Agian</a>'
+							})
+						}
+
+					}
+				})
+			}
+		})
+	}
+
+	// 
+	let removeFromAllTopics = (topicID: any) => {
+		delete allTopics[topicID];
+		setAllTopics(() => allTopics);
+		localStorage.setItem('currentTopics', JSON.stringify({ id: materialID, topics: allTopics }) as any)
+		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
+	}
+
+	// let editTopicFun = (topicID, topicName, topicPhoto, topicDes) => {
+
+	// }
 
 	// disblay waiting for conext result
 	// show spining circle, a moneky eating a banana or a cat photo anything.
@@ -112,19 +190,30 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			</div>
 
 			<div id="topics-section">
-				{/* <p>Topics: </p> */}
 				<div id="topics">
 					{
-						(topicsFound) ?
-							topicsToDisplay.map((topic: any, index) => {
-								return <TopicCard key={index} cardTitle={topic.topicName || material.materialName} cardPhoto={topic.topicPhoto || material.materialPhoto} cardRate={topic.topicRate || material.totalRate} />
-							})
-							: <p>No Topics Found</p>
+						(loading) ?
+							<div className="loading-div" ref={loadingDivRef}></div>
+							: (topicsFound) ?
+								topicsToDisplay.map((topic: any, index) => {
+									return <TopicCard key={index}
+										materialID={materialID}
+										cardID={Object.keys(allTopics)[index]}
+										cardTitle={topic.topicName || material.materialName}
+										cardPhoto={topic.topicPhoto || material.materialPhoto}
+										cardRate={topic.topicRate || material.totalRate}
+										topicDes={topic.description || material.materialDesc || "No Description"}
+										deleteTopicFun={deleteTopicFun} />
+								})
+								: <p>No Topics Found</p>
 					}
 
 					{
 						(nextTopicsIndex < Object.keys(allTopics).length) ?
-							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={()=>{loadMoreAnimation!.play()}} onMouseLeave={()=>{loadMoreAnimation!.stop()}}></div>)
+							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={() => { loadMoreAnimation!.play() }} onMouseLeave={() => { loadMoreAnimation!.stop() }}>
+								{/* not the best way but it works */}
+								<p>Load More</p>
+							</div>)
 							: null
 					}
 				</div>
