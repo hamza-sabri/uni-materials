@@ -2,6 +2,7 @@
 const OK: number = 200;
 const CREATED: number = 201;
 const ACCEPTED: number = 202;
+const NOROUTE:number = 204;
 
 // The 400 family
 const BAD_REQUEST: number = 400;
@@ -19,4 +20,4 @@ const getErrorStatusCode = (message: string): number => {
 	return NOT_FOUND;
 };
 
-export { OK, CREATED, ACCEPTED, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND, getErrorStatusCode, refreshTokenLimit };
+export { OK, CREATED, ACCEPTED, NOROUTE, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND, getErrorStatusCode, refreshTokenLimit };

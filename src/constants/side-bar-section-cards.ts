@@ -17,12 +17,12 @@ import logOutIcon from '../assets/home/side-bar/logout.svg';
 import guideIcon from '../assets/home/side-bar/guide.svg';
 
 // pages
-import { cretateTopics, dataEntryRoute, homePageRoute, updatematerialsRoute, uniMangerRoute, materialInfoRoute, singinPageRoute, notFoundRoute, profileRoute, guidanceRoute } from './pages-route';
+import { cretateTopics, dataEntryRoute, scheduleRoute, updatematerialsRoute, uniMangerRoute, materialInfoRoute, singinPageRoute, notFoundRoute, profileRoute, guidanceRoute } from './pages-route';
 
 const dataEntrySectionCards: sideBarSectionInterface = {
 	sectionTitle: 'Data Entry',
 	sectionCards: [
-		{ cardName: 'Home', routeTo: homePageRoute, cardIcon: homeIcon },
+		{ cardName: 'Home', routeTo: profileRoute, cardIcon: homeIcon },
 		{ cardName: 'Create Material', routeTo: dataEntryRoute, cardIcon: createIcon },
 		{ cardName: 'Update Materials', routeTo: updatematerialsRoute, cardIcon: editIcon },
 		{ cardName: 'Create Topic', routeTo: cretateTopics, cardIcon: createTopicIcon },
@@ -30,7 +30,7 @@ const dataEntrySectionCards: sideBarSectionInterface = {
 		{ cardName: 'Profile', routeTo: profileRoute, cardIcon: profileIcon },
 		{ cardName: 'Exams', routeTo: notFoundRoute, cardIcon: examsIcon },
 		{ cardName: 'Facts & Rules', routeTo: notFoundRoute, cardIcon: rulesIcon },
-		{ cardName: 'Schedule', routeTo: notFoundRoute, cardIcon: tableIcon },
+		{ cardName: 'Schedule', routeTo: scheduleRoute, cardIcon: tableIcon },
 		{ cardName: 'Settings', routeTo: notFoundRoute, cardIcon: settingsIcon },
 		{ cardName: 'Feedback', routeTo: notFoundRoute, cardIcon: feedbackIcon },
 		{ cardName: 'Uni managers', routeTo: uniMangerRoute, cardIcon: managerIcon },

@@ -154,4 +154,13 @@
           justify-content: center;
   background: #a5a0ff;
 }
+
+.wrapper {
+  overflow: scroll;
+  height: 100vh;
+}
+
+.wrapper::-webkit-scrollbar {
+  display: none;
+}
 /*# sourceMappingURL=user-profile.css.map */
