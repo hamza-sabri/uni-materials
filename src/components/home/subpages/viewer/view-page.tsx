@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { APIsCaller } from '../../../../requestes/apis-caller';
 import { updateUserProfile } from '../../../../requestes/user-requestes/user';
-import { BAD_REQUEST, NOROUTE, OK } from '../../../../constants/status-codes';
+import { BAD_REQUEST, OK } from '../../../../constants/status-codes';
 export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }) {
 	const { materialsTable } = useContext(DynamicContentContext);
 	const MySwal = withReactContent(Swal);
