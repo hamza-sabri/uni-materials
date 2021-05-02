@@ -157,7 +157,7 @@
 
 .wrapper {
   overflow: scroll;
-  height: 100vh;
+  height: 70vh;
 }
 
 .wrapper::-webkit-scrollbar {
