@@ -294,7 +294,7 @@ export default function FourOFour() {
         <div style={{ display: "felx", justifyContent: "center", alignItems: "center", height: "100%" }}>
             <canvas style={{zIndex:"-1"}} id="canvas"></canvas>
             <hgroup style={{ display: "felx", justifyContent: "center", alignItems: "center", width:"100%", marginTop:"-14%"}}>
-                <h1 style={{textAlign:"center"}}>The page you are looking for doesn't exist.<br></br>It's under development now</h1>
+                <h1 style={{textAlign:"center"}}>The page you are looking for doesn't exist.<br></br>It may be under development now :)</h1>
             </hgroup>
         </div>
     );

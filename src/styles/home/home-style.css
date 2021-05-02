@@ -66,6 +66,7 @@
   height: 50px;
   overflow: hidden;
   border-radius: 100%;
+  margin-top: .25rem;
 }
 
 .option-wrpper .user-avatar img {
