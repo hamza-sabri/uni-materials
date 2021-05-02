@@ -51,7 +51,7 @@ export default function Profile() {
 		const subjects:string[] = user.userProfile.schedule;
 		for (let [ key, value ] of Object.entries(materialsTable)) {
 			const data: any = value;
-			if(!subjects.includes(key)) continue;
+			if(!subjects?.includes(key)) continue;
 			result.push({
 				cardPhoto: data.materialPhoto,
 				cardRate: data.totalRate,
