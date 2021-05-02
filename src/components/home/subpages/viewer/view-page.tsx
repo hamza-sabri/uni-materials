@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
 import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/cards-viewer/cards-viewer.css';
@@ -12,8 +12,12 @@ import { APIsCaller } from '../../../../requestes/apis-caller';
 import { updateUserProfile } from '../../../../requestes/user-requestes/user';
 import { BAD_REQUEST, OK } from '../../../../constants/status-codes';
 export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }) {
-	const { materialsTable } = useContext(DynamicContentContext);
+	const { user, materialsTable } = useContext(DynamicContentContext);
 	const MySwal = withReactContent(Swal);
+	
+	useEffect(()=>{
+		defualtValues();
+	}, [])
 	
 	const createCardsList = (routeTo:string): cardInterface[] => {
 		const result: cardInterface[] = [];
@@ -58,7 +62,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 
 	const [data, setData]  = useState<(cardInterface | undefined)[]>(urlHandler());
 	const [selected, setSelected]  = useState<(cardInterface | undefined)[]>();
-	const [userSchedule, setUserSchedule] = useState<string[]>([]);
+	const [userSchedule, setUserSchedule] = useState<string[]>(user?.userProfile?.schedule);
 
 	const SaveFAB = ()=>{
 		return (
@@ -101,6 +105,18 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 			<div className='schedule-alert'>
 			{selected?.map((card, index) => <MaterialCard key={index} {...card!}  submitHandler={removeCardFromSchedule} option="-"/>)}
 			</div>)
+	}
+
+	const defualtValues = ()=>{
+		const temp:cardInterface[] = [];
+		userSchedule?.forEach(val =>{
+			const currentMat = materialsTable[val];
+			temp.push({cardPhoto: currentMat.materialPhoto,
+					   cardRate: currentMat.totalRate,
+					   cardTitle: currentMat.materialName,
+					   cardID: val})
+		});
+		setSelected(temp);
 	}
 
 	const removeCardFromSchedule = (matID:string)=>{
