@@ -22,8 +22,6 @@ type cardCreateorInterface = {
 }
 
 export default function CardCreateor({ inputs, descriptionInput, values, localMaterialID, topicID, rate, resRoute, setResRoute }: cardCreateorInterface) {
-	console.log('localMaterialID', localMaterialID, 'topicID', topicID);
-	
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
 	const previewer = useRef<HTMLImageElement>(null);
@@ -37,7 +35,7 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		if(topicID) {
 			addResButtonRef.current!.style.display = 'flex';
 		}
-	}, []);
+	});
 
 	useEffect(() => {
 		lottie.loadAnimation({
@@ -138,10 +136,10 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		}
 		const requestParams = { materialID: localMaterialID, topicID: topicID }
 		const { data, status } = await APIsCaller({ api: updateTopic, requestBody, requestParams });
-		const { message, temp } = data;
+		const { message } = data;
 		if (status === CREATED || status === OK) {
-			setResRoute((currentRoute) => `${currentRoute}/${topicID}`);
-			addResButtonRef.current!.style.display = 'flex';
+			// setResRoute((currentRoute) => `${currentRoute}/${topicID}`);
+			// addResButtonRef.current!.style.display = 'flex';
 			Swal.fire('Thanks', message, 'success');
 		}
 		else Swal.fire('Ops!', 'Something went wrong', 'error');

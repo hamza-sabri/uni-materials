@@ -5,7 +5,6 @@ import { addResMethods } from '../../../../constants/pages-route';
 
 export default function UpdateTopic() {
     let loc = useLocation();
-    console.log('loc', loc);
 
     let { materialID, topicID, name, photo, description }: any = loc.state;
     const basicTopicRoute: string = `${addResMethods}/${materialID}/${topicID}`;
@@ -23,6 +22,4 @@ export default function UpdateTopic() {
             <CardCreateor {...{ inputs, descriptionInput, values, localMaterialID: id, topicID, rate, resRoute, setResRoute }} />
         </div>
     );
-
-    return <p>Hey</p>
 }
