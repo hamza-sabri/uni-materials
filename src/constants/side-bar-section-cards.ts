@@ -17,12 +17,12 @@ import logOutIcon from '../assets/home/side-bar/logout.svg';
 import guideIcon from '../assets/home/side-bar/guide.svg';
 
 // pages
-import { cretateTopics, dataEntryRoute, homePageRoute, updatematerialsRoute, uniMangerRoute, materialInfoRoute, singinPageRoute, notFoundRoute, profileRoute, scheduleRoute } from './pages-route';
+import { cretateTopics, dataEntryRoute, updatematerialsRoute, uniMangerRoute, materialInfoRoute, singinPageRoute, notFoundRoute, profileRoute, scheduleRoute, mainPageRoute } from './pages-route';
 
 const dataEntrySectionCards: sideBarSectionInterface = {
 	sectionTitle: 'Data Entry',
 	sectionCards: [
-		{ cardName: 'Home', routeTo: homePageRoute, cardIcon: homeIcon },
+		{ cardName: 'Home', routeTo: profileRoute, cardIcon: homeIcon },
 		{ cardName: 'Create Material', routeTo: dataEntryRoute, cardIcon: createIcon },
 		{ cardName: 'Update Materials', routeTo: updatematerialsRoute, cardIcon: editIcon },
 		{ cardName: 'Create Topic', routeTo: cretateTopics, cardIcon: createTopicIcon },
