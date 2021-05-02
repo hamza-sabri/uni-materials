@@ -29,6 +29,7 @@ import MaterialInfoPage from '../../../pages/material-info-page';
 import FourOFour from '../../404/404-componant';
 import SchedulePage from '../../../pages/schedule-page';
 import GuidancePage from '../../../pages/guidance';
+import UpdateTopic from '../../../components/home/subpages/data-entry/update-topic'
 
 export default function DynamicContentSection() {
 	return (
@@ -46,6 +47,7 @@ export default function DynamicContentSection() {
 				<Route path={profileRoute} exact component={ProfilePage} />
 				<Route path={scheduleRoute} exact component={SchedulePage} />
 				<Route path={`${addResMethods}/:matID/:topicID`} exact component={DataEntryPage} />
+				<Route path={`${updateTopic}`} component={UpdateTopic} />
 				<Route path={`${updateTopic}/:id/`} component={AddManuallyPage} />
 				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />
 				<Route path={guidanceRoute} component={GuidancePage} />

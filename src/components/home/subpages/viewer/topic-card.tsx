@@ -1,19 +1,22 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { cardInterface } from '../../../../interfaces/cards/cards';
+import { NavLink, useHistory } from 'react-router-dom';
+// import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/topic-card/topic-card.css';
 import deleteIcon from '../../../../assets/material-info-assets/Delete_icon.json';
 import editIcon from '../../../../assets/material-info-assets/Edit_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
-// import editIcon from '../../../../assets/material-info-assets/Edit_icon.png';
+// import history from '../../../../history/home-history';
+import { updateTopic } from '../../../../constants/pages-route';
 
-export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, routeTo }: cardInterface) {
+
+// TODO: Check the card interface
+export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, deleteTopicFun, topicDes }: any) {
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
-		const [deleteAnim,setDeleteAnim] = useState<AnimationItem>();
-		const [editAnim,setEditAnim] = useState<AnimationItem>();
-
+		const [deleteAnim, setDeleteAnim] = useState<AnimationItem>();
+		const [editAnim, setEditAnim] = useState<AnimationItem>();
+		let history = useHistory();
 
 		useEffect(() => {
 			setDeleteAnim(lottie.loadAnimation({
@@ -22,30 +25,32 @@ export default function TopicCard({ cardPhoto, cardTitle, cardRate, cardID, rout
 				renderer: 'svg',
 				loop: false,
 				animationData: deleteIcon,
-			}))
+			}));
 
-			setEditAnim( lottie.loadAnimation({
+			setEditAnim(lottie.loadAnimation({
 				container: editBtnRef.current!,
 				autoplay: false,
 				renderer: 'svg',
 				loop: false,
 				animationData: editIcon,
-			}))
-		}, [setDeleteAnim, setEditAnim])
+			}));
+		}, [])
 
-
+		let handleDeleting = async () => {
+			deleteTopicFun(materialID, cardID)
+		}
 
 		return (
 			<div className="topic-card">
 				<img src={cardPhoto} alt="card-img" />
 				<div className="top-part-container">
 					<div className="icons-contianer">
-						{/*  onClick: Apicall */}
-						<div className="icon delete-icon" ref={deleteBtnRef} onMouseEnter={()=>{deleteAnim?.play()}} onMouseLeave={()=>{deleteAnim?.stop()}}></div>
-						{/* onClick: Route */}
-						<div className="icon edit-icon" ref={editBtnRef} onMouseEnter={()=>{editAnim?.play()}} onMouseLeave={()=>{editAnim?.stop()}}></div>
+						{/*  HTODO: onClick: Apicall */}
+						<div className="icon delete-icon" ref={deleteBtnRef} onClick={() => { handleDeleting() }} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
+						{/* HTODO: onClick: Route */}
+						<div className="icon edit-icon" ref={editBtnRef} onClick={()=>{history.push(updateTopic, {materialID: materialID, topicID: cardID, name: cardTitle, photo:cardPhoto, description: topicDes})}} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
 					</div>
-					
+
 					<div className="topic-rate-container">
 						<span className="topic-rate-content">
 							<svg height="20px" viewBox="0 -10 511.98685 511" xmlns="http://www.w3.org/2000/svg">
