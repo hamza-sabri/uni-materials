@@ -4,4 +4,6 @@ export type cardInterface = {
 	cardRate: number;
 	cardID?: string;
 	routeTo?: string;
+	option?: "+" |"-" | "";
+	submitHandler?:(matID:string) =>void;
 };

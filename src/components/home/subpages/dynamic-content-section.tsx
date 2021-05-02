@@ -13,7 +13,8 @@ import {
 	updateTopic,
 	addResMethods,
 	materialInfoRoute,
-	notFoundRoute
+	notFoundRoute,
+	scheduleRoute
 } from '../../../constants/pages-route';
 
 // components
@@ -25,6 +26,7 @@ import ViewerPage from '../../../pages/view-page';
 import ProfilePage from '../../../pages/profile-page';
 import MaterialInfoPage from '../../../pages/material-info-page';
 import FourOFour from '../../404/404-componant';
+import SchedulePage from '../../../pages/schedule-page';
 
 export default function DynamicContentSection() {
 	return (
@@ -40,6 +42,7 @@ export default function DynamicContentSection() {
 				<Route path={`${materialInfoRoute}/:matID`} exact component={MaterialInfoPage} />
 				<Route path={cretateTopics} exact component={ViewerPage} />
 				<Route path={profileRoute} exact component={ProfilePage} />
+				<Route path={scheduleRoute} exact component={SchedulePage} />
 				<Route path={`${addResMethods}/:matID/:topicID`} exact component={DataEntryPage} />
 				<Route path={`${updateTopic}/:id/`} component={AddManuallyPage} />
 				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />

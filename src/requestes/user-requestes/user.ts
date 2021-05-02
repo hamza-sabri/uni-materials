@@ -80,7 +80,7 @@ const getUserProfile = async (axios: AxiosInstance) => {
 
 const updateUserProfile = async(axios:AxiosInstance, requestBody:any) =>{
 	try{
-		const { status, data } = await axios.put(updateProfileRoute,requestBody);
+		const { status, data } = await axios.put(updateProfileRoute, requestBody);
 		return { data, status };
 	}catch(err){
 		return { status: getErrorStatusCode(err.message), data: err };
