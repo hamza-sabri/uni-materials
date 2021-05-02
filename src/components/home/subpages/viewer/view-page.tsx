@@ -129,7 +129,10 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 
 	const onCardClickHandler = (matID:string)=>{
 		console.log(`matID`, matID);
-		setUserSchedule((mySchedule)=>[...[matID, ...mySchedule]])
+		setUserSchedule((mySchedule)=>{
+			if(!mySchedule) return [...[matID]]
+			return [...[matID, ...mySchedule]];
+		})
 		const temp = materialsTable[matID];
 		const cardToAdd = {
 			cardPhoto: temp.materialPhoto,
