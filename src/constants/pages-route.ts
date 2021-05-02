@@ -1,6 +1,7 @@
 const homePageRoute: string = '/';
 const signupPageRoute: string = '/signup';
 const singinPageRoute: string = '/signin';
+const mainPageRoute:string ='/home';
 
 //home page route
 const dataEntryRoute: string = '/data-entry';
@@ -15,6 +16,7 @@ const addResMethods:string = '/topic/res/add';
 const materialInfoRoute:string = '/material/info';
 const guidanceRoute:string = '/website/guidance';
 const notFoundRoute:string = '/not-found';
+const scheduleRoute:string = '/schedule';
 
 
 export {
@@ -32,5 +34,7 @@ export {
 	addResMethods,
 	materialInfoRoute,
 	notFoundRoute,
+	scheduleRoute,
+	mainPageRoute,
 	guidanceRoute
 };
