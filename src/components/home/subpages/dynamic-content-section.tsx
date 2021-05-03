@@ -26,10 +26,10 @@ import UniManagerPage from '../../../pages/uni-manager-page';
 import ViewerPage from '../../../pages/view-page';
 import ProfilePage from '../../../pages/profile-page';
 import MaterialInfoPage from '../../../pages/material-info-page';
-import FourOFour from '../../404/404-componant';
 import SchedulePage from '../../../pages/schedule-page';
 import GuidancePage from '../../../pages/guidance';
 import UpdateTopic from '../../../components/home/subpages/data-entry/update-topic'
+import NotFoundPage from '../../../pages/not-found-page';
 
 export default function DynamicContentSection() {
 	return (
@@ -41,7 +41,7 @@ export default function DynamicContentSection() {
 				<Route path={uniMangerRoute} exact component={UniManagerPage} />
 				<Route path={updatematerialsRoute} exact component={ViewerPage} />
 				<Route path={materialInfoRoute} exact component={ViewerPage} />
-				<Route path={notFoundRoute} exact component={FourOFour} />
+				<Route path={notFoundRoute} exact component={NotFoundPage} />
 				<Route path={`${materialInfoRoute}/:matID`} exact component={MaterialInfoPage} />
 				<Route path={cretateTopics} exact component={ViewerPage} />
 				<Route path={profileRoute} exact component={ProfilePage} />
@@ -53,7 +53,7 @@ export default function DynamicContentSection() {
 				<Route path={guidanceRoute} component={GuidancePage} />
 
 				{/*if no route matches  */}
-				<Route component={FourOFour}/>
+				<Route component={NotFoundPage}/>
 			</Switch>
 		</div>
 	);

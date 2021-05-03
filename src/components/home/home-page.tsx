@@ -1,24 +1,24 @@
-import { validateUserOrSignHimIn } from '../../utilities/user-checker';
 import NavBar from './nav-bar/nav-bar';
 import SideBar from './side-bar/side-bar';
 
 import '../../styles/home/home-style.css';
 import DynamicContentSection from './subpages/dynamic-content-section';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { APIsCaller } from '../../requestes/apis-caller';
 import { getAllMaterials, getAllUnis } from '../../requestes/uni-requests/university';
 import { DynamicContentContext } from '../../contexts/home-context/dynamic-content-state-context';
-import { getUserProfile } from '../../requestes/user-requestes/user';
+import { getUserProfile, isLogedin } from '../../requestes/user-requestes/user';
 
 export default function HomePage() {
 	const [ materialsTable, setMaterialsTable ] = useState<any>({});
 	const [ unisDataList, setUnisDataList ] = useState<any[]>([]);
 	const [ user, setUser ] = useState<any>({});
+	const mounted = useRef<HTMLDivElement>(null);
 	// TODO very very very very important
 	// refactor this shit (language)
 	// do a check on the status if its ok or not for all the requests
 	useEffect(() => {
-		validateUserOrSignHimIn();
+		isLogedin();
 		const getData = async () => {
 			const { data: userData } = await APIsCaller({ api: getUserProfile });
 			if (userData && userData.userProfile) setUser(userData);
@@ -28,10 +28,10 @@ export default function HomePage() {
 			const { unisList } = allUniversites! || [];
 			setUnisDataList(unisList);
 		};
-		getData();
-	}, []);
+		if (mounted !== null && mounted) getData();
+	}, [mounted]);
 	return (
-		<div className="home-page">
+		<div className="home-page" ref={mounted}>
 			<DynamicContentContext.Provider
 				value={{ materialsTable, setMaterialsTable, unisDataList, setUnisDataList, user, setUser }}
 			>

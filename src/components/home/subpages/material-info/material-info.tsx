@@ -137,7 +137,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 							// after deleting completed
 							Swal.fire(
 								'Deleted!',
-								'Your file has been deleted.',
+								res.data.message,
 								'success'
 							)
 						} else {
