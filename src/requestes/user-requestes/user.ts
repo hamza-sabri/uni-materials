@@ -58,6 +58,8 @@ const signup = async (userData: userCredentials): Promise<any> => {
 	
 	return { result: true, message: userCreated };
   } catch (err) {
+	  if(err.message)  return { result: false, message: err.message };
+	  
     if (err && err.response) {
       const { data } = err.response;
       return { result: false, message: data.error.message };
