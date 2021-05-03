@@ -40,6 +40,7 @@ export default function LoginPage() {
 						className="input form-control"
 						placeholder="Email"
 						value={email}
+						type="email"
 						onChange={(event) =>
 							setCredentials({
 								email: event.target.value,
