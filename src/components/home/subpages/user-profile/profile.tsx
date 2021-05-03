@@ -33,7 +33,6 @@ export default function Profile() {
 	}
 
 	const ShowMaterials = ()=>{
-		console.log(user)
 		const cardsList = createCardsList(materialInfoRoute);
 	    return (
 			<div className="wrapper">
