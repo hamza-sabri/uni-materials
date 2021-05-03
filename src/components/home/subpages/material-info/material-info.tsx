@@ -9,6 +9,8 @@ import { DynamicContentContext } from './../../../../contexts/home-context/dynam
 import loadMoreIcon from '../../../../assets/material-info-assets/load-more-icon.json';
 import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
+import { allTopicRes } from '../../../../constants/pages-route';
+
 
 import './../../../../styles/materials-info/materials-info.css';
 import Swal from 'sweetalert2';
@@ -163,10 +165,6 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
 	}
 
-	// let editTopicFun = (topicID, topicName, topicPhoto, topicDes) => {
-
-	// }
-
 	// disblay waiting for conext result
 	// show spining circle, a moneky eating a banana or a cat photo anything.
 	if (!material) {
@@ -203,7 +201,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 										cardPhoto={topic.topicPhoto || material.materialPhoto}
 										cardRate={topic.topicRate || material.totalRate}
 										topicDes={topic.description || material.materialDesc || "No Description"}
-										deleteTopicFun={deleteTopicFun} />
+										deleteTopicFun={deleteTopicFun} 
+										routeTo={allTopicRes}/>
 								})
 								: <p>No Topics Found</p>
 					}

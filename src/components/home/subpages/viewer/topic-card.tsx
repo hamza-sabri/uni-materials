@@ -40,15 +40,34 @@ export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, 
 			deleteTopicFun(materialID, cardID)
 		}
 
+		let handleOnClick = (e: any) => {
+			let path = e.nativeEvent.composedPath();
+			console.log(path);
+
+			console.log(path.includes(deleteBtnRef.current) || path.includes(editBtnRef.current));
+
+
+			if (path.includes(editBtnRef.current)) {
+				// handle onClick for editBtn
+				history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: topicDes })
+			} else if (path.includes(deleteBtnRef.current)) {
+				// handle onClick for deleteBtn
+				handleDeleting()
+			} else {
+				// handle onClick for the showRes
+				history.push(`${routeTo}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: topicDes })
+			}
+		}
+
 		return (
 			<div className="topic-card">
 				<img src={cardPhoto} alt="card-img" />
 				<div className="top-part-container">
 					<div className="icons-contianer">
 						{/*  HTODO: onClick: Apicall */}
-						<div className="icon delete-icon" ref={deleteBtnRef} onClick={() => { handleDeleting() }} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
+						<div className="icon delete-icon" ref={deleteBtnRef} onClick={(e) => { handleOnClick(e) }} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
 						{/* HTODO: onClick: Route */}
-						<div className="icon edit-icon" ref={editBtnRef} onClick={()=>{history.push(updateTopic, {materialID: materialID, topicID: cardID, name: cardTitle, photo:cardPhoto, description: topicDes})}} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
+						<div className="icon edit-icon" ref={editBtnRef} onClick={(e) => { handleOnClick(e); }} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
 					</div>
 
 					<div className="topic-rate-container">
@@ -67,8 +86,10 @@ export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, 
 				<div className="material-name-container topic-name-container">
 					<pre>{cardTitle}</pre>
 				</div>
+
+				<div onClick={(e) => { handleOnClick(e); }} style={{ width: "100%", height: "100%", position: "absolute", left: 0, top: "20%" }}></div>
 			</div>
 		);
 	};
-	return <Fragment>{routeTo ? <NavLink to={routeTo}><Card /></NavLink> : <Card />}</Fragment>;
+	return <Fragment>{<Card />}</Fragment>;
 }

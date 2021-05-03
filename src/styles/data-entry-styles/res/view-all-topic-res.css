@@ -1,0 +1,143 @@
+.all-topic-res-contianer {
+  width: 95%;
+  height: 95%;
+  margin-left: 10px;
+  padding: 10px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 3fr;
+      grid-template-rows: 1fr 3fr;
+  -ms-grid-columns: 1fr 3fr;
+      grid-template-columns: 1fr 3fr;
+  grid-column-gap: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.all-topic-res-contianer #material-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  pointer-events: none;
+}
+
+.all-topic-res-contianer #desc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 15px;
+  background: #e6e6e6;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.all-topic-res-contianer #desc #desc-title {
+  margin: 0;
+  padding: 0;
+  margin-left: 5px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.all-topic-res-contianer #desc #desc-text {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 10px 0 0 10px;
+  margin: 5px;
+  background: white;
+  border: 1px solid gray;
+  border-radius: 10px;
+  overflow: scroll;
+}
+
+.all-topic-res-contianer #desc #desc-text::-webkit-scrollbar {
+  display: none;
+}
+
+.all-topic-res-contianer .resource-section {
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 3;
+  grid-row: 2 / span 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-column: 1 / span 4;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs {
+  background-color: #dedede;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs div {
+  height: 1px;
+  background-color: #f7f7f7;
+  border: 12px;
+  -webkit-transition: height 0.3s;
+  transition: height 0.3s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs div .arrow {
+  -webkit-transition: 2s;
+  transition: 2s;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs div * {
+  overflow: hidden;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs div::-webkit-scrollbar {
+  visibility: hidden;
+  display: none;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs span {
+  padding: 5px;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs .arrow {
+  display: inline-block;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs:focus-within {
+  overflow-y: scroll;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs:focus-within div {
+  height: 300px;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs:focus-within .arrow {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs::-webkit-scrollbar {
+  visibility: hidden;
+  display: none;
+}
+
+.all-topic-res-contianer::-webkit-scrollbar {
+  visibility: hidden;
+  display: none;
+}
+/*# sourceMappingURL=view-all-topic-res.css.map */

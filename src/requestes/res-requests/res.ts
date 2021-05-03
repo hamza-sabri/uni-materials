@@ -1,5 +1,5 @@
 import { getErrorStatusCode } from '../../constants/status-codes';
-import { createResRoute } from '../../constants/urls';
+import { createResRoute, getAllResRoute } from '../../constants/urls';
 import { responseInterface } from '../../interfaces/responses';
 import { AxiosInstance } from 'axios';
 
@@ -13,4 +13,14 @@ const createNewRes = async (axios: AxiosInstance, requestBody: any, requestParam
 	}
 };
 
-export { createNewRes };
+const getAllRes = async (axios: AxiosInstance, requestParams: any): Promise<responseInterface> => {
+	try {
+		const { status, data } = await axios.get(getAllResRoute, { params: requestParams });
+		return { data, status };
+	} catch (err) {
+		console.log(JSON.stringify(err));
+		return { status: getErrorStatusCode(err.message), data: err };
+	}
+};
+
+export { createNewRes, getAllRes };

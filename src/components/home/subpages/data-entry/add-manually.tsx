@@ -124,7 +124,6 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 			Swal.fire('Thanks', message, 'success');
 		}
 		else Swal.fire('Ops!', 'Something went wrong', 'error');
-
 	}
 
 	const updateTopicDocument = async () => {
