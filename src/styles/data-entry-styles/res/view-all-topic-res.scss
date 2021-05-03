@@ -67,9 +67,14 @@
 
         .expand-on-foucs {
             background-color: hsl(0, 0%, 87%);
+            border-bottom: 1px solid rgb(97, 97, 97);
 
-            div {
-                height: 1px;
+            .arrow {
+                transition: 0.5s;
+            }
+
+            .content-section {
+                height: 0;
                 background-color: rgb(247, 247, 247);
                 border: 12px;
                 transition: height 0.3s;
@@ -81,13 +86,6 @@
 
                 overflow-y: scroll;
 
-                .arrow {
-                    transition: 2s;
-                }
-
-                * {
-                    overflow: hidden;
-                }
 
                 &::-webkit-scrollbar {
                     visibility: hidden;
@@ -105,9 +103,12 @@
 
             &:focus-within {
                 overflow-y: scroll;
+                border-bottom: none;
 
-                div {
+                .content-section {
                     height: 300px;
+                    width: 100%;
+
                 }
 
                 .arrow {

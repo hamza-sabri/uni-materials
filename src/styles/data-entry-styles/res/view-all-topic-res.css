@@ -73,10 +73,16 @@
 
 .all-topic-res-contianer .resource-section .expand-on-foucs {
   background-color: #dedede;
+  border-bottom: 1px solid #616161;
 }
 
-.all-topic-res-contianer .resource-section .expand-on-foucs div {
-  height: 1px;
+.all-topic-res-contianer .resource-section .expand-on-foucs .arrow {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.all-topic-res-contianer .resource-section .expand-on-foucs .content-section {
+  height: 0;
   background-color: #f7f7f7;
   border: 12px;
   -webkit-transition: height 0.3s;
@@ -96,16 +102,7 @@
   overflow-y: scroll;
 }
 
-.all-topic-res-contianer .resource-section .expand-on-foucs div .arrow {
-  -webkit-transition: 2s;
-  transition: 2s;
-}
-
-.all-topic-res-contianer .resource-section .expand-on-foucs div * {
-  overflow: hidden;
-}
-
-.all-topic-res-contianer .resource-section .expand-on-foucs div::-webkit-scrollbar {
+.all-topic-res-contianer .resource-section .expand-on-foucs .content-section::-webkit-scrollbar {
   visibility: hidden;
   display: none;
 }
@@ -120,10 +117,12 @@
 
 .all-topic-res-contianer .resource-section .expand-on-foucs:focus-within {
   overflow-y: scroll;
+  border-bottom: none;
 }
 
-.all-topic-res-contianer .resource-section .expand-on-foucs:focus-within div {
+.all-topic-res-contianer .resource-section .expand-on-foucs:focus-within .content-section {
   height: 300px;
+  width: 100%;
 }
 
 .all-topic-res-contianer .resource-section .expand-on-foucs:focus-within .arrow {
