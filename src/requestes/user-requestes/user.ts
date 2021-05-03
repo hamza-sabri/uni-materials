@@ -1,8 +1,8 @@
 import { userCredentials } from '../../interfaces/user/credentials';
-import { urlConcatenator, signinRoute, signupRoute, userProfileRoute, refreshTokenRoute, updateProfileRoute } from '../../constants/urls';
+import { urlConcatenator, signupRoute, userProfileRoute, refreshTokenRoute, updateProfileRoute } from '../../constants/urls';
 import { IDTokenKey, refreshTokenKey } from '../../constants/local-storage-keys';
-import { CREATED, getErrorStatusCode, OK } from '../../constants/status-codes';
-import { signinError, signUpError, userCreated } from '../../constants/messages';
+import {  getErrorStatusCode } from '../../constants/status-codes';
+import { signinError, userCreated } from '../../constants/messages';
 import axios, { AxiosInstance } from 'axios';
 import * as firebase from 'firebase';
 import Swal from 'sweetalert2';
@@ -28,16 +28,7 @@ const signin = async (userData: userCredentials): Promise<any> => {
   try {
     // extract all needed data
     const { email, password } = userData;
-    // const signInPath = urlConcatenator([signinRoute]);
-    // const { status, data } = await axios.post(signInPath, {
-    //   email: email,
-    //   password: password,
-    // });
-    // if the response status is not OK then throw an error else save the token
-	// if (status !== OK) throw new Error(signinError);
-	// userData.uniID = data.uniID;
-	// saveUserCredentials(data.IDToken, data.refreshToken);
-	await auth().signInWithEmailAndPassword(email,password);
+  	await auth().signInWithEmailAndPassword(email,password);
 	auth().onAuthStateChanged(async(user) =>{
 		const userToken = await user?.getIdToken(true);
 		saveUserCredentials(userToken!, user!.refreshToken);
