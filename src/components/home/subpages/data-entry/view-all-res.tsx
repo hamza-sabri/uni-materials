@@ -8,23 +8,20 @@ import * as Types from './../../../../constants/res-types';
 import '../../../../styles/data-entry-styles/res/view-all-topic-res.css'
 import { useEffect, useState } from 'react';
 
+// HTODO: add loding thingy.
+// HTDOD: fix topic pass for the eidt and delete function.
+// HTDOD: clean code more.
 export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: string }> }) {
     let loc = useLocation();
-    console.log('match.params', match.params);
     let { matID, topicID }: any = match.params;
     let { title, photo, rate, description }: any = loc.state;
     let allTypes = Object.entries(Types).map((item) => item[1]);
     let [allRes, setAllRes] = useState([]);
 
-    console.log(allTypes);
-    console.log(allRes);
-    console.log('title', title, 'photo', photo, 'rate', rate, 'description', description);
-
     useEffect(() => {
         const getData = async () => {
             const requestParams = { materialID: matID, topicID: topicID };
             let { data } = await APIsCaller({ api: getAllRes, requestParams: requestParams });
-            console.log("Fetched Stuff");
             let tempAllRes = new Array(allTypes.length).fill(0).map(() => new Array()) as any;
             data.resorses.forEach((item: any) => {
                 tempAllRes[allTypes.indexOf(item.resType)].push(item)
@@ -32,8 +29,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
             setAllRes(tempAllRes);
         }
         getData();
-
-        console.log("N", allRes);
     }, [])
 
     return (
@@ -57,7 +52,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                 <div className="content-section">
                                     {
                                         item.map((res: any, id: any) => {
-                                            console.log('res', res);
                                             // HTODO: add all the things
                                             switch (res.resType) {
                                                 case "PDFs":
@@ -107,24 +101,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                         )
                     })
                 }
-
-
-                {/* <div tabIndex={0} className="pdfs-contianer expand-on-foucs">
-                    <span>spandfs<span className="arrow">&#9660;</span></span>
-                    <div className="pdfs">
-                        {
-                            mat.map(idx => {
-                                console.log(idx);
-                                <MaterialCard cardTitle={title} cardPhoto={photo} cardRate={rate} />
-                            })
-                        }
-                    </div>
-                </div>
-                <div tabIndex={0} className="vidoes-contianer expand-on-foucs"><span>Vidoes</span><span className="arrow">&#9660;</span><div className="pdfs"></div></div>
-                <div tabIndex={0} className="q&a-contianer expand-on-foucs"><span>Q&A</span><span className="arrow">&#9660;</span><div className="pdfs"></div></div>
-                <div tabIndex={0} className="resources-contianer expand-on-foucs"><span>Resources</span><span className="arrow">&#9660;</span><div className="pdfs"></div></div>
-                <div tabIndex={0} className="laws-contianer expand-on-foucs"><span>Laws</span><span className="arrow">&#9660;</span><div className="pdfs"></div></div> */}
-
             </div>
         </div>
 
