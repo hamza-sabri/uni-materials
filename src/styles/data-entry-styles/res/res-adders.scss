@@ -129,3 +129,18 @@
 .swal2-actions{
 	margin-bottom: 1.2rem;
 }
+
+.q-name-input{
+    border: none;
+	border-bottom: 1.2px solid #e0dff7;
+    transition: .3s;
+    padding: .4rem;
+	transition: .3s;
+	width:40%;
+	&:hover,
+	&:focus {
+		transition: .3s;
+		width: 70%;
+		border-bottom: 1.5px solid rgb(2, 58, 241);
+	}
+}

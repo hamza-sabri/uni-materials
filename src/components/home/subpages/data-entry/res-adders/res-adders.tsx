@@ -223,12 +223,14 @@ export function UsefulRes({ matID, topicID }: { matID: string; topicID: string }
 
 export function QAAdder({ matID, topicID }: { matID: string; topicID: string }) {
 	const divRef = useRef<HTMLInputElement>(null);
+	const qNameRef = useRef<HTMLInputElement>(null);
 	const questionRef = useRef<HTMLTextAreaElement>(null);
 	const answerRef = useRef<HTMLTextAreaElement>(null);
 	const submitHandler = async () => {
 		const question: string = questionRef.current!.value;
 		const answer: string = answerRef.current!.value;
-		if (question === '' || answer === '') Swal.fire('Ops!', 'Sorry but all fields must not be empty', 'error');
+		const QName:string =  qNameRef.current!.value;
+		if (question === '' || answer === '' || QName === '') Swal.fire('Ops!', 'Sorry but all fields must not be empty', 'error');
 		else {
 			const requestParams = {
 				materialID: matID,
@@ -237,7 +239,8 @@ export function QAAdder({ matID, topicID }: { matID: string; topicID: string }) 
 			const requestBody = {
 				resType: questionAndAnswerType,
 				question,
-				answer
+				answer,
+				QName
 			};
 			showLoading(0);
 			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
@@ -260,6 +263,7 @@ export function QAAdder({ matID, topicID }: { matID: string; topicID: string }) 
 	return (
 		<div className="adder">
 			<div className="res-animation-container" ref={divRef} />
+			<input className="q-name-input" type="text" ref={qNameRef} placeholder="Question Name"/>
 			<textarea className="res-text-area" placeholder="Question" ref={questionRef} />
 			<textarea className="res-text-area" placeholder="Answer" ref={answerRef} />
 			<div className="res-submit-btn" onClick={submitHandler}>
