@@ -47,7 +47,7 @@ export function PDFAdder({ matID, topicID }: { matID: string; topicID: string })
 			const requestBody = {
 				resType: pdfsType,
 				fileName: pdfName,
-				link: pdfLink
+				bookRefrence: pdfLink
 			};
 			showLoading(0);
 			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
@@ -240,7 +240,8 @@ export function QAAdder({ matID, topicID }: { matID: string; topicID: string }) 
 				resType: questionAndAnswerType,
 				question,
 				answer,
-				QName
+				QName,
+				resRate:0
 			};
 			showLoading(0);
 			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
