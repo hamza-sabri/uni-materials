@@ -9,4 +9,5 @@ export type userCredentials = {
 	universityName?: string;
 	universityLocation?: string;
 	uniID?:string;
+	uid?:string;
 };

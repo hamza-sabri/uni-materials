@@ -1,11 +1,13 @@
 import { userCredentials } from '../../interfaces/user/credentials';
-import { urlConcatenator, signinRoute, signupRoute, userProfileRoute, refreshTokenRoute, updateProfileRoute } from '../../constants/urls';
+import { urlConcatenator, signupRoute, userProfileRoute, refreshTokenRoute, updateProfileRoute } from '../../constants/urls';
 import { IDTokenKey, refreshTokenKey } from '../../constants/local-storage-keys';
-import { CREATED, getErrorStatusCode, OK } from '../../constants/status-codes';
-import { signinError, signUpError, userCreated } from '../../constants/messages';
+import {  getErrorStatusCode } from '../../constants/status-codes';
+import { signinError, userCreated } from '../../constants/messages';
 import axios, { AxiosInstance } from 'axios';
 import * as firebase from 'firebase';
 import Swal from 'sweetalert2';
+import history from '../../history/credationls-history';
+import { homePageRoute, singinPageRoute } from '../../constants/pages-route';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_API_KEY,
@@ -26,17 +28,12 @@ const signin = async (userData: userCredentials): Promise<any> => {
   try {
     // extract all needed data
     const { email, password } = userData;
-    const signInPath = urlConcatenator([signinRoute]);
-    const { status, data } = await axios.post(signInPath, {
-      email: email,
-      password: password,
-    });
-
-		// if the response status is not OK then throw an error else save the token
-		if (status !== OK) throw new Error(signinError);
-		userData.uniID = data.uniID;
-		saveUserCredentials(data.IDToken, data.refreshToken);
-		return { result: true, message: userCreated };
+  	await auth().signInWithEmailAndPassword(email,password);
+	auth().onAuthStateChanged(async(user) =>{
+		const userToken = await user?.getIdToken(true);
+		saveUserCredentials(userToken!, user!.refreshToken);
+	})
+	return { result: true, message: userCreated };
 	} catch (err) {
 		if (err && err.response) {
 			const { data } = err.response;
@@ -48,14 +45,21 @@ const signin = async (userData: userCredentials): Promise<any> => {
 
 const signup = async (userData: userCredentials): Promise<any> => {
   try {
-    const signUpPath = urlConcatenator([signupRoute]);
-    const { status, data } = await axios.post(signUpPath, userData);
-
-		if (status !== CREATED) throw new Error(signUpError);
-		saveUserCredentials(data.IDToken, data.refreshToken);
-
-    return { result: true, message: userCreated };
+	await auth().createUserWithEmailAndPassword(userData.email, userData.password);
+	auth().onAuthStateChanged(async(user)=>{
+			if(!user || user === null )return;
+			const { uid} = user!;
+			userData.uid = uid;
+			const signUpPath = urlConcatenator([signupRoute]);
+			await axios.post(signUpPath, userData);
+			const userToken = await user?.getIdToken(true);
+			saveUserCredentials(userToken!, user!.refreshToken); 
+	});
+	
+	return { result: true, message: userCreated };
   } catch (err) {
+	  if(err.message)  return { result: false, message: err.message };
+	  
     if (err && err.response) {
       const { data } = err.response;
       return { result: false, message: data.error.message };
@@ -105,8 +109,7 @@ const refreshUserToken = async () => {
 
 const saveLocaly = (localStorageKey: string, data: string) => localStorage.setItem(localStorageKey, data);
 
-const getStoredItems = (localStorageKey: string): string | null =>
-  localStorage.getItem(localStorageKey);
+const getStoredItems = (localStorageKey: string): string | null => localStorage.getItem(localStorageKey);
 
 const clearStorage = async () => {
 	localStorage.clear();
@@ -119,6 +122,15 @@ const forgetPassword = (email:string)=>{
 	.catch(()=> Swal.fire("Ops!","sorry but something went wrong :(", "error"))
 }
 
-// TODO convert this into a API on your backend
-const isLogedin =  ()=> getStoredItems(refreshTokenKey);
+let times =0;
+const isLogedin =  ()=> {
+	 auth().onAuthStateChanged((user)=>{
+		 if(times === 1)return;
+		if (!user || user === null) history.push(singinPageRoute);
+		else history.push(homePageRoute)
+		times++;
+		
+	});
+};
+
 export { signin, getStoredItems, signup, clearStorage, getUserProfile, refreshUserToken, isLogedin, forgetPassword, updateUserProfile };
