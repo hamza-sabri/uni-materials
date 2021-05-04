@@ -61,12 +61,44 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                             // HTODO: add all the things
                                             switch (res.resType) {
                                                 case "PDFs":
-                                                    console.log('allRes', allRes);
-                                                    return (<><TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={0} /> <TopicCard key={id+10} cardPhoto={photo} cardTitle={title} cardRate={0} /><TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={0} /> <TopicCard key={id+10} cardPhoto={photo} cardTitle={title} cardRate={0} /><TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={0} /> <TopicCard key={id+10} cardPhoto={photo} cardTitle={title} cardRate={0} /><TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={0} /> <TopicCard key={id+10} cardPhoto={photo} cardTitle={title} cardRate={0} /><TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={0} /> <TopicCard key={id+10} cardPhoto={photo} cardTitle={title} cardRate={0} /></>)
+                                                    // bookRefrence: "http://res.cloudinary.com/dgviin24k/image/upload/v1615940771/TitlePage.pdf"
+                                                    // resType: "PDFs"
+                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={res.topicRate} />)
+                                                    break;
+                                                case "Videos":
+                                                    // link: "youtube-link-test"
+                                                    // resType: "Videos"
+                                                    // topicRate: 0
+                                                    // videoImage: "/static/media/youtube.2044ed05.jpg"
+                                                    // videoName: "???????
+                                                    return (<TopicCard key={id} cardPhoto={res.videoImage} cardTitle={res.videoName} cardRate={res.topicRate} />)
+                                                    break;
+                                                case "Q&A":
+                                                    // answer: "aaaaaa"
+                                                    // question: "a"
+                                                    // resType: "Q&A"
+                                                    // topicRate: 0
+                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={res.question} cardRate={res.topicRate} />)
+                                                    break;
+                                                case "Resources":
+                                                    // link: "test-link"
+                                                    // resType: "Resources"
+                                                    // topicRate: 0
+                                                    // websiteImage: "/static/media/website.499d2971.webp"
+                                                    // websiteName: "???????"
+                                                    return (<TopicCard key={id} cardPhoto={res.websiteImage} cardTitle={res.websiteName} cardRate={res.topicRate} />)
+                                                    break;
+                                                case "Laws":
+                                                    // lawConent: "aa"
+                                                    // lawExample: "aaa"
+                                                    // lawName: "a"
+                                                    // resType: "Laws"
+                                                    // topicRate: 0
+                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={res.lawName} cardRate={res.topicRate} />)
                                                     break;
                                                 default:
                                                     console.log("Something worng have happend");
-                                                    
+
                                             }
                                         })
                                     }
