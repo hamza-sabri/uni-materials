@@ -7,6 +7,7 @@ import * as Types from './../../../../constants/res-types';
 
 import '../../../../styles/data-entry-styles/res/view-all-topic-res.css'
 import { useEffect, useState } from 'react';
+import { link } from 'fs';
 
 // HTODO: add loding thingy.
 // HTDOD: fix topic pass for the eidt and delete function.
@@ -65,7 +66,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                     // topicRate: 0
                                                     // videoImage: "/static/media/youtube.2044ed05.jpg"
                                                     // videoName: "???????
-                                                    return (<TopicCard key={id} cardPhoto={res.videoImage} cardTitle={res.videoName} cardRate={res.topicRate} />)
+                                                    return (<a href={res.link} target="_blank"><TopicCard key={id} cardPhoto={res.videoImage} cardTitle={res.videoName} cardRate={res.topicRate} /></a>)
                                                     break;
                                                 case "Q&A":
                                                     // answer: "aaaaaa"
@@ -80,7 +81,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                     // topicRate: 0
                                                     // websiteImage: "/static/media/website.499d2971.webp"
                                                     // websiteName: "???????"
-                                                    return (<TopicCard key={id} cardPhoto={res.websiteImage} cardTitle={res.websiteName} cardRate={res.topicRate} />)
+                                                    return (<a href={res.link} target="_blank"><TopicCard key={id} cardPhoto={res.websiteImage} cardTitle={res.websiteName} cardRate={res.topicRate} /></a>)
                                                     break;
                                                 case "Laws":
                                                     // lawConent: "aa"
