@@ -241,7 +241,6 @@ export function QAAdder({ matID, topicID }: { matID: string; topicID: string }) 
 				question,
 				answer,
 				QName,
-				resRate:0
 			};
 			showLoading(0);
 			const { status, data } = await APIsCaller({ api: createNewRes, requestParams, requestBody });
