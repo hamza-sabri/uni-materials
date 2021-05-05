@@ -167,4 +167,21 @@
 .swal2-actions {
   margin-bottom: 1.2rem;
 }
+
+.q-name-input {
+  border: none;
+  border-bottom: 1.2px solid #e0dff7;
+  -webkit-transition: .3s;
+  transition: .3s;
+  padding: .4rem;
+  transition: .3s;
+  width: 40%;
+}
+
+.q-name-input:hover, .q-name-input:focus {
+  -webkit-transition: .3s;
+  transition: .3s;
+  width: 70%;
+  border-bottom: 1.5px solid #023af1;
+}
 /*# sourceMappingURL=res-adders.css.map */

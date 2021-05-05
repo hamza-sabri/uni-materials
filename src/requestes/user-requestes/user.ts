@@ -47,7 +47,9 @@ const signup = async (userData: userCredentials): Promise<any> => {
   try {
 	await auth().createUserWithEmailAndPassword(userData.email, userData.password);
 	auth().onAuthStateChanged(async(user)=>{
-			if(!user || user === null )return;
+			const storedItem = getStoredItems('sign');
+			console.log("storedItem = " +  storedItem)
+			if(!user || user === null || storedItem === null || storedItem === 'in')return;
 			const { uid} = user!;
 			userData.uid = uid;
 			const signUpPath = urlConcatenator([signupRoute]);
@@ -133,4 +135,4 @@ const isLogedin =  ()=> {
 	});
 };
 
-export { signin, getStoredItems, signup, clearStorage, getUserProfile, refreshUserToken, isLogedin, forgetPassword, updateUserProfile };
+export { signin, getStoredItems, signup, clearStorage, getUserProfile, refreshUserToken, isLogedin, forgetPassword, updateUserProfile, saveLocaly };

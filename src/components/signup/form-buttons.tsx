@@ -1,6 +1,6 @@
 import { emailPasswordForm, namesForm, uniForm } from '../../constants/form-arrays';
 import { formInterface } from '../../interfaces/forms/signup-form';
-import { signup } from '../../requestes/user-requestes/user';
+import { saveLocaly, signup } from '../../requestes/user-requestes/user';
 import { reqiredFields, addSelectedValues } from '../../validation/signup-validation';
 import { showAlert } from '../../utilities/alearts';
 import history from '../../history/credationls-history';
@@ -33,6 +33,7 @@ export default function FormButtons({ formPage, setFormPage, signupResult }: for
 	};
 
 	const submitSignupResults = async () => {
+		saveLocaly('sign','up');
 		// TODO validate the whole oject before sending it to backend
 		const finalUserData = addSelectedValues(signupResult, keysAndIDs, unisTabel);
 		Swal.showLoading();
