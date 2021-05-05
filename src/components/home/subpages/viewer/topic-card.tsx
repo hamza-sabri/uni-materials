@@ -65,9 +65,9 @@ export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, 
 				<div className="top-part-container">
 					<div className="icons-contianer">
 						{/*  HTODO: onClick: Apicall */}
-						<div className="icon delete-icon" ref={deleteBtnRef} onClick={(e) => { handleOnClick(e) }} onMouseEnter={() => { deleteAnim!.play() }} onMouseLeave={() => { deleteAnim!.stop() }}></div>
+						<div className="icon delete-icon" ref={deleteBtnRef} onClick={(e) => { handleOnClick(e) }} onMouseEnter={() => { if(deleteAnim)deleteAnim!.play() }} onMouseLeave={() => { if(deleteAnim)deleteAnim!.stop() }}></div>
 						{/* HTODO: onClick: Route */}
-						<div className="icon edit-icon" ref={editBtnRef} onClick={(e) => { handleOnClick(e); }} onMouseEnter={() => { editAnim!.play() }} onMouseLeave={() => { editAnim!.stop() }}></div>
+						<div className="icon edit-icon" ref={editBtnRef} onClick={(e) => { handleOnClick(e); }} onMouseEnter={() => { if(editAnim)editAnim!.play() }} onMouseLeave={() => { if(editAnim)editAnim!.stop() }}></div>
 					</div>
 
 					<div className="topic-rate-container">

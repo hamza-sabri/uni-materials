@@ -49,7 +49,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                     allRes.map((item: any, idx: any) => {
                         return (
                             <div key={idx} tabIndex={0} className="expand-on-foucs">
-                                <span>{allTypes[idx]}<span className="arrow">&#9660;</span></span>
+                                <span className="section-name"><span>{allTypes[idx]}</span><span className="arrow">&#9660;</span></span>
                                 <div className="content-section">
                                     {
                                         item.map((res: any, id: any) => {
@@ -58,7 +58,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                 case "PDFs":
                                                     // bookRefrence: "http://res.cloudinary.com/dgviin24k/image/upload/v1615940771/TitlePage.pdf"
                                                     // resType: "PDFs"
-                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={res.topicRate} />)
+                                                    return (<a href={res.bookRefrence} target="_blank"><TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={res.topicRate} /></a>)
                                                     break;
                                                 case "Videos":
                                                     // link: "youtube-link-test"
@@ -69,11 +69,12 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                     return (<a href={res.link} target="_blank"><TopicCard key={id} cardPhoto={res.videoImage} cardTitle={res.videoName} cardRate={res.topicRate} /></a>)
                                                     break;
                                                 case "Q&A":
+                                                    // QName: "best Q" 
                                                     // answer: "aaaaaa"
                                                     // question: "a"
                                                     // resType: "Q&A"
                                                     // topicRate: 0
-                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={res.question} cardRate={res.topicRate} />)
+                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={res.QName || "Q N"} cardRate={res.topicRate} />)
                                                     break;
                                                 case "Resources":
                                                     // link: "test-link"
@@ -93,7 +94,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                     break;
                                                 default:
                                                     console.log("Something worng have happend");
-
                                             }
                                         })
                                     }

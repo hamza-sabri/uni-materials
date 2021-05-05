@@ -76,6 +76,16 @@
   border-bottom: 1px solid #616161;
 }
 
+.all-topic-res-contianer .resource-section .expand-on-foucs .section-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  cursor: pointer;
+}
+
 .all-topic-res-contianer .resource-section .expand-on-foucs .arrow {
   -webkit-transition: 0.5s;
   transition: 0.5s;

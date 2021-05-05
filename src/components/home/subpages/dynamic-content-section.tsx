@@ -31,6 +31,7 @@ import SchedulePage from '../../../pages/schedule-page';
 import GuidancePage from '../../../pages/guidance';
 import UpdateTopic from '../../../components/home/subpages/data-entry/update-topic'
 import NotFoundPage from '../../../pages/not-found-page';
+import ViewAllTopicRes from '../subpages/data-entry/view-all-res'
 
 export default function DynamicContentSection() {
 	return (
