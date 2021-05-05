@@ -8,9 +8,8 @@ import lottie, { AnimationItem } from 'lottie-web';
 // import history from '../../../../history/home-history';
 import { updateTopic } from '../../../../constants/pages-route';
 
-
 // TODO: Check the card interface
-export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, deleteTopicFun, topicDes }: any) {
+export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, cardID, routeTo, onClickHandlers, topicDes }: any) {
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
@@ -36,10 +35,6 @@ export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, 
 			}));
 		}, [])
 
-		let handleDeleting = async () => {
-			deleteTopicFun(materialID, cardID)
-		}
-
 		let handleOnClick = (e: any) => {
 			let path = e.nativeEvent.composedPath();
 			console.log(path);
@@ -49,13 +44,15 @@ export default function TopicCard({ materialID, cardPhoto, cardTitle, cardRate, 
 
 			if (path.includes(editBtnRef.current)) {
 				// handle onClick for editBtn
-				history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: topicDes })
+				onClickHandlers.edit(history, updateTopic, materialID, cardID, cardTitle, cardPhoto, topicDes);
+				// history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: topicDes })
 			} else if (path.includes(deleteBtnRef.current)) {
 				// handle onClick for deleteBtn
-				handleDeleting()
+				onClickHandlers.delete(materialID, cardID)
 			} else {
 				// handle onClick for the showRes
-				history.push(`${routeTo}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: topicDes })
+				onClickHandlers.body(history, routeTo, materialID, cardID, cardTitle, cardPhoto, cardRate, topicDes);
+				// history.push(`${routeTo}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: topicDes })
 			}
 		}
 

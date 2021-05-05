@@ -165,6 +165,20 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
 	}
 
+	let editTopicFun = (history: any, routeTo: any, materialID:any, cardID:any, cardTitle:any, cardPhoto:any, topicDes:any) => {
+		history.push(routeTo, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: topicDes })
+	}
+
+	let bodyTopicFun = (history:any, routeTo: any, materialID:any, cardID:any, cardTitle: any, cardPhoto: any, cardRate: any, topicDes: any) => {
+		history.push(`${routeTo}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: topicDes })
+	}
+
+	let onClickHandlers = {
+		delete: deleteTopicFun,
+		edit: editTopicFun,
+		body: bodyTopicFun
+	}
+
 	// disblay waiting for conext result
 	// show spining circle, a moneky eating a banana or a cat photo anything.
 	if (!material) {
@@ -201,8 +215,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 										cardPhoto={topic.topicPhoto || material.materialPhoto}
 										cardRate={topic.topicRate || material.totalRate}
 										topicDes={topic.description || material.materialDesc || "No Description"}
-										deleteTopicFun={deleteTopicFun} 
-										routeTo={allTopicRes}/>
+										onClickHandlers={onClickHandlers}
+										routeTo={allTopicRes} />
 								})
 								: <p>No Topics Found</p>
 					}
