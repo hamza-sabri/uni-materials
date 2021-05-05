@@ -3,7 +3,7 @@ import '../../styles/logins/login.css';
 import '../../styles/logins/login-animations.css';
 import ForgotPassword from './forgotPassword';
 import SignUpButton from './signUpButton';
-import { isLogedin, signin } from '../../requestes/user-requestes/user';
+import { isLogedin, saveLocaly, signin } from '../../requestes/user-requestes/user';
 import signinImage from '../../assets/login-assets/sign-in.svg';
 import { showAlert } from '../../utilities/alearts';
 import { homePageRoute } from '../../constants/pages-route';
@@ -13,8 +13,9 @@ import Swal from 'sweetalert2';
 export default function LoginPage() {
 	isLogedin();
 	const [ { email, password }, setCredentials ] = useState({ email: '', password: '' });
-
+	
 	const login = async () => {
+		saveLocaly('sign','in');
 		Swal.showLoading();
 		const { result, message } = await signin({ email, password });
 		if (result) {
