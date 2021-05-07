@@ -57,8 +57,8 @@ export default function Avatar({ data, unisDataList, setUser }: any) {
       const universityName: string = uniNameRef.current!.value;
       const profileAvatar: string = imgRef.current!.src;
       let uniID: string = "";
-      unisDataList.forEach(({ doc }: any) =>
-        doc.name === universityName ? (uniID = doc.id) : ""
+      unisDataList.forEach(({ id, doc }: any) =>
+        doc.name === universityName ? (uniID = id) : ""
       );
       if (uniID === "")
         Swal.fire(
@@ -76,6 +76,7 @@ export default function Avatar({ data, unisDataList, setUser }: any) {
           lastName,
           profileAvatar,
         };
+        console.log(requestBody);
 
         const { data, status } = await APIsCaller({
           api: updateUserProfile,
