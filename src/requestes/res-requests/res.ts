@@ -1,5 +1,5 @@
 import { getErrorStatusCode } from '../../constants/status-codes';
-import { createResRoute, getAllResRoute } from '../../constants/urls';
+import { createResRoute, getAllResRoute, deleteResRoute, updateResRoute } from '../../constants/urls';
 import { responseInterface } from '../../interfaces/responses';
 import { AxiosInstance } from 'axios';
 
@@ -25,7 +25,7 @@ const getAllRes = async (axios: AxiosInstance, requestParams: any): Promise<resp
 
 const deleteRes = async (axios: AxiosInstance, requestParams: any): Promise<responseInterface> => {
 	try {
-		const { status, data } = await axios.delete(getAllResRoute, { params: requestParams });
+		const { status, data } = await axios.delete(deleteResRoute, { params: requestParams });
 		return { data, status };
 	} catch (err) {
 		console.log(JSON.stringify(err));
@@ -34,8 +34,9 @@ const deleteRes = async (axios: AxiosInstance, requestParams: any): Promise<resp
 };
 
 const updateRes = async (axios: AxiosInstance, requestParams: any, requestBody: any): Promise<responseInterface> => {
+	console.log(requestParams, requestBody);
 	try {
-		const { status, data } = await axios.put(getAllResRoute, requestBody, {  params: requestParams });
+		const { status, data } = await axios.put(updateResRoute, requestBody, {  params: requestParams });
 		return { data, status };
 	} catch (err) {
 		console.log(JSON.stringify(err));

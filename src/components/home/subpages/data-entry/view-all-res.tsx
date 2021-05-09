@@ -1,13 +1,43 @@
-import { match as infoPageMatch, useLocation } from 'react-router-dom';
+import { match as infoPageMatch, useHistory, useLocation } from 'react-router-dom';
 import { APIsCaller } from './../../../../requestes/apis-caller';
-import { getAllRes } from './../../../../requestes/res-requests/res'
+import { getAllRes, deleteRes } from './../../../../requestes/res-requests/res'
 import MaterialCard from "./../viewer/material-card";
-import TopicCard from "./../viewer/topic-card";
+import ResCard from "./../viewer/res-card";
 import * as Types from './../../../../constants/res-types';
+import PdfSVG from './../../../../assets/data-entry-assets/pdf.svg'
+import { updateTopicRes } from '../../../../constants/pages-route';
+
 
 import '../../../../styles/data-entry-styles/res/view-all-topic-res.css'
 import { useEffect, useState } from 'react';
-import { link } from 'fs';
+import Swal from 'sweetalert2';
+
+let showQA = (info: any) => {
+    console.log(info);
+
+    Swal.fire({
+        title: info.QName,
+        text: info.question,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Show Ans."
+    }).then(async (result) => {
+        Swal.fire({
+            title: info.QName,
+            html: `<div><p><b>${info.question}</b></p> <p>${info.answer}</p></div>`
+        })
+    })
+}
+
+let showLaws = (info: any) => {
+    Swal.fire({
+        title: info.QName,
+        html: `<div><p><b>${info.lawName}</b></p> <p>${info.lawConent}</p>  <p>${info.lawExample}</p></div>`,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Show Ans."
+    });
+}
 
 // HTODO: add loding thingy.
 // HTDOD: fix topic pass for the eidt and delete function.
@@ -17,8 +47,9 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
     let { matID, topicID }: any = match.params;
     let { title, photo, rate, description }: any = loc.state;
     let allTypes = Object.entries(Types).map((item) => item[1]);
-    let [allRes, setAllRes] = useState([]);
+    let [allRes, setAllRes] = useState<Array<Array<any>>>([]);
 
+    // HTODO: add to local storage.
     useEffect(() => {
         const getData = async () => {
             const requestParams = { materialID: matID, topicID: topicID };
@@ -31,6 +62,71 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         }
         getData();
     }, [])
+
+    let editResFun = (history: any, cardID: any, cardTitle: any, cardPhoto: any, ResDes: any, info: any) => {
+        console.log("resType", info.resType);
+        history.push(`${updateTopicRes}/${info.resType}/${matID}/${topicID}/${cardID}`, { materialID: matID, topicID: topicID, ResID: cardID, name: cardTitle, photo: cardPhoto, description: ResDes, info: info })
+    }
+
+    let deleteResFun = async (cardID: any) => {
+        const requestParams = { materialID: matID, topicID: topicID, resorseID: cardID };
+        // HTODO: Make this a comp
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            showLoaderOnConfirm: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleting Topic",
+                    text: "Please Wait...",
+                    didOpen: async () => {
+                        Swal.showLoading();
+                        let res = await APIsCaller({ api: deleteRes, requestParams });
+                        Swal.hideLoading();
+                        if (res.status === 200) {
+                            // after deleting completed
+                            removeFromAllRes(cardID);
+                            Swal.fire(
+                                'Deleted!',
+                                res.data.message,
+                                'success'
+                            )
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                                footer: '<a href>Please Try Agian</a>'
+                            })
+                        }
+
+                    }
+                })
+            }
+        })
+    }
+
+    // HTODO: make this better.
+    let removeFromAllRes = (resID: string) => {
+        let newRes = allRes.map(item => {
+            return item.filter(res => {
+                return res.resID !== resID;
+            })
+        })
+        setAllRes(newRes);
+    }
+
+    let onClickHandlers = {
+        edit: editResFun,
+        delete: deleteResFun,
+        body: (info: any) => { },
+    }
 
     return (
         <div className="all-topic-res-contianer">
@@ -56,25 +152,56 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                             // HTODO: add all the things
                                             switch (res.resType) {
                                                 case "PDFs":
-                                                    // bookRefrence: "http://res.cloudinary.com/dgviin24k/image/upload/v1615940771/TitlePage.pdf"
-                                                    // resType: "PDFs"
-                                                    return (<a href={res.bookRefrence} target="_blank"><TopicCard key={id} cardPhoto={photo} cardTitle={title} cardRate={res.topicRate} /></a>)
+                                                    // resID
+                                                    // fileName: "test"
+                                                    // bookRefrence: "https://res.cloudinary.com/dgviin24k/image/upload/v1620041621/20vanemdeboastrees.pdf"
+                                                    // rate: 5
+                                                    console.log(res);
+                                                    return (
+                                                        <a key={id} href={res.link || res.bookRefrence} target="_blank">
+                                                            <ResCard key={id}
+                                                                cardID={res.resID}
+                                                                cardPhoto={PdfSVG}
+                                                                cardTitle={res.fileName || title || "Book Chapter"}
+                                                                cardRate={res.rate}
+                                                                info={res}
+                                                                onClickHandlers={onClickHandlers}
+                                                            />
+                                                        </a>
+                                                    )
                                                     break;
                                                 case "Videos":
                                                     // link: "youtube-link-test"
                                                     // resType: "Videos"
-                                                    // topicRate: 0
+                                                    // rate: 0
                                                     // videoImage: "/static/media/youtube.2044ed05.jpg"
                                                     // videoName: "???????
-                                                    return (<a href={res.link} target="_blank"><TopicCard key={id} cardPhoto={res.videoImage} cardTitle={res.videoName} cardRate={res.topicRate} /></a>)
+                                                    return (
+                                                        <a key={id} href={res.link} target="_blank">
+                                                            <ResCard key={id}
+                                                                cardID={res.resID}
+                                                                cardPhoto={res.videoImage}
+                                                                cardTitle={res.videoName}
+                                                                cardRate={res.topicRate}
+                                                                info={res}
+                                                                onClickHandlers={onClickHandlers} />
+                                                        </a>)
                                                     break;
                                                 case "Q&A":
                                                     // QName: "best Q" 
                                                     // answer: "aaaaaa"
                                                     // question: "a"
                                                     // resType: "Q&A"
-                                                    // topicRate: 0
-                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={res.QName || "Q N"} cardRate={res.topicRate} />)
+                                                    // rate: 0
+                                                    onClickHandlers.body = showQA;
+                                                    return (
+                                                        <ResCard key={id}
+                                                            cardID={res.resID}
+                                                            cardPhoto={photo}
+                                                            cardTitle={res.QName || "Q N"}
+                                                            cardRate={res.topicRate}
+                                                            info={res}
+                                                            onClickHandlers={onClickHandlers} />)
                                                     break;
                                                 case "Resources":
                                                     // link: "test-link"
@@ -82,7 +209,16 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                     // topicRate: 0
                                                     // websiteImage: "/static/media/website.499d2971.webp"
                                                     // websiteName: "???????"
-                                                    return (<a href={res.link} target="_blank"><TopicCard key={id} cardPhoto={res.websiteImage} cardTitle={res.websiteName} cardRate={res.topicRate} /></a>)
+                                                    return (
+                                                        <a key={id} href={res.link} target="_blank">
+                                                            <ResCard key={id}
+                                                                cardID={res.resID}
+                                                                cardPhoto={res.websiteImage}
+                                                                cardTitle={res.websiteName}
+                                                                cardRate={res.topicRate}
+                                                                info={res}
+                                                                onClickHandlers={onClickHandlers} />
+                                                        </a>)
                                                     break;
                                                 case "Laws":
                                                     // lawConent: "aa"
@@ -90,7 +226,15 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                     // lawName: "a"
                                                     // resType: "Laws"
                                                     // topicRate: 0
-                                                    return (<TopicCard key={id} cardPhoto={photo} cardTitle={res.lawName} cardRate={res.topicRate} />)
+                                                    onClickHandlers.body = showLaws;
+                                                    return (
+                                                        <ResCard key={id}
+                                                            cardID={res.resID}
+                                                            cardPhoto={photo}
+                                                            cardTitle={res.lawName}
+                                                            cardRate={res.topicRate}
+                                                            info={res}
+                                                            onClickHandlers={onClickHandlers} />)
                                                     break;
                                                 default:
                                                     console.log("Something worng have happend");

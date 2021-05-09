@@ -12,6 +12,7 @@ import {
 	profileRoute,
 	updateTopic,
 	allTopicRes,
+	updateTopicRes,
 	addResMethods,
 	materialInfoRoute,
 	notFoundRoute,
@@ -32,6 +33,7 @@ import GuidancePage from '../../../pages/guidance';
 import UpdateTopic from '../../../components/home/subpages/data-entry/update-topic'
 import NotFoundPage from '../../../pages/not-found-page';
 import ViewAllTopicRes from '../subpages/data-entry/view-all-res'
+import UpdateRes from '../subpages/data-entry/update-res';
 
 export default function DynamicContentSection() {
 	return (
@@ -51,9 +53,10 @@ export default function DynamicContentSection() {
 				<Route path={`${addResMethods}/:matID/:topicID`} exact component={DataEntryPage} />
 				<Route path={`${updateTopic}`} exact component={UpdateTopic} />
 				<Route path={`${updateTopic}/:id/`} exact component={AddManuallyPage} />
-				<Route path={`${manualEntryRoute}/:id`} component={AddManuallyPage} />
-				<Route path={guidanceRoute} component={GuidancePage} />
-				<Route path={`${allTopicRes}/:matID/:topicID`} component={ViewAllTopicRes}/>
+				<Route path={`${manualEntryRoute}/:id`} exact component={AddManuallyPage} />
+				<Route path={guidanceRoute} exact component={GuidancePage} />
+				<Route path={`${allTopicRes}/:matID/:topicID`} exact component={ViewAllTopicRes}/>
+				<Route path={`${updateTopicRes}/:resType/:matID/:topicID/:resID`} exact component={UpdateRes}/>
 
 				{/*if no route matches  */}
 				<Route component={NotFoundPage}/>

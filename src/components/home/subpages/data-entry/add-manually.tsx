@@ -18,10 +18,11 @@ type cardCreateorInterface = {
 	rate?: number;
 	resRoute: string;
 	topicID?: string;
+	ResID?: string;
 	setResRoute: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function CardCreateor({ inputs, descriptionInput, values, localMaterialID, topicID, rate, resRoute, setResRoute }: cardCreateorInterface) {
+export default function CardCreateor({ inputs, descriptionInput, values, localMaterialID, topicID, ResID, rate, resRoute, setResRoute }: cardCreateorInterface) {
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
 	const previewer = useRef<HTMLImageElement>(null);
@@ -61,7 +62,8 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		results.forEach((result, index) => (result === '' || !result) ? emptyIndex = index : '')
 		if (emptyIndex !== -1) Swal.fire('Ops!', `Sorry but the "${inputs[emptyIndex]}" is required`, 'error');
 		else {
-			if (topicID != undefined) { updateTopicDocument(); }
+			if(ResID != undefined) {}
+			else if (topicID != undefined) { updateTopicDocument(); }
 			else if (inputs[0].includes('Topic')) submitTopic();
 			else if (values.length !== 0) updateDocument();
 			else if (descriptionInput) submitMaterial();

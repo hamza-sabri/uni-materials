@@ -13,6 +13,7 @@ const cretateTopics: string = '/topics/create';
 const profileRoute: string = '/profile';
 const updateTopic: string = '/topics/update';
 const allTopicRes: string = '/topics/res';
+const updateTopicRes: string = '/topics/res/update';
 const addResMethods:string = '/topic/res/add';
 const materialInfoRoute:string = '/material/info';
 const guidanceRoute:string = '/website/guidance';
@@ -33,6 +34,7 @@ export {
 	profileRoute,
 	updateTopic,
 	allTopicRes,
+	updateTopicRes,
 	addResMethods,
 	materialInfoRoute,
 	notFoundRoute,

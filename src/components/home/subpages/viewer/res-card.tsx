@@ -8,7 +8,7 @@ import '../../../../styles/viewer/topic-card/topic-card.css';
 import { useHistory } from 'react-router-dom';
 
 // TODO: Check the card interface
-export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, routeTo, onClickHandlers, description }: any) {
+export default function ResCard({ cardID, cardPhoto, cardTitle, cardRate, info, onClickHandlers, description }: any) {
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
@@ -39,7 +39,7 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 			if (onClickHandlers && onClickHandlers.edit && path.includes(editBtnRef.current)) {
 				// handle onClick for editBtn
 				e.preventDefault()
-				onClickHandlers.edit(history, cardID, cardTitle, cardPhoto, description);
+				onClickHandlers.edit(history, cardID, cardTitle, cardPhoto, description, info);
 				// history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: description })
 			} else if (onClickHandlers && onClickHandlers.delete && path.includes(deleteBtnRef.current)) {
 				// handle onClick for deleteBtn
@@ -47,7 +47,7 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 				onClickHandlers.delete(cardID)
 			} else if (onClickHandlers && onClickHandlers.body) {
 				// handle onClick for the showRes
-				onClickHandlers.body(history, cardID, cardTitle, cardPhoto, cardRate, description);
+				onClickHandlers.body(info);
 				// history.push(`${routeTo}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: description })
 			} else {
 				console.log('nothing');
@@ -55,6 +55,7 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 		}
 
 		return (
+            // HTODO: Make component
 			<div className="topic-card">
 				<img src={cardPhoto} alt="card-img" />
 				<div className="top-part-container">
