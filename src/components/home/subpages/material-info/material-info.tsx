@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { match as infoPageMatch } from 'react-router-dom';
+import { match as infoPageMatch, useHistory } from 'react-router-dom';
 import MaterialCard from "./../viewer/material-card";
 import TopicCard from "./../viewer/topic-card";
 import { APIsCaller } from './../../../../requestes/apis-caller'
@@ -9,6 +9,9 @@ import { DynamicContentContext } from './../../../../contexts/home-context/dynam
 import loadMoreIcon from '../../../../assets/material-info-assets/load-more-icon.json';
 import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
+import { allTopicRes } from '../../../../constants/pages-route';
+import { updateTopic } from '../../../../constants/pages-route';
+
 
 import './../../../../styles/materials-info/materials-info.css';
 import Swal from 'sweetalert2';
@@ -111,15 +114,15 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		}));
 	}, [loadMoreDivRef.current])
 
-	let deleteTopicFun = async (materialID: any, topicID: any) => {
-		const requestParams = { materialID: materialID, topicID: topicID };
+	let deleteTopicFun = async (cardID: any) => {
+		const requestParams = { materialID: materialID, topicID: cardID };
 		Swal.fire({
 			title: 'Are you sure?',
 			text: "You won't be able to revert this!",
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
+			confirmButtonColor: '#d33',
+			cancelButtonColor: '#3085d6',
 			confirmButtonText: 'Yes, delete it!',
 			showLoaderOnConfirm: true,
 		}).then(async (result) => {
@@ -132,7 +135,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 						let res = await APIsCaller({ api: deleteTopic, requestParams });
 						Swal.hideLoading();
 						console.log('del-res', res);
-						removeFromAllTopics(topicID);
+						removeFromAllTopics(cardID);
 						if (res.status === 200) {
 							// after deleting completed
 							Swal.fire(
@@ -163,9 +166,19 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
 	}
 
-	// let editTopicFun = (topicID, topicName, topicPhoto, topicDes) => {
+	let editTopicFun = (history:any, cardID: any, cardTitle:any, cardPhoto:any, topicDes:any) => {
+		history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: topicDes })
+	}
 
-	// }
+	let bodyTopicFun = (history:any, cardID:any, cardTitle: any, cardPhoto: any, cardRate: any, topicDes: any) => {
+		history.push(`${allTopicRes}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: topicDes })
+	}
+
+	let onClickHandlers = {
+		delete: deleteTopicFun,
+		edit: editTopicFun,
+		body: bodyTopicFun
+	}
 
 	// disblay waiting for conext result
 	// show spining circle, a moneky eating a banana or a cat photo anything.
@@ -196,14 +209,14 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 							<div className="loading-div" ref={loadingDivRef}></div>
 							: (topicsFound) ?
 								topicsToDisplay.map((topic: any, index) => {
-									return <TopicCard key={index}
-										materialID={materialID}
-										cardID={Object.keys(allTopics)[index]}
+									return <TopicCard key={index}IDs
+										cardID = {Object.keys(allTopics)[index]}
 										cardTitle={topic.topicName || material.materialName}
 										cardPhoto={topic.topicPhoto || material.materialPhoto}
 										cardRate={topic.topicRate || material.totalRate}
-										topicDes={topic.description || material.materialDesc || "No Description"}
-										deleteTopicFun={deleteTopicFun} />
+										description={topic.description || material.materialDesc || "No Description"}
+										onClickHandlers={onClickHandlers}
+										routeTo={allTopicRes} />
 								})
 								: <p>No Topics Found</p>
 					}

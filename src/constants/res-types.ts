@@ -1,4 +1,4 @@
-const pdfsType: string = 'PDF';
+const pdfsType: string = 'PDFs';
 const videosType: string = 'Videos';
 const questionAndAnswerType: string = 'Q&A';
 const usefulResType: string = 'Resources';

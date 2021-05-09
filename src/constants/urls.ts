@@ -32,6 +32,9 @@ const deleteTopicRoute:string = '/materials/topic/delete';
 
 // res
 const createResRoute: string = '/materials/topic/res/create';
+const getAllResRoute: string = '/materials/topic/res/get';
+const deleteResRoute: string = '/materials/topic/res/delete'
+const updateResRoute: string = '/materials/topic/res/update'
 
 
 // functions
@@ -60,6 +63,9 @@ export {
 	updateTopicRoute,
 	deleteTopicRoute,
 	createResRoute,
+	getAllResRoute,
+	deleteResRoute,
+	updateResRoute,
 	userProfileRoute,
 	refreshTokenRoute,
 	updateProfileRoute

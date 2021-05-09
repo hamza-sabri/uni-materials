@@ -1,0 +1,137 @@
+.all-topic-res-contianer {
+    width: 95%;
+    height: 95%;
+    margin-left: 10px;
+    padding: 10px;
+
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: 1fr 3fr;
+    grid-column-gap: 10px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    #material-card {
+        display: flex;
+        align-items: center;
+
+        pointer-events: none; // remove hover effect
+    }
+
+    #desc {
+        display: flex;
+        flex-direction: column;
+
+        margin-bottom: 15px;
+
+        // height: 92.5%;
+        // margin-top: 5px;
+
+        background: rgb(230, 230, 230);
+
+        border: 1px solid gray;
+        border-radius: 10px;
+
+        #desc-title {
+            margin: 0;
+            padding: 0;
+            margin-left: 5px;
+
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        #desc-text {
+            flex-grow: 1;
+
+            padding: 10px 0 0 10px;
+            margin: 5px;
+
+            background: white;
+
+            border: 1px solid gray;
+            border-radius: 10px;
+
+            overflow: scroll;
+        }
+
+        #desc-text::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .resource-section {
+        grid-row: 2 / span 3;
+        grid-column: 1 / span 4;
+
+        .expand-on-foucs {
+            background-color: hsl(0, 0%, 87%);
+            border-bottom: 1px solid rgb(97, 97, 97);
+
+            .section-name{
+                display: flex;
+                justify-content: space-between;
+
+                cursor: pointer;
+            }
+
+            .arrow {
+                transition: 0.5s;
+            }
+
+            .content-section {
+                height: 0;
+                background-color: rgb(247, 247, 247);
+                border: 12px;
+                transition: height 0.3s;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                flex-wrap: wrap;
+
+                overflow-y: scroll;
+
+
+                &::-webkit-scrollbar {
+                    visibility: hidden;
+                    display: none;
+                }
+            }
+
+            span {
+                padding: 5px;
+            }
+
+            .arrow {
+                display: inline-block;
+            }
+
+            &:focus-within {
+                overflow-y: scroll;
+                border-bottom: none;
+
+                .content-section {
+                    height: 300px;
+                    width: 100%;
+
+                }
+
+                .arrow {
+                    transform: rotate(180deg);
+                }
+            }
+
+            &::-webkit-scrollbar {
+                visibility: hidden;
+                display: none;
+            }
+        }
+    }
+}
+
+.all-topic-res-contianer::-webkit-scrollbar {
+    visibility: hidden;
+    display: none;
+}
