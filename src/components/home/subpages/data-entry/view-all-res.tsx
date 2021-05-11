@@ -14,29 +14,8 @@ import Swal from 'sweetalert2';
 
 import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
 
-
-let showQA = (info: any) => {
-    Swal.fire({
-        title: info.QName,
-        html: `<div><p><b>${info.question}</b></p></div>`,
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: "Show Ans."
-    }).then(async (result) => {
-        Swal.fire({
-            title: info.QName,
-            html: `<div><p><b>${info.question}</b></p> <p>${info.answer}</p></div>`
-        })
-    })
-}
-
-let showLaws = (info: any) => {
-    Swal.fire({
-        title: info.QName,
-        html: `<div><p><b>${info.lawName}</b></p> <p>${info.lawConent}</p>  <p>${info.lawExample}</p></div>`,
-        showConfirmButton: true,
-        confirmButtonText: "Exit."
-    });
+interface LooseObject {
+    [key: string]: any
 }
 
 // HTODO: add loding thingy.
@@ -137,10 +116,15 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         setAllRes(newRes);
     }
 
+    let showRes = (history:any, info: LooseObject) => {
+        info.readOnly = true;
+        history.push(`${updateTopicRes}/${info.resType}/${matID}/${topicID}/${info.resID}`, { materialID: matID, topicID: topicID, ResID: "", name: "", photo: "", description: "", info: info })
+    }
+
     let onClickHandlers = {
         edit: editResFun,
         delete: deleteResFun,
-        body: (info: any) => { },
+        body: (history:any,info: any) => { },
     }
 
     return (
@@ -166,7 +150,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                     <div className="content-section">
                                         {
                                             item.map((res: any, id: any) => {
-                                                // HTODO: add all the things
                                                 switch (res.resType) {
                                                     case "PDFs":
                                                         // resID
@@ -211,7 +194,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                         // question: "a"
                                                         // resType: "Q&A"
                                                         // rate: 0
-                                                        onClickHandlers.body = showQA;
+                                                        onClickHandlers.body = showRes;
                                                         return (
                                                             <ResCard key={id}
                                                                 cardID={res.resID}
@@ -245,7 +228,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                         // lawName: "a"
                                                         // resType: "Laws"
                                                         // topicRate: 0
-                                                        onClickHandlers.body = showLaws;
+                                                        onClickHandlers.body = showRes;
                                                         return (
                                                             <ResCard key={id}
                                                                 cardID={res.resID}

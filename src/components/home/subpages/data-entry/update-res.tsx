@@ -32,13 +32,13 @@ export default function UpdateRes({ match }: { match: infoPageMatch<{ resType: s
             return <Video matID={matID} topicID={topicID} resID={resID} videoName={info.videoName} VideoLink={info.link} videoImgURl={info.videoImage} />
             break;
         case "Q&A":
-            return <QA matID={matID} topicID={topicID} resID={resID} question={info.question} answer={info.answer} QName={info.QName} />
+            return <QA matID={matID} topicID={topicID} resID={resID} question={info.question} answer={info.answer} QName={info.QName} isReadOnly={info.readOnly || false} />
             break;
         case "Resources":
             return <UsefulRes matID={matID} topicID={topicID} resID={resID} linkName={info.link} linkImgURl={info.websiteImage} />
             break;
         case "Laws":
-            return <Rules matID={matID} topicID={topicID} resID={resID} lawName={info.lawName} lawConent={info.lawConent} lawExample={info.lawExample} />
+            return <Rules matID={matID} topicID={topicID} resID={resID} lawName={info.lawName} lawConent={info.lawConent} lawExample={info.lawExample} isReadOnly={info.readOnly || false} />
             break;
         default:
             console.log("Something worng have happend");
@@ -263,7 +263,7 @@ function UsefulRes({ matID, topicID, resID, linkName, linkImgURl }: any) {
     );
 }
 
-function QA({ matID, topicID, resID, question, answer, QName }: any) {
+function QA({ matID, topicID, resID, question, answer, QName, isReadOnly = false }: any) {
     const divRef = useRef<HTMLInputElement>(null);
     const qNameRef = useRef<HTMLInputElement>(null);
     const questionRef = useRef<HTMLTextAreaElement>(null);
@@ -306,17 +306,25 @@ function QA({ matID, topicID, resID, question, answer, QName }: any) {
     return (
         <div className="adder">
             <div className="res-animation-container" ref={divRef} />
-            <input className="q-name-input" defaultValue={QName} type="text" ref={qNameRef} placeholder="Question Name" />
-            <textarea className="res-text-area" defaultValue={question} placeholder="Question" ref={questionRef} />
-            <textarea className="res-text-area" defaultValue={answer} placeholder="Answer" ref={answerRef} />
-            <div className="res-submit-btn" onClick={submitHandler}>
-                submit
-			</div>
+            {
+                isReadOnly ?
+                    <>
+                        <input className="q-name-input" defaultValue={QName} type="text" ref={qNameRef} placeholder="Question Name" readOnly />
+                        <textarea className="res-text-area" defaultValue={question} placeholder="Question" ref={questionRef} readOnly />
+                        <textarea className="res-text-area" defaultValue={answer} placeholder="Answer" ref={answerRef} readOnly />
+                    </>
+                    : <>
+                        <input className="q-name-input" defaultValue={QName} type="text" ref={qNameRef} placeholder="Question Name" />
+                        <textarea className="res-text-area" defaultValue={question} placeholder="Question" ref={questionRef} />
+                        <textarea className="res-text-area" defaultValue={answer} placeholder="Answer" ref={answerRef} />
+                        <div className="res-submit-btn" onClick={submitHandler}>submit</div>
+                    </>
+            }
         </div>
     );
 }
 
-function Rules({ matID, topicID, resID, lawName, lawConent, lawExample }: any) {
+function Rules({ matID, topicID, resID, lawName, lawConent, lawExample, isReadOnly = false }: any) {
     const divRef = useRef<HTMLDivElement>(null);
     const lawNameRef = useRef<HTMLInputElement>(null);
     const lawConentRef = useRef<HTMLTextAreaElement>(null);
@@ -360,12 +368,23 @@ function Rules({ matID, topicID, resID, lawName, lawConent, lawExample }: any) {
     return (
         <div className="adder">
             <div className="res-animation-container" ref={divRef} />
-            <input type="text" className="res-input" placeholder="Law name" defaultValue={lawName} ref={lawNameRef} />
-            <textarea className="res-text-area" placeholder="Law content" defaultValue={lawConent} ref={lawConentRef} />
-            <textarea className="res-text-area" placeholder="Example" defaultValue={lawExample} ref={lawExampleRef} />
-            <div className="res-submit-btn" onClick={submitHandler}>
-                submit
-			</div>
+            {
+                isReadOnly ?
+                    <>
+                        <input type="text" className="res-input" placeholder="Law name" defaultValue={lawName} ref={lawNameRef} readOnly />
+                        <textarea className="res-text-area" placeholder="Law content" defaultValue={lawConent} ref={lawConentRef} readOnly />
+                        <textarea className="res-text-area" placeholder="Example" defaultValue={lawExample} ref={lawExampleRef} readOnly />
+                    </>
+                    :
+                    <>
+                        <input type="text" className="res-input" placeholder="Law name" defaultValue={lawName} ref={lawNameRef} />
+                        <textarea className="res-text-area" placeholder="Law content" defaultValue={lawConent} ref={lawConentRef} />
+                        <textarea className="res-text-area" placeholder="Example" defaultValue={lawExample} ref={lawExampleRef} />
+                        <div className="res-submit-btn" onClick={submitHandler}> submit </div>
+                    </>
+            }
+
+
         </div>
     );
 }
