@@ -127,11 +127,9 @@ const forgetPassword = (email:string)=>{
 let times =0;
 const isLogedin =  ()=> {
 	 auth().onAuthStateChanged((user)=>{
-		 if(times === 1)return;
+		if(times === 1)return;
 		if (!user || user === null) history.push(singinPageRoute);
-		else history.push(homePageRoute)
 		times++;
-		
 	});
 };
 

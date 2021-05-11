@@ -41,7 +41,7 @@ export default function Profile() {
 			{cardsList?.map((card, index) => <MaterialCard key={index} {...card!} />)}
 			<div className="down-space" />
 			</div>
-		</div>
+			</div>
 			)
 	}
 
