@@ -22,18 +22,17 @@ import { cretateTopics, dataEntryRoute, scheduleRoute, updatematerialsRoute, uni
 const dataEntrySectionCards: sideBarSectionInterface = {
 	sectionTitle: 'Data Entry',
 	sectionCards: [
-		{ cardName: 'Home', routeTo: profileRoute, cardIcon: homeIcon },
+		{ cardName: 'Profile', routeTo: profileRoute, cardIcon: profileIcon },
 		{ cardName: 'Create Material', routeTo: dataEntryRoute, cardIcon: createIcon },
 		{ cardName: 'Update Materials', routeTo: updatematerialsRoute, cardIcon: editIcon },
 		{ cardName: 'Create Topic', routeTo: cretateTopics, cardIcon: createTopicIcon },
 		{ cardName: 'Materials info', routeTo: materialInfoRoute, cardIcon: infoIcon },
-		{ cardName: 'Profile', routeTo: profileRoute, cardIcon: profileIcon },
-		{ cardName: 'Exams', routeTo: notFoundRoute, cardIcon: examsIcon },
-		{ cardName: 'Facts & Rules', routeTo: notFoundRoute, cardIcon: rulesIcon },
 		{ cardName: 'Schedule', routeTo: scheduleRoute, cardIcon: tableIcon },
 		{ cardName: 'Settings', routeTo: notFoundRoute, cardIcon: settingsIcon },
-		{ cardName: 'Feedback', routeTo: notFoundRoute, cardIcon: feedbackIcon },
 		{ cardName: 'Uni managers', routeTo: uniMangerRoute, cardIcon: managerIcon },
+		{ cardName: 'Exams', routeTo: notFoundRoute, cardIcon: examsIcon },
+		{ cardName: 'Facts & Rules', routeTo: notFoundRoute, cardIcon: rulesIcon },
+		{ cardName: 'Feedback', routeTo: notFoundRoute, cardIcon: feedbackIcon },
 		{ cardName: 'Guidance', routeTo: guidanceRoute, cardIcon: guideIcon }, 
 		{ cardName: 'Log out', routeTo: singinPageRoute, cardIcon: logOutIcon },
 
