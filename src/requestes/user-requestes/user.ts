@@ -7,7 +7,7 @@ import axios, { AxiosInstance } from 'axios';
 import * as firebase from 'firebase';
 import Swal from 'sweetalert2';
 import history from '../../history/credationls-history';
-import { homePageRoute, singinPageRoute } from '../../constants/pages-route';
+import {  singinPageRoute } from '../../constants/pages-route';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_API_KEY,
@@ -127,11 +127,9 @@ const forgetPassword = (email:string)=>{
 let times =0;
 const isLogedin =  ()=> {
 	 auth().onAuthStateChanged((user)=>{
-		 if(times === 1)return;
+		if(times === 1)return;
 		if (!user || user === null) history.push(singinPageRoute);
-		else history.push(homePageRoute)
 		times++;
-		
 	});
 };
 

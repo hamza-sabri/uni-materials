@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
 import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/cards-viewer/cards-viewer.css';
@@ -12,12 +12,10 @@ import { APIsCaller } from '../../../../requestes/apis-caller';
 import { updateUserProfile } from '../../../../requestes/user-requestes/user';
 import { BAD_REQUEST, OK } from '../../../../constants/status-codes';
 export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }) {
-	const { user, materialsTable } = useContext(DynamicContentContext);
+	const { user, materialsTable, setUser } = useContext(DynamicContentContext);
 	const MySwal = withReactContent(Swal);
 	
-	useEffect(()=>{
-		defualtValues();
-	}, [])
+
 	
 	const createCardsList = (routeTo:string): cardInterface[] => {
 		const result: cardInterface[] = [];
@@ -62,7 +60,14 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 
 	const [data, setData]  = useState<(cardInterface | undefined)[]>(urlHandler());
 	const [selected, setSelected]  = useState<(cardInterface | undefined)[]>();
-	const [userSchedule, setUserSchedule] = useState<string[]>(user?.userProfile?.schedule);
+	const [userSchedule, setUserSchedule] = useState<(string | undefined)[]>(user?.userProfile?.schedule);
+	const [adding, setAdding ] = useState<boolean>(false); 
+
+	useEffect(()=>{
+		console.log(user)
+
+		defualtValues();
+	}, [userSchedule])
 
 	const SaveFAB = ()=>{
 		return (
@@ -73,6 +78,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 	}
 
 	const saveShcedule = async()=>{
+	
 		console.log(`userSchedule`, userSchedule);
 		const {isConfirmed} = await MySwal.fire({
 			title:'Materials',
@@ -82,25 +88,32 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 			width:"70vw",
 			confirmButtonColor:"#766ffa",
 	})
-	if(!isConfirmed){
-		Swal.clickCancel();
-		return;
+	if(isConfirmed) await saveToFirebase()
 	}
-	Swal.showLoading();
-	try{
-		const requestBody = {
-			schedule: userSchedule
+
+	const saveToFirebase = async ()=>{
+		MySwal.fire('');
+		MySwal.showLoading();
+		try{
+			const requestBody = {
+				schedule: userSchedule
+			}
+			console.log(requestBody);
+			const {status} = await APIsCaller({api:updateUserProfile, requestBody});
+			// TODO fix it very very very soooooooooooooooon
+			if(status === OK || status === BAD_REQUEST) {
+				const newUser = {...user};
+				newUser.userProfile.schedule = userSchedule;
+				setUser(newUser);
+				Swal.fire("Congrats","Your Schedule has been updated!", "success");
+			}else Swal.fire("Ops!","Something went wrong", "error");
+		}catch(err){
+			Swal.fire("Ops!","Something went wrong", "error");
 		}
-		const {status} = await APIsCaller({api:updateUserProfile, requestBody});
-		// TODO fix it very very very soooooooooooooooon
-		if(status === OK || status === BAD_REQUEST) Swal.fire("Congrats","Your Schedule has been updated!", "success");
-		else Swal.fire("Ops!","Something went wrong", "error");
-	}catch(err){
-		Swal.fire("Ops!","Something went wrong", "error");
-	  }
 	}
 
 	const VeiwSelected = ()=>{
+		
 		return (
 			<div className='schedule-alert'>
 			{selected?.map((card, index) => <MaterialCard key={index} {...card!}  submitHandler={removeCardFromSchedule} option="-"/>)}
@@ -108,27 +121,36 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 	}
 
 	const defualtValues = ()=>{
+		
 		const temp:cardInterface[] = [];
-		userSchedule?.forEach(val =>{
+		userSchedule?.forEach((val:any) =>{
 			const currentMat = materialsTable[val];
 			temp.push({cardPhoto: currentMat.materialPhoto,
 					   cardRate: currentMat.totalRate,
 					   cardTitle: currentMat.materialName,
 					   cardID: val})
 		});
-		setSelected(temp);
+		setSelected(() => temp);
+		console.log(adding)
+		if(selected && !adding){
+			if(selected?.length === 0)Swal.clickCancel();
+			saveShcedule();
+		} 
 	}
 
 	const removeCardFromSchedule = (matID:string)=>{
-		console.log(`matID2`, matID);
-		const newData = selected?.filter((tempCard) => tempCard?.cardID !== matID);
+		setAdding(false);
+		const newData = selected?.filter((tempCard) => `${tempCard?.cardID}` !== `${matID}` );
+		const newSchedule = newData!.map((temp) => temp!.cardID);
 		console.log(newData)
 		setSelected(() => newData);
-		Swal.clickCancel();
+		setUserSchedule(()=> newSchedule)
 	}
 
 	const onCardClickHandler = (matID:string)=>{
-		console.log(`matID`, matID);
+		setAdding(true);
+		console.log("am adding");
+		
 		setUserSchedule((mySchedule)=>{
 			if(!mySchedule) return [...[matID]]
 			return [...[matID, ...mySchedule]];
@@ -141,6 +163,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 			cardID: matID,
 		}
 		setSelected((selectedSoFar) => {
+		
 			if(selectedSoFar) return [...[cardToAdd, ...selectedSoFar]];
 			return [...[cardToAdd]];
 		})
