@@ -47,7 +47,7 @@ export default function ResCard({ cardID, cardPhoto, cardTitle, cardRate, info, 
 				onClickHandlers.delete(cardID)
 			} else if (onClickHandlers && onClickHandlers.body) {
 				// handle onClick for the showRes
-				onClickHandlers.body(info);
+				onClickHandlers.body(history, info);
 				// history.push(`${routeTo}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: description })
 			} else {
 				console.log('nothing');
@@ -55,7 +55,7 @@ export default function ResCard({ cardID, cardPhoto, cardTitle, cardRate, info, 
 		}
 
 		return (
-            // HTODO: Make component
+			// HTODO: Make component
 			<div className="topic-card">
 				<img src={cardPhoto} alt="card-img" />
 				<div className="top-part-container">

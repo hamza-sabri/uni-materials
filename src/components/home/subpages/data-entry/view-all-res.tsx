@@ -7,40 +7,18 @@ import * as Types from './../../../../constants/res-types';
 import PdfSVG from './../../../../assets/data-entry-assets/pdf.svg'
 import { updateTopicRes } from '../../../../constants/pages-route';
 
-
+import lottie, { AnimationItem } from 'lottie-web';
 import '../../../../styles/data-entry-styles/res/view-all-topic-res.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Swal from 'sweetalert2';
 
-let showQA = (info: any) => {
-    console.log(info);
+import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
 
-    Swal.fire({
-        title: info.QName,
-        text: info.question,
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: "Show Ans."
-    }).then(async (result) => {
-        Swal.fire({
-            title: info.QName,
-            html: `<div><p><b>${info.question}</b></p> <p>${info.answer}</p></div>`
-        })
-    })
-}
-
-let showLaws = (info: any) => {
-    Swal.fire({
-        title: info.QName,
-        html: `<div><p><b>${info.lawName}</b></p> <p>${info.lawConent}</p>  <p>${info.lawExample}</p></div>`,
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: "Show Ans."
-    });
+interface LooseObject {
+    [key: string]: any
 }
 
 // HTODO: add loding thingy.
-// HTDOD: fix topic pass for the eidt and delete function.
 // HTDOD: clean code more.
 export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: string }> }) {
     let loc = useLocation();
@@ -48,15 +26,31 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
     let { title, photo, rate, description }: any = loc.state;
     let allTypes = Object.entries(Types).map((item) => item[1]);
     let [allRes, setAllRes] = useState<Array<Array<any>>>([]);
+    let [loading, setLoding] = useState(true);
+    let [loadingAnimation, setLoadingAnimation] = useState<AnimationItem>();
+
+    const loadingDivRef = useRef(null);
 
     // HTODO: add to local storage.
     useEffect(() => {
+        // loading animation for the loading animation.
+        // this comment is intended to be confusing :);
+        setLoadingAnimation(lottie.loadAnimation({
+            container: loadingDivRef.current!,
+            autoplay: true,
+            renderer: 'svg',
+            loop: true,
+            animationData: loadingIcon,
+        }));
+
+
         const getData = async () => {
             const requestParams = { materialID: matID, topicID: topicID };
             let { data } = await APIsCaller({ api: getAllRes, requestParams: requestParams });
             let tempAllRes = new Array(allTypes.length).fill(0).map(() => new Array()) as any;
             data.resorses.forEach((item: any) => {
                 tempAllRes[allTypes.indexOf(item.resType)].push(item)
+                setLoding(false);
             });
             setAllRes(tempAllRes);
         }
@@ -122,10 +116,15 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         setAllRes(newRes);
     }
 
+    let showRes = (history:any, info: LooseObject) => {
+        info.readOnly = true;
+        history.push(`${updateTopicRes}/${info.resType}/${matID}/${topicID}/${info.resID}`, { materialID: matID, topicID: topicID, ResID: "", name: "", photo: "", description: "", info: info })
+    }
+
     let onClickHandlers = {
         edit: editResFun,
         delete: deleteResFun,
-        body: (info: any) => { },
+        body: (history:any,info: any) => { },
     }
 
     return (
@@ -142,109 +141,112 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
 
             <div className="resource-section">
                 {
-                    allRes.map((item: any, idx: any) => {
-                        return (
-                            <div key={idx} tabIndex={0} className="expand-on-foucs">
-                                <span className="section-name"><span>{allTypes[idx]}</span><span className="arrow">&#9660;</span></span>
-                                <div className="content-section">
-                                    {
-                                        item.map((res: any, id: any) => {
-                                            // HTODO: add all the things
-                                            switch (res.resType) {
-                                                case "PDFs":
-                                                    // resID
-                                                    // fileName: "test"
-                                                    // bookRefrence: "https://res.cloudinary.com/dgviin24k/image/upload/v1620041621/20vanemdeboastrees.pdf"
-                                                    // rate: 5
-                                                    console.log(res);
-                                                    return (
-                                                        <a key={id} href={res.link || res.bookRefrence} target="_blank">
+                    (loading) ?
+                        <div  className="loading-div" ref={loadingDivRef}></div>
+                        : allRes.map((item: any, idx: any) => {
+                            return (
+                                <div key={idx} tabIndex={0} className="expand-on-foucs">
+                                    <span className="section-name"><span>{allTypes[idx]}</span><span className="arrow">&#9660;</span></span>
+                                    <div className="content-section">
+                                        {
+                                            item.map((res: any, id: any) => {
+                                                switch (res.resType) {
+                                                    case "PDFs":
+                                                        // resID
+                                                        // fileName: "test"
+                                                        // bookRefrence: "https://res.cloudinary.com/dgviin24k/image/upload/v1620041621/20vanemdeboastrees.pdf"
+                                                        // rate: 5
+                                                        onClickHandlers.body = (info: any) => { };
+                                                        return (
+                                                            <a key={id} href={res.link || res.bookRefrence} target="_blank">
+                                                                <ResCard key={id}
+                                                                    cardID={res.resID}
+                                                                    cardPhoto={PdfSVG}
+                                                                    cardTitle={res.fileName || title || "Book Chapter"}
+                                                                    cardRate={res.rate}
+                                                                    info={res}
+                                                                    onClickHandlers={{...onClickHandlers}}
+                                                                />
+                                                            </a>
+                                                        )
+                                                        break;
+                                                    case "Videos":
+                                                        // link: "youtube-link-test"
+                                                        // resType: "Videos"
+                                                        // rate: 0
+                                                        // videoImage: "/static/media/youtube.2044ed05.jpg"
+                                                        // videoName: "???????
+                                                        onClickHandlers.body = (info: any) => { };
+                                                        return (
+                                                            <a key={id} href={res.link} target="_blank">
+                                                                <ResCard key={id}
+                                                                    cardID={res.resID}
+                                                                    cardPhoto={res.videoImage}
+                                                                    cardTitle={res.videoName}
+                                                                    cardRate={res.topicRate}
+                                                                    info={res}
+                                                                    onClickHandlers={{...onClickHandlers}} />
+                                                            </a>)
+                                                        break;
+                                                    case "Q&A":
+                                                        // QName: "best Q" 
+                                                        // answer: "aaaaaa"
+                                                        // question: "a"
+                                                        // resType: "Q&A"
+                                                        // rate: 0
+                                                        onClickHandlers.body = showRes;
+                                                        return (
                                                             <ResCard key={id}
                                                                 cardID={res.resID}
-                                                                cardPhoto={PdfSVG}
-                                                                cardTitle={res.fileName || title || "Book Chapter"}
-                                                                cardRate={res.rate}
-                                                                info={res}
-                                                                onClickHandlers={onClickHandlers}
-                                                            />
-                                                        </a>
-                                                    )
-                                                    break;
-                                                case "Videos":
-                                                    // link: "youtube-link-test"
-                                                    // resType: "Videos"
-                                                    // rate: 0
-                                                    // videoImage: "/static/media/youtube.2044ed05.jpg"
-                                                    // videoName: "???????
-                                                    return (
-                                                        <a key={id} href={res.link} target="_blank">
-                                                            <ResCard key={id}
-                                                                cardID={res.resID}
-                                                                cardPhoto={res.videoImage}
-                                                                cardTitle={res.videoName}
+                                                                cardPhoto={photo}
+                                                                cardTitle={res.QName || "Q N"}
                                                                 cardRate={res.topicRate}
                                                                 info={res}
-                                                                onClickHandlers={onClickHandlers} />
-                                                        </a>)
-                                                    break;
-                                                case "Q&A":
-                                                    // QName: "best Q" 
-                                                    // answer: "aaaaaa"
-                                                    // question: "a"
-                                                    // resType: "Q&A"
-                                                    // rate: 0
-                                                    onClickHandlers.body = showQA;
-                                                    return (
-                                                        <ResCard key={id}
-                                                            cardID={res.resID}
-                                                            cardPhoto={photo}
-                                                            cardTitle={res.QName || "Q N"}
-                                                            cardRate={res.topicRate}
-                                                            info={res}
-                                                            onClickHandlers={onClickHandlers} />)
-                                                    break;
-                                                case "Resources":
-                                                    // link: "test-link"
-                                                    // resType: "Resources"
-                                                    // topicRate: 0
-                                                    // websiteImage: "/static/media/website.499d2971.webp"
-                                                    // websiteName: "???????"
-                                                    return (
-                                                        <a key={id} href={res.link} target="_blank">
+                                                                onClickHandlers={{...onClickHandlers}} />)
+                                                        break;
+                                                    case "Resources":
+                                                        // link: "test-link"
+                                                        // resType: "Resources"
+                                                        // topicRate: 0
+                                                        // websiteImage: "/static/media/website.499d2971.webp"
+                                                        // websiteName: "???????"
+                                                        onClickHandlers.body = (info: any) => { };
+                                                        return (
+                                                            <a key={id} href={res.link} target="_blank">
+                                                                <ResCard key={id}
+                                                                    cardID={res.resID}
+                                                                    cardPhoto={res.websiteImage}
+                                                                    cardTitle={res.websiteName}
+                                                                    cardRate={res.topicRate}
+                                                                    info={res}
+                                                                    onClickHandlers={{...onClickHandlers}} />
+                                                            </a>)
+                                                        break;
+                                                    case "Laws":
+                                                        // lawConent: "aa"
+                                                        // lawExample: "aaa"
+                                                        // lawName: "a"
+                                                        // resType: "Laws"
+                                                        // topicRate: 0
+                                                        onClickHandlers.body = showRes;
+                                                        return (
                                                             <ResCard key={id}
                                                                 cardID={res.resID}
-                                                                cardPhoto={res.websiteImage}
-                                                                cardTitle={res.websiteName}
+                                                                cardPhoto={photo}
+                                                                cardTitle={res.lawName}
                                                                 cardRate={res.topicRate}
                                                                 info={res}
-                                                                onClickHandlers={onClickHandlers} />
-                                                        </a>)
-                                                    break;
-                                                case "Laws":
-                                                    // lawConent: "aa"
-                                                    // lawExample: "aaa"
-                                                    // lawName: "a"
-                                                    // resType: "Laws"
-                                                    // topicRate: 0
-                                                    onClickHandlers.body = showLaws;
-                                                    return (
-                                                        <ResCard key={id}
-                                                            cardID={res.resID}
-                                                            cardPhoto={photo}
-                                                            cardTitle={res.lawName}
-                                                            cardRate={res.topicRate}
-                                                            info={res}
-                                                            onClickHandlers={onClickHandlers} />)
-                                                    break;
-                                                default:
-                                                    console.log("Something worng have happend");
-                                            }
-                                        })
-                                    }
+                                                                onClickHandlers={{...onClickHandlers}} />)
+                                                        break;
+                                                    default:
+                                                        console.log("Something worng have happend");
+                                                }
+                                            })
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    })
+                            )
+                        })
                 }
             </div>
         </div>

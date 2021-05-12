@@ -71,6 +71,16 @@
   grid-column: 1 / span 4;
 }
 
+.all-topic-res-contianer .resource-section .loading-div {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+}
+
 .all-topic-res-contianer .resource-section .expand-on-foucs {
   background-color: #dedede;
   border-bottom: 1px solid #616161;
