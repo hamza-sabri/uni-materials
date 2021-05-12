@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
 import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/cards-viewer/cards-viewer.css';
@@ -90,6 +90,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 	})
 	if(isConfirmed) await saveToFirebase()
 	}
+
 	const saveToFirebase = async ()=>{
 		MySwal.fire('');
 		MySwal.showLoading();
@@ -140,7 +141,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 	const removeCardFromSchedule = (matID:string)=>{
 		setAdding(false);
 		const newData = selected?.filter((tempCard) => `${tempCard?.cardID}` !== `${matID}` );
-		const newSchedule = newData!.map((temp) => temp!.cardID)
+		const newSchedule = newData!.map((temp) => temp!.cardID);
 		console.log(newData)
 		setSelected(() => newData);
 		setUserSchedule(()=> newSchedule)
@@ -162,6 +163,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 			cardID: matID,
 		}
 		setSelected((selectedSoFar) => {
+		
 			if(selectedSoFar) return [...[cardToAdd, ...selectedSoFar]];
 			return [...[cardToAdd]];
 		})
