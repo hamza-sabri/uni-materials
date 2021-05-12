@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import '../../../../../styles/data-entry-styles/res/res-adders.css';
+import '../../../../styles/data-entry-styles/res/res-adders.css';
 import pdfAnimation from '../../../../assets/data-entry-assets/pdf-animation.json';
 import qAndA from '../../../../assets/data-entry-assets/Q-and-A.json';
 import rulesAnimation from '../../../../assets/data-entry-assets/rules.json';
@@ -26,7 +26,7 @@ export default function UpdateRes({ match }: { match: infoPageMatch<{ resType: s
 
     switch (info.resType) {
         case "PDFs":
-            return <PDF matID={matID} topicID={topicID} resID={resID} fileName={info.fileName} bookRefrence={info.bookRefrence} />
+            return <PDF matID={matID} topicID={topicID} resID={resID} fileName={info.fileName || name} bookRefrence={info.bookRefrence} />
         // break;
         case "Videos":
             return <Video matID={matID} topicID={topicID} resID={resID} videoName={info.videoName} VideoLink={info.link} videoImgURl={info.videoImage} />
@@ -93,7 +93,7 @@ function PDF({ matID, topicID, resID, fileName, bookRefrence }: any) {
     return (
         <div className="adder">
             <div className="res-animation-container" ref={divRef} />
-            <input type="text" className="res-input" placeholder="PDF Name" ref={pdfNameInput} defaultValue={fileName} onChange={e => { results[0] = e.target.value }} />
+            <input type="text" className="res-input" placeholder="PDF Name" ref={pdfNameInput} defaultValue={fileName || "temp name"} onChange={e => { results[0] = e.target.value }} />
             <input type="url" className="res-input" id="pdf-link" placeholder="PDF link" ref={bookLinkInput} defaultValue={bookRefrence} onChange={e => { results[1] = e.target.value }} />
             <DropZone {...{ bookLinkInput, results, pdfNameInput }} />
             <div className="res-submit-btn" onClick={submitHandler}>
@@ -264,6 +264,9 @@ function UsefulRes({ matID, topicID, resID, linkName, linkImgURl }: any) {
 }
 
 function QA({ matID, topicID, resID, question, answer, QName, isReadOnly = false }: any) {
+    let [selectable, setSelectable] = useState(false);
+    let [answerTextAreaClasses, setAnswerTextAreaClasses] = useState("res-text-area blurry-text")
+
     const divRef = useRef<HTMLInputElement>(null);
     const qNameRef = useRef<HTMLInputElement>(null);
     const questionRef = useRef<HTMLTextAreaElement>(null);
@@ -303,6 +306,12 @@ function QA({ matID, topicID, resID, question, answer, QName, isReadOnly = false
             })
             .setSpeed(0.8);
     }, []);
+
+    let showAnswer = () => {
+        setSelectable(true);
+        setAnswerTextAreaClasses("res-text-area show-text")
+    }
+
     return (
         <div className="adder">
             <div className="res-animation-container" ref={divRef} />
@@ -311,7 +320,8 @@ function QA({ matID, topicID, resID, question, answer, QName, isReadOnly = false
                     <>
                         <input className="q-name-input" defaultValue={QName} type="text" ref={qNameRef} placeholder="Question Name" readOnly />
                         <textarea className="res-text-area" defaultValue={question} placeholder="Question" ref={questionRef} readOnly />
-                        <textarea className="res-text-area" defaultValue={answer} placeholder="Answer" ref={answerRef} readOnly />
+                        <textarea onMouseDown={() => selectable} onSelect={() => selectable} className={answerTextAreaClasses} defaultValue={answer} placeholder="Answer" ref={answerRef} readOnly />
+                        <button className="res-submit-btn" onClick={showAnswer}>Show Answer</button>
                     </>
                     : <>
                         <input className="q-name-input" defaultValue={QName} type="text" ref={qNameRef} placeholder="Question Name" />
