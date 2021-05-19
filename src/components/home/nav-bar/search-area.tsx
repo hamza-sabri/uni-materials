@@ -1,10 +1,48 @@
-import React from 'react';
+import { useEffect, useContext, useRef } from "react";
+import { DynamicContentContext } from './../../../contexts/home-context/dynamic-content-state-context';
+let TrieSearch = require("trie-search");
 
+let trie: any;
 export default function SearchArea() {
+	const { dataToSearchIn, setSearchResult } = useContext(DynamicContentContext);
+
+	let searchInputRef = useRef<HTMLInputElement>(null);
+
+	let buildTrieTree = () => {
+		trie = new TrieSearch();
+		if (dataToSearchIn) {
+			dataToSearchIn.forEach((item: any) => {
+				trie.map(item.key.replaceAll(' ', ''), item.value);
+			})
+		}
+	}
+
+	let search = () => {
+		let searchTerm = searchInputRef.current!.value.replaceAll(' ', '');
+		if (searchTerm || searchTerm != "") {
+			let res = trie.search(searchTerm);
+			setSearchResult(res);
+		} else {
+			setSearchResult(undefined);
+		}
+
+	}
+
+	useEffect(() => {
+		if (dataToSearchIn !== undefined)
+			buildTrieTree();
+		else if (searchInputRef.current) {
+			setSearchResult(undefined);
+			searchInputRef.current.value = "";
+		}
+
+	}, [undefined, dataToSearchIn]);
+
+
 	return (
 		<div className="search-bar">
-			<svg width="30"  viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<rect width="512" height="512"  />
+			<svg width="30" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect width="512" height="512" />
 				<g id="loupe (1) 1">
 					<g id="small-dot">
 						<g id="Group">
@@ -50,7 +88,9 @@ export default function SearchArea() {
 					</g>
 				</g>
 			</svg>
-			<input type="text" className="search-input-filed" placeholder="Search" />
+			{
+				<input ref={searchInputRef} type="text" className="search-input-filed" placeholder="Search" onChange={search} />
+			}
 		</div>
 	);
 }

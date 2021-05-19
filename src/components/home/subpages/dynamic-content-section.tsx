@@ -1,5 +1,5 @@
 import '../../../styles/dynamic-content/dynamic-content-section.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
 // routes
 import {
@@ -34,8 +34,34 @@ import UpdateTopic from '../../../components/home/subpages/data-entry/update-top
 import NotFoundPage from '../../../pages/not-found-page';
 import ViewAllTopicRes from '../subpages/data-entry/view-all-res'
 import UpdateRes from '../subpages/data-entry/update-res';
+import { useContext, useEffect } from 'react';
+import { DynamicContentContext } from '../../../contexts/home-context/dynamic-content-state-context';
 
 export default function DynamicContentSection() {
+	let { setDtaToSearchIn } = useContext(DynamicContentContext);
+	let history = useHistory();
+
+	useEffect(() => {
+		history.listen(() => {
+			console.log("history Changed");
+			let forStateUpdate = async () => {
+				var updatedState;
+				await setDtaToSearchIn((currentState: any) => {
+					updatedState = currentState
+					return []
+				});
+				console.log(JSON.stringify(updatedState));
+
+				await setDtaToSearchIn((currentState: any) => {
+					updatedState = currentState
+					return undefined
+				});
+				console.log(JSON.stringify(updatedState));
+			}
+			forStateUpdate();
+		})
+	}, [])
+
 	return (
 		<div className="dynamic-content-section">
 			<Switch>
@@ -55,11 +81,11 @@ export default function DynamicContentSection() {
 				<Route path={`${updateTopic}/:id/`} exact component={AddManuallyPage} />
 				<Route path={`${manualEntryRoute}/:id`} exact component={AddManuallyPage} />
 				<Route path={guidanceRoute} exact component={GuidancePage} />
-				<Route path={`${allTopicRes}/:matID/:topicID`} exact component={ViewAllTopicRes}/>
-				<Route path={`${updateTopicRes}/:resType/:matID/:topicID/:resID`} exact component={UpdateRes}/>
+				<Route path={`${allTopicRes}/:matID/:topicID`} exact component={ViewAllTopicRes} />
+				<Route path={`${updateTopicRes}/:resType/:matID/:topicID/:resID`} exact component={UpdateRes} />
 
 				{/*if no route matches  */}
-				<Route component={NotFoundPage}/>
+				<Route component={NotFoundPage} />
 			</Switch>
 		</div>
 	);

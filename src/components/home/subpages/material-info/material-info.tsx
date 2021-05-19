@@ -1,16 +1,14 @@
-import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { match as infoPageMatch, useHistory } from 'react-router-dom';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { match as infoPageMatch } from 'react-router-dom';
 import MaterialCard from "./../viewer/material-card";
 import TopicCard from "./../viewer/topic-card";
 import { APIsCaller } from './../../../../requestes/apis-caller'
-import { getAllTopics } from './../../../../requestes/material-requests/mateirla'
-import { deleteTopic } from './../../../../requestes/material-requests/mateirla'
+import { deleteTopic, getAllTopics } from './../../../../requestes/material-requests/mateirla';
 import { DynamicContentContext } from './../../../../contexts/home-context/dynamic-content-state-context';
 import loadMoreIcon from '../../../../assets/material-info-assets/load-more-icon.json';
 import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
-import { allTopicRes } from '../../../../constants/pages-route';
-import { updateTopic } from '../../../../constants/pages-route';
+import { allTopicRes, updateTopic } from '../../../../constants/pages-route';
 
 
 import './../../../../styles/materials-info/materials-info.css';
@@ -20,13 +18,14 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	const materialID = match.params.matID;
 	const TOPIC_SEGEMENT_LENGTH = 11; // how many topic in each page (initial viwed topics count and how many to add each load more click).
 
-	const { materialsTable } = useContext(DynamicContentContext);
+	const { materialsTable, setDtaToSearchIn, searchResult } = useContext(DynamicContentContext);
 
 	const [allTopics, setAllTopics] = useState([]);
-	const [topicsToDisplay, setTopicsToDisplay] = useState([]);
+	const [topicsToDisplay, setTopicsToDisplay] = useState<any[]>([]);
 	const [nextTopicsIndex, setNextTopicsIndex] = useState(0);
 	const [loading, setLoading] = useState(true);
 	const [topicsFound, setTopicsFound] = useState(true);
+	const [maxNumToDisplay, setMaxNumToDisplay] = useState(0)
 
 	const loadMoreDivRef = useRef(null);
 	const loadingDivRef = useRef(null);
@@ -37,7 +36,16 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
-		setTopicsToDisplay(Object.entries(allTopics).slice(0, nextTopicsIndex + length).map((entry) => entry[1]) as any);
+		let newTopics: any[] = [];
+		for (var i = 0; i < Object.entries(allTopics).length && newTopics.length <= length; i++) {
+			if (searchResult && searchResult.includes(Object.entries(allTopics)[i][1])) {
+				newTopics.push(Object.entries(allTopics)[i][1]);
+			} else {
+				newTopics.push(Object.entries(allTopics)[i][1])
+			}
+		}
+		setTopicsToDisplay(newTopics);
+		// setTopicsToDisplay(.slice(0, nextTopicsIndex + length).map((entry) => entry[1]) as any);
 		setNextTopicsIndex(nextTopicsIndex + length)
 	}
 
@@ -83,6 +91,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		}
 	}, []);
 
+
 	useEffect(() => {
 		// this effect is entered twice when refreshing the page.
 		// once on the value of allTopics is initilized to [].
@@ -99,7 +108,10 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			// add the first n topics to be displied on the initial refresh,(where n=TOPIC_SEGEMENT_LENGTH).
 			addNewSetOfTopicsToDisplay(allTopics);
 
-			console.log('allTopics', allTopics);
+			// set search bar context.
+			setDtaToSearchIn(Object.entries(allTopics).map((item: any) => {
+				return { key: item[1].topicName.replace(' ', ''), value: item[0] }
+			}));
 		}
 	}, [allTopics]);
 
@@ -113,6 +125,19 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			animationData: loadMoreIcon,
 		}));
 	}, [loadMoreDivRef.current])
+
+	useEffect(() => {
+		if (searchResult) {
+			setMaxNumToDisplay(() => searchResult.length);
+		} else {
+			setMaxNumToDisplay(() => Object.entries(allTopics).length);
+		}
+		setNextTopicsIndex(() => 0);
+	}, [searchResult, searchResult?.lenght])
+
+	useEffect(() => {
+		addNewSetOfTopicsToDisplay(allTopics);
+	}, [maxNumToDisplay])
 
 	let deleteTopicFun = async (cardID: any) => {
 		const requestParams = { materialID: materialID, topicID: cardID };
@@ -134,7 +159,6 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 						Swal.showLoading();
 						let res = await APIsCaller({ api: deleteTopic, requestParams });
 						Swal.hideLoading();
-						console.log('del-res', res);
 						removeFromAllTopics(cardID);
 						if (res.status === 200) {
 							// after deleting completed
@@ -166,11 +190,11 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
 	}
 
-	let editTopicFun = (history:any, cardID: any, cardTitle:any, cardPhoto:any, topicDes:any) => {
+	let editTopicFun = (history: any, cardID: any, cardTitle: any, cardPhoto: any, topicDes: any) => {
 		history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: topicDes })
 	}
 
-	let bodyTopicFun = (history:any, cardID:any, cardTitle: any, cardPhoto: any, cardRate: any, topicDes: any) => {
+	let bodyTopicFun = (history: any, cardID: any, cardTitle: any, cardPhoto: any, cardRate: any, topicDes: any) => {
 		history.push(`${allTopicRes}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: topicDes })
 	}
 
@@ -178,6 +202,25 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		delete: deleteTopicFun,
 		edit: editTopicFun,
 		body: bodyTopicFun
+	}
+
+	let allCards = () => {
+		// addNewSetOfTopicsToDisplay(allTopics);
+		return (
+			(searchResult?.length !== 0 && topicsFound) ?
+				topicsToDisplay.map((topic: any, index) => {
+					if (searchResult == undefined || searchResult?.includes(Object.keys(allTopics)[index]))
+						return <TopicCard key={index} IDs
+							cardID={Object.keys(allTopics)[index]}
+							cardTitle={topic.topicName || material.materialName}
+							cardPhoto={topic.topicPhoto || material.materialPhoto}
+							cardRate={topic.topicRate || material.totalRate}
+							description={topic.description || material.materialDesc || "No Description"}
+							onClickHandlers={onClickHandlers}
+							routeTo={allTopicRes} />
+				})
+				: <p>No Topics Found</p>
+		)
 	}
 
 	// disblay waiting for conext result
@@ -207,22 +250,11 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 					{
 						(loading) ?
 							<div className="loading-div" ref={loadingDivRef}></div>
-							: (topicsFound) ?
-								topicsToDisplay.map((topic: any, index) => {
-									return <TopicCard key={index}IDs
-										cardID = {Object.keys(allTopics)[index]}
-										cardTitle={topic.topicName || material.materialName}
-										cardPhoto={topic.topicPhoto || material.materialPhoto}
-										cardRate={topic.topicRate || material.totalRate}
-										description={topic.description || material.materialDesc || "No Description"}
-										onClickHandlers={onClickHandlers}
-										routeTo={allTopicRes} />
-								})
-								: <p>No Topics Found</p>
+							: allCards()
 					}
 
 					{
-						(nextTopicsIndex < Object.keys(allTopics).length) ?
+						(nextTopicsIndex < maxNumToDisplay) ?
 							(<div ref={loadMoreDivRef} className="load-more-card" onClick={() => addNewSetOfTopicsToDisplay(allTopics)} onMouseEnter={() => { loadMoreAnimation!.play() }} onMouseLeave={() => { loadMoreAnimation!.stop() }}>
 								{/* not the best way but it works */}
 								<p>Load More</p>
