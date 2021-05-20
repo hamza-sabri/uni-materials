@@ -7,6 +7,7 @@ let trie: any;
 export default function SearchArea() {
 	const { dataToSearchIn, setSearchResult, clearSearchBarBtnRef, setClearSearchBarBtnRef } = useContext(DynamicContentContext);
 	let searchInputRef = useRef<HTMLInputElement>(null);
+	let [searchInputClassName, setSearchInputClassName] = useState("search-bar-section");
 
 	let [searchTerm, setSearchTerm] = useState("");
 
@@ -20,22 +21,25 @@ export default function SearchArea() {
 	}
 
 	let search = () => {
+		console.log("hi-from-search-land");
+		
 		let term = searchInputRef.current!.value.replaceAll(' ', '');
 		if (term || term != "") {
 			let res = trie.search(term);
 			setSearchResult(res);
-			searchInputRef.current?.focus();
+			setSearchInputClassName("expand-search-bar-section");
 		} else {
 			setSearchResult(undefined);
+			setSearchInputClassName("search-bar-section");
 		}
 		setSearchTerm(() => term);
-		console.log("searchTerm", searchTerm, term);
-
 	}
 
-	useEffect(() => {
-		console.log("s-dataToSearchIn", dataToSearchIn);
+	useEffect(()=>{
+		search();
+	},[searchTerm])
 
+	useEffect(() => {
 		if (dataToSearchIn !== undefined)
 			buildTrieTree();
 		else if (searchInputRef.current) {
@@ -99,9 +103,9 @@ export default function SearchArea() {
 					</g>
 				</g>
 			</svg>
-			<div className="search-bar-section">
+			<div className={searchInputClassName}>
 				{
-					<input className="search-input-field" ref={searchInputRef} type="text" placeholder="Search" onChange={search} value={searchTerm} />
+					<input className="search-input-field" ref={searchInputRef} type="text" placeholder="Search" onChange={(e)=>{setSearchTerm(e.target.value)}} value={searchTerm} />
 				}
 				{
 					searchTerm != "" ?
