@@ -58,7 +58,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 		}
 	};
 
-	const [data, setData] = useState<(cardInterface | undefined)[]>();
+	const [data, setData] = useState<(cardInterface | undefined)[]>([]);
 	const [selected, setSelected] = useState<(cardInterface | undefined)[]>();
 	const [userSchedule, setUserSchedule] = useState<(string | undefined)[]>(user?.userProfile?.schedule);
 	const [adding, setAdding] = useState<boolean>(false);
@@ -72,7 +72,8 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 
 	// For search logic
 	useEffect(() => {
-		if(data)
+		console.log("data", data);
+		if(data.length != 0)
 			setDtaToSearchIn(data.map(item => { return { key: item?.cardTitle, value: item?.cardID } }));
 	}, [data]);
 

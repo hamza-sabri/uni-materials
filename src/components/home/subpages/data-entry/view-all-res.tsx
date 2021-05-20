@@ -58,7 +58,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
     }, [])
 
     let editResFun = (history: any, cardID: any, cardTitle: any, cardPhoto: any, ResDes: any, info: any) => {
-        console.log("resType", info.resType);
         history.push(`${updateTopicRes}/${info.resType}/${matID}/${topicID}/${cardID}`, { materialID: matID, topicID: topicID, ResID: cardID, name: cardTitle, photo: cardPhoto, description: ResDes, info: info })
     }
 

@@ -3,7 +3,7 @@ import SideBar from './side-bar/side-bar';
 
 import '../../styles/home/home-style.css';
 import DynamicContentSection from './subpages/dynamic-content-section';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { APIsCaller } from '../../requestes/apis-caller';
 import { getAllMaterials, getAllUnis } from '../../requestes/uni-requests/university';
 import { DynamicContentContext } from '../../contexts/home-context/dynamic-content-state-context';
@@ -16,6 +16,9 @@ export default function HomePage() {
 	const [searchResult, setSearchResult] = useState();
 	const [user, setUser] = useState<any>({});
 	const mounted = useRef<HTMLDivElement>(null);
+
+	let [clearSearchBarBtnRef, setClearSearchBarBtnRef] = useState(useRef<HTMLButtonElement>(null));
+
 
 	// TODO very very very very important
 	// refactor this shit (language)
@@ -36,7 +39,7 @@ export default function HomePage() {
 	return (
 		<div className="home-page" ref={mounted}>
 			<DynamicContentContext.Provider
-				value={{ materialsTable, setMaterialsTable, unisDataList, setUnisDataList, user, setUser, dataToSearchIn, setDtaToSearchIn, searchResult, setSearchResult }}
+				value={{ materialsTable, setMaterialsTable, unisDataList, setUnisDataList, user, setUser, dataToSearchIn, setDtaToSearchIn, searchResult, setSearchResult, clearSearchBarBtnRef, setClearSearchBarBtnRef }}
 			>
 				<NavBar />
 				<SideBar />

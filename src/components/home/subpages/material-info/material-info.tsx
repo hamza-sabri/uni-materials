@@ -25,7 +25,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	const [nextTopicsIndex, setNextTopicsIndex] = useState(0);
 	const [loading, setLoading] = useState(true);
 	const [topicsFound, setTopicsFound] = useState(true);
-	const [maxNumToDisplay, setMaxNumToDisplay] = useState(0)
+	const [maxNumToDisplay, setMaxNumToDisplay] = useState(-1)
 
 	const loadMoreDivRef = useRef(null);
 	const loadingDivRef = useRef(null);
@@ -37,16 +37,19 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
 		let newTopics: any[] = [];
-		for (var i = 0; i < Object.entries(allTopics).length && newTopics.length <= length; i++) {
-			if (searchResult && searchResult.includes(Object.entries(allTopics)[i][1])) {
+		// loop for either what the pagenation allows detrmianed by the value of [nextTopicsIndex + length]
+		// or for the length of the data you can show detrminded by the value of [maxNumToDisplay]
+		// maxNumToDisplay: can take the value of allTopics.length if there is no search operation is done(empty search bar)
+		// otherwise it will take the value of the length of the search result length.
+		for (var i = 0; newTopics.length < (nextTopicsIndex + length) && newTopics.length < maxNumToDisplay; i++) {
+			if (searchResult && searchResult.includes(Object.entries(allTopics)[i][0])) {
 				newTopics.push(Object.entries(allTopics)[i][1]);
-			} else {
+			} else if(!searchResult) {
 				newTopics.push(Object.entries(allTopics)[i][1])
 			}
 		}
 		setTopicsToDisplay(newTopics);
-		// setTopicsToDisplay(.slice(0, nextTopicsIndex + length).map((entry) => entry[1]) as any);
-		setNextTopicsIndex(nextTopicsIndex + length)
+		setNextTopicsIndex(nextTopicsIndex + length);
 	}
 
 	useEffect(() => {
@@ -105,8 +108,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 			// guess what this line of code does, and you will win the "I can read code" grand prize.
 			setTopicsFound((Object.keys(allTopics).length != 0) ? true : false);
 
-			// add the first n topics to be displied on the initial refresh,(where n=TOPIC_SEGEMENT_LENGTH).
-			addNewSetOfTopicsToDisplay(allTopics);
+			// guess what this line of code does, and you will win the "I can read code" grand prize.
+			setMaxNumToDisplay(Object.keys(allTopics).length);
 
 			// set search bar context.
 			setDtaToSearchIn(Object.entries(allTopics).map((item: any) => {
@@ -127,16 +130,20 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	}, [loadMoreDivRef.current])
 
 	useEffect(() => {
-		if (searchResult) {
-			setMaxNumToDisplay(() => searchResult.length);
-		} else {
-			setMaxNumToDisplay(() => Object.entries(allTopics).length);
+		if (allTopics.length != 0) {
+			if (searchResult != undefined && maxNumToDisplay != -1) {
+				setMaxNumToDisplay(() => searchResult.length);
+			} else {
+				setMaxNumToDisplay(() => Object.entries(allTopics).length);
+			}
 		}
 		setNextTopicsIndex(() => 0);
 	}, [searchResult, searchResult?.lenght])
 
 	useEffect(() => {
-		addNewSetOfTopicsToDisplay(allTopics);
+		if (allTopics.length != 0) {
+			addNewSetOfTopicsToDisplay(allTopics);
+		}
 	}, [maxNumToDisplay])
 
 	let deleteTopicFun = async (cardID: any) => {
@@ -209,15 +216,14 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		return (
 			(searchResult?.length !== 0 && topicsFound) ?
 				topicsToDisplay.map((topic: any, index) => {
-					if (searchResult == undefined || searchResult?.includes(Object.keys(allTopics)[index]))
-						return <TopicCard key={index} IDs
-							cardID={Object.keys(allTopics)[index]}
-							cardTitle={topic.topicName || material.materialName}
-							cardPhoto={topic.topicPhoto || material.materialPhoto}
-							cardRate={topic.topicRate || material.totalRate}
-							description={topic.description || material.materialDesc || "No Description"}
-							onClickHandlers={onClickHandlers}
-							routeTo={allTopicRes} />
+					return <TopicCard key={index} IDs
+						cardID={Object.keys(allTopics)[index]}
+						cardTitle={topic.topicName || material.materialName}
+						cardPhoto={topic.topicPhoto || material.materialPhoto}
+						cardRate={topic.topicRate || material.totalRate}
+						description={topic.description || material.materialDesc || "No Description"}
+						onClickHandlers={onClickHandlers}
+						routeTo={allTopicRes} />
 				})
 				: <p>No Topics Found</p>
 		)

@@ -38,29 +38,16 @@ import { useContext, useEffect } from 'react';
 import { DynamicContentContext } from '../../../contexts/home-context/dynamic-content-state-context';
 
 export default function DynamicContentSection() {
-	let { setDtaToSearchIn } = useContext(DynamicContentContext);
+	let { clearSearchBarBtnRef } = useContext<{clearSearchBarBtnRef: React.RefObject<HTMLButtonElement>}>(DynamicContentContext);
 	let history = useHistory();
 
 	useEffect(() => {
 		history.listen(() => {
-			console.log("history Changed");
-			let forStateUpdate = async () => {
-				var updatedState;
-				await setDtaToSearchIn((currentState: any) => {
-					updatedState = currentState
-					return []
-				});
-				console.log(JSON.stringify(updatedState));
-
-				await setDtaToSearchIn((currentState: any) => {
-					updatedState = currentState
-					return undefined
-				});
-				console.log(JSON.stringify(updatedState));
-			}
-			forStateUpdate();
+			console.log("history sends you his regards");
+			console.log("DCS-searchInputRef", clearSearchBarBtnRef);
+			clearSearchBarBtnRef.current?.click();
 		})
-	}, [])
+	}, []);
 
 	return (
 		<div className="dynamic-content-section">

@@ -1,12 +1,14 @@
-import { useEffect, useContext, useRef } from "react";
+import { useEffect, useContext, useRef, useState } from "react";
 import { DynamicContentContext } from './../../../contexts/home-context/dynamic-content-state-context';
+import clearIcon from './../../../assets/home/nav-bar/search-bar/clear-icon.png'
 let TrieSearch = require("trie-search");
 
 let trie: any;
 export default function SearchArea() {
-	const { dataToSearchIn, setSearchResult } = useContext(DynamicContentContext);
-
+	const { dataToSearchIn, setSearchResult, clearSearchBarBtnRef, setClearSearchBarBtnRef } = useContext(DynamicContentContext);
 	let searchInputRef = useRef<HTMLInputElement>(null);
+
+	let [searchTerm, setSearchTerm] = useState("");
 
 	let buildTrieTree = () => {
 		trie = new TrieSearch();
@@ -18,17 +20,22 @@ export default function SearchArea() {
 	}
 
 	let search = () => {
-		let searchTerm = searchInputRef.current!.value.replaceAll(' ', '');
-		if (searchTerm || searchTerm != "") {
-			let res = trie.search(searchTerm);
+		let term = searchInputRef.current!.value.replaceAll(' ', '');
+		if (term || term != "") {
+			let res = trie.search(term);
 			setSearchResult(res);
+			searchInputRef.current?.focus();
 		} else {
 			setSearchResult(undefined);
 		}
+		setSearchTerm(() => term);
+		console.log("searchTerm", searchTerm, term);
 
 	}
 
 	useEffect(() => {
+		console.log("s-dataToSearchIn", dataToSearchIn);
+
 		if (dataToSearchIn !== undefined)
 			buildTrieTree();
 		else if (searchInputRef.current) {
@@ -37,6 +44,10 @@ export default function SearchArea() {
 		}
 
 	}, [undefined, dataToSearchIn]);
+
+	useEffect(() => {
+		setClearSearchBarBtnRef(clearSearchBarBtnRef)
+	}, [clearSearchBarBtnRef.current]);
 
 
 	return (
@@ -88,9 +99,17 @@ export default function SearchArea() {
 					</g>
 				</g>
 			</svg>
-			{
-				<input ref={searchInputRef} type="text" className="search-input-filed" placeholder="Search" onChange={search} />
-			}
+			<div className="search-bar-section">
+				{
+					<input className="search-input-field" ref={searchInputRef} type="text" placeholder="Search" onChange={search} value={searchTerm} />
+				}
+				{
+					searchTerm != "" ?
+						<button className="clear-search-bar-btn" ref={clearSearchBarBtnRef} onClick={() => { setSearchResult(undefined); setSearchTerm("") }}><img src={clearIcon} /></button>
+						: null
+				}
+			</div>
+
 		</div>
 	);
 }
