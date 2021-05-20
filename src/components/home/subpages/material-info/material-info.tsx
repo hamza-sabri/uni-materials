@@ -36,6 +36,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
+		console.log("addnewItems", nextTopicsIndex + length);
+
 		let newTopics: any[] = [];
 		// loop for either what the pagenation allows detrmianed by the value of [nextTopicsIndex + length]
 		// or for the length of the data you can show detrminded by the value of [maxNumToDisplay]
@@ -44,7 +46,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		for (var i = 0; newTopics.length < (nextTopicsIndex + length) && newTopics.length < maxNumToDisplay; i++) {
 			if (searchResult && searchResult.includes(Object.entries(allTopics)[i][0])) {
 				newTopics.push(Object.entries(allTopics)[i][1]);
-			} else if(!searchResult) {
+			} else if (!searchResult) {
 				newTopics.push(Object.entries(allTopics)[i][1])
 			}
 		}
@@ -131,18 +133,20 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 	useEffect(() => {
 		if (allTopics.length != 0) {
-			if (searchResult != undefined && maxNumToDisplay != -1) {
+			if (searchResult != undefined) {
 				setMaxNumToDisplay(() => searchResult.length);
 			} else {
+				setNextTopicsIndex(0);
 				setMaxNumToDisplay(() => Object.entries(allTopics).length);
 			}
 		}
-		setNextTopicsIndex(() => 0);
-	}, [searchResult, searchResult?.lenght])
+	}, [searchResult])
 
 	useEffect(() => {
 		if (allTopics.length != 0) {
 			addNewSetOfTopicsToDisplay(allTopics);
+		} else {
+			setNextTopicsIndex(0);
 		}
 	}, [maxNumToDisplay])
 

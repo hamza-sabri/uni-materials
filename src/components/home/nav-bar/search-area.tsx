@@ -25,10 +25,12 @@ export default function SearchArea() {
 		
 		let term = searchInputRef.current!.value.replaceAll(' ', '');
 		if (term || term != "") {
+			console.log("1");
 			let res = trie.search(term);
 			setSearchResult(res);
 			setSearchInputClassName("expand-search-bar-section");
 		} else {
+			console.log("2");
 			setSearchResult(undefined);
 			setSearchInputClassName("search-bar-section");
 		}
