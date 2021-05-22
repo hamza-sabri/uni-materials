@@ -5,5 +5,6 @@ export type cardInterface = {
 	cardID?: string;
 	routeTo?: string;
 	option?: "+" |"-" | "";
+	matNum?:string;
 	submitHandler?:(matID:string) =>void;
 };

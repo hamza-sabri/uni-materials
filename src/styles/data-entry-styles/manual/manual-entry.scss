@@ -98,13 +98,19 @@
 	height: 2rem;
 	background: rgba(0, 0, 0, .7);
 	position: absolute;
-	bottom: .6rem;
+	bottom: 1.6rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 	color: white;
 	font-size: 20px;
 	font-weight: 500;
+	transition: .3s;
+	span{
+		transition: .3s;
+		display: none;
+	}
 }
 
 .add-res-button {

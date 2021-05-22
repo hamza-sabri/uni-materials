@@ -30,7 +30,49 @@
 
 .mateiral-card:hover {
   cursor: pointer;
-  width: 290px;
+}
+
+.mateiral-card:hover .material-name-container {
+  height: 3rem;
+  padding-top: .8rem;
+}
+
+.mateiral-card:hover .material-name-container span {
+  -webkit-animation-delay: .3s;
+          animation-delay: .3s;
+  -webkit-animation: numSpanAnim .3s ease-in-out alternate;
+          animation: numSpanAnim .3s ease-in-out alternate;
+  padding: .51rem 0;
+  padding-bottom: 1rem;
+  display: block;
+}
+
+@-webkit-keyframes numSpanAnim {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  20% {
+    display: block;
+    opacity: .2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes numSpanAnim {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  20% {
+    display: block;
+    opacity: .2;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .material-name-card-container {
