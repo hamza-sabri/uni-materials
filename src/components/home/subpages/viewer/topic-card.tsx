@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 // import { cardInterface } from '../../../../interfaces/cards/cards';
 import deleteIcon from '../../../../assets/material-info-assets/Delete_icon.json';
 import editIcon from '../../../../assets/material-info-assets/Edit_icon.json';
-import rateIcon from '../../../../assets/material-info-assets/Rate-icon.json';
 import lottie, { AnimationItem } from 'lottie-web';
 
 import '../../../../styles/viewer/topic-card/topic-card.css';
@@ -14,10 +13,8 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 	const Card = () => {
 		let deleteBtnRef = useRef(null);
 		let editBtnRef = useRef(null);
-		let rateBtnRef = useRef(null);
 		const [deleteAnim, setDeleteAnim] = useState<AnimationItem>();
 		const [editAnim, setEditAnim] = useState<AnimationItem>();
-		const [rateAnim, setRateAnim] = useState<AnimationItem>();
 		let history = useHistory();
 
 		useEffect(() => {
@@ -35,14 +32,6 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 				renderer: 'svg',
 				loop: false,
 				animationData: editIcon,
-			}));
-
-			setRateAnim(lottie.loadAnimation({
-				container: rateBtnRef.current!,
-				autoplay: false,
-				renderer: 'svg',
-				loop: false,
-				animationData: rateIcon,
 			}));
 		}, [])
 
@@ -75,8 +64,6 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 						{/*  HTODO: onClick: Apicall */}
 						<div className="icon delete-icon" ref={deleteBtnRef} onClick={(e) => { handleOnClick(e) }} onMouseEnter={() => { if (deleteAnim) deleteAnim!.play() }} onMouseLeave={() => { if (deleteAnim) deleteAnim!.stop() }}></div>
 						{/* HTODO: onClick: Route */}
-						<div className="icon rate-icon" ref={rateBtnRef} onClick={(e) => { handleOnClick(e); }} onMouseEnter={() => { if (rateAnim) rateAnim!.play() }} onMouseLeave={() => { if (rateAnim) rateAnim!.stop() }}></div>
-
 						<div className="icon edit-icon" ref={editBtnRef} onClick={(e) => { handleOnClick(e); }} onMouseEnter={() => { if (editAnim) editAnim!.play() }} onMouseLeave={() => { if (editAnim) editAnim!.stop() }}></div>
 					</div>
 

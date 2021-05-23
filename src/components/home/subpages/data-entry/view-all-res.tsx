@@ -1,6 +1,6 @@
 import { match as infoPageMatch, useHistory, useLocation } from 'react-router-dom';
 import { APIsCaller } from './../../../../requestes/apis-caller';
-import { getAllRes, deleteRes } from './../../../../requestes/res-requests/res'
+import { getAllRes, deleteRes, rateRes } from './../../../../requestes/res-requests/res'
 import MaterialCard from "./../viewer/material-card";
 import ResCard from "./../viewer/res-card";
 import * as Types from './../../../../constants/res-types';
@@ -9,8 +9,10 @@ import { updateTopicRes } from '../../../../constants/pages-route';
 
 import lottie, { AnimationItem } from 'lottie-web';
 import '../../../../styles/data-entry-styles/res/view-all-topic-res.css'
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import "../../../../styles/viewer/res-card/rating.css";
+import { useEffect, useState, useRef, useContext } from 'react';
 import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 import loadingIcon from '../../../../assets/material-info-assets/loading_icon.json';
 import { DynamicContentContext } from '../../../../contexts/home-context/dynamic-content-state-context';
@@ -19,7 +21,6 @@ interface LooseObject {
     [key: string]: any
 }
 
-// HTODO: add loding thingy.
 // HTDOD: clean code more.
 export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: string }> }) {
     let loc = useLocation();
@@ -125,6 +126,69 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         })
     }
 
+    function RatingHtmlComp({submitRating}: any) {
+        let commentRef = useRef<HTMLInputElement>(null);
+        let rateVal = 1;
+        let setVal = (val: number) => { console.log("hi", val); rateVal = val }
+
+        return (
+            <div className="popup-rate-container">
+                <div className="rate">
+                    <input type="radio" id="star5" name="rate" value="5" onClick={(e) => setVal(Number(e.currentTarget.value))} />
+                    <label htmlFor="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" onClick={(e) => setVal(Number(e.currentTarget.value))} />
+                    <label htmlFor="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" onClick={(e) => setVal(Number(e.currentTarget.value))} />
+                    <label htmlFor="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" onClick={(e) => setVal(Number(e.currentTarget.value))} />
+                    <label htmlFor="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" onClick={(e) => setVal(Number(e.currentTarget.value))} checked />
+                    <label htmlFor="star1" title="text">1 star</label>
+                </div>
+                <div className="rate-comment-container">
+                    <input ref={commentRef} className="rate-comment" placeholder="Comment about this resource" type="text" />
+                </div>
+                <button className="confirm-btn" onClick={() => {if(commentRef.current){ submitRating(rateVal, commentRef.current.value)}}}>Submit Rating</button>
+            </div >
+        )
+    }
+
+    let rateFun = async (cardID: any) => {
+        const MySwal = withReactContent(Swal);
+        let response;
+        const requestParams = { materialID: matID, topicID: topicID, resorseID: cardID };
+
+        console.log("requestParams", requestParams);
+
+        const requestBody = { "resRate": 1, "rateMessage": "" }
+        let submitRating = async (ratingVal:number, comment:string) => {
+            requestBody.resRate = ratingVal;
+            requestBody.rateMessage = comment;
+            response = await APIsCaller({api: rateRes, requestBody, requestParams});
+            MySwal.close()
+            if (response.status === 200) {
+                Swal.fire(
+                    'Thank you For Feedback',
+                    response.data.message,
+                    'success'
+                )
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                    footer: '<a href>Please Try Agian</a>'
+                })
+            }
+        }
+
+        MySwal.fire({
+            title: "Rate Resouce",
+            html: <RatingHtmlComp submitRating={submitRating} />,
+            showConfirmButton: false
+        })
+    }
+
     // HTODO: make this better.
     let removeFromAllRes = (resID: string) => {
         let newRes = allRes?.map(item => {
@@ -143,6 +207,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
     let onClickHandlers = {
         edit: editResFun,
         delete: deleteResFun,
+        rate: rateFun,
         body: (history: any, info: any) => { },
     }
     let index = 0;
@@ -182,11 +247,11 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                         <div className="content-section" >
                                             {
                                                 item.map((res: any, id: any) => {
-                                                    console.log(id,":", res);
-                                                    
+                                                    console.log(id, ":", res);
+
                                                     if ((searchResult === undefined && allRes && allRes[idx].length != 0) || searchResult?.includes(res.resID)) {
-                                                        console.log(res.resID,":", searchResult?.includes(res.resID));
-                                                        
+                                                        console.log(res.resID, ":", searchResult?.includes(res.resID));
+
                                                         switch (res.resType) {
                                                             case "PDFs":
                                                                 // resID

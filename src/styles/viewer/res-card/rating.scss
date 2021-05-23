@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.popup-rate-container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .rate {
+        // position: relative;
+        // left: 50%;
+        // transform: translateX(-75%);
+
+        // float: left;
+        height: 46px;
+        padding: 0 10px;
+    }
+    .rate:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+    }
+    .rate:not(:checked) > label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+    }
+    .rate:not(:checked) > label:before {
+        content: "★ ";
+    }
+    .rate > input:checked ~ label {
+        color: #ffc700;
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+    }
+
+    .rate-comment-container {
+        flex-grow: 1;
+        height: 100%;
+
+        .rate-comment {
+            height: 100%;
+            width: 250px;
+            border: none;
+        }
+
+        &:hover,
+        &:focus-within {
+            .rate-comment {
+                border-bottom: 0.5px solid rgb(2, 58, 241);
+            }
+        }
+
+        .rate-comment:not([value=""]) {
+            border-bottom: 0.5px solid rgb(2, 58, 241);
+        }
+    }
+
+    .confirm-btn {
+        border: 0;
+        border-radius: .25em;
+        background: initial;
+        background-color: #2778c4;
+        color: #fff;
+        font-size: 1.0625em;
+
+        margin: .9em;
+        padding: .625em 1.1em;
+        box-shadow: none;
+        font-weight: 500;
+
+        &:hover{
+            background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+        }
+    }
+}
