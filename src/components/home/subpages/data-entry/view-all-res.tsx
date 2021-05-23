@@ -148,7 +148,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                 <div className="rate-comment-container">
                     <input ref={commentRef} className="rate-comment" placeholder="Comment about this resource" type="text" />
                 </div>
-                <button className="confirm-btn" onClick={() => {if(commentRef.current){ submitRating(rateVal, commentRef.current.value)}}}>Submit Rating</button>
+                <button className="confirm-btn" type="submit" onClick={() => {if(commentRef.current){ submitRating(rateVal, commentRef.current.value)}}}>Submit Rating</button>
             </div >
         )
     }
@@ -168,7 +168,9 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                     'Thank you For Feedback',
                     response.data.message,
                     'success'
-                )
+                ).then(()=>{
+                    window.location.reload(false);
+                })
             } else {
                 Swal.fire({
                     icon: 'error',

@@ -47,32 +47,26 @@ export default function ResCard({ cardID, cardPhoto, cardTitle, cardRate, info, 
 
 		let handleOnClick = (e: any) => {
 			let path = e.nativeEvent.composedPath();
-			// console.log("path", path);
-			// console.log("onClickHandlers", onClickHandlers);
-			
 			if (onClickHandlers && onClickHandlers.edit && path.includes(editBtnRef.current)) {
 				// handle onClick for editBtn
 				e.preventDefault()
 				onClickHandlers.edit(history, cardID, cardTitle, cardPhoto, description, info);
-				// history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: description })
 			} else if (onClickHandlers && onClickHandlers.delete && path.includes(deleteBtnRef.current)) {
 				// handle onClick for deleteBtn
 				e.preventDefault()
 				onClickHandlers.delete(cardID)
 			} else if(onClickHandlers && onClickHandlers.rate && path.includes(rateBtnRef.current)) {
+				// handle onClick for the rateBtn
 				e.preventDefault()
 				onClickHandlers.rate(cardID);
 			} else if (onClickHandlers && onClickHandlers.body) {
 				// handle onClick for the showRes
 				onClickHandlers.body(history, info);
-				// history.push(`${routeTo}/${materialID}/${cardID}`, { title: cardTitle, photo: cardPhoto, rate: cardRate, description: description })
 			} else {
 				console.log('nothing');
 			}
 		}
 
-		console.log("cardID", cardID);
-		
 
 		return (
 			// HTODO: Make component

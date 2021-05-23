@@ -40,8 +40,6 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 
 	// helllllllllllllllllllllllllllllo, plz rename
 	let addNewSetOfTopicsToDisplay = (allTopics: any, length: number = TOPIC_SEGEMENT_LENGTH) => {
-		console.log("addnewItems", nextTopicsIndex + length);
-
 		let newTopics: any[] = [];
 		// loop for either what the pagenation allows detrmianed by the value of [nextTopicsIndex + length]
 		// or for the length of the data you can show detrminded by the value of [maxNumToDisplay]
