@@ -33,7 +33,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
 
     const loadingDivRef = useRef(null);
     // let resFound: boolean[] = new Array(Object.keys(Types).length).fill(false);
-    let contentSectionDivRef = useRef<any>(new Array(Object.keys(Types).length).fill(undefined));
+    let contentSectionDivRef = useRef<any>(undefined);
 
     // HTODO: add to local storage.
     useEffect(() => {
@@ -52,21 +52,29 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
             const requestParams = { materialID: matID, topicID: topicID };
             let { data } = await APIsCaller({ api: getAllRes, requestParams: requestParams });
             let tempAllRes = new Array(allTypes.length).fill(0).map(() => new Array()) as any;
-            console.log("data", data);
-            
             data.resorses.forEach((item: any) => {
-                console.log(item);
                 tempAllRes[allTypes.indexOf(item.resType)].push(item)
                 setLoding(false);
                 searchData.push({ value: item.resID, key: (item.fileName || item.videoName || item.QName || item.websiteName || item.lawName || title) });
             });
-            console.log("tempAllRes", tempAllRes);
-            
+            contentSectionDivRef.current = new Array(tempAllRes.length).fill(undefined);
+
             setAllRes(tempAllRes);
             setDtaToSearchIn(searchData);
         }
         getData();
     }, [])
+
+    useEffect(() => {
+        if (allRes) {
+            setLoding(false);
+        }
+    }, [allRes])
+
+    useEffect(() => {
+        if (searchResult)
+            handleOnLoad();
+    }, [searchResult]);
 
 
     let editResFun = (history: any, cardID: any, cardTitle: any, cardPhoto: any, ResDes: any, info: any) => {
@@ -137,6 +145,18 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         delete: deleteResFun,
         body: (history: any, info: any) => { },
     }
+    let index = 0;
+    let handleOnLoad = () => {
+        contentSectionDivRef.current?.forEach((item: HTMLDivElement) => {
+            if (item) {
+                if (item.getElementsByClassName("content-section")[0].hasChildNodes())
+                    item.className = "expand-on-foucs";
+                else {
+                    item.className = "expand-on-foucs-empty";
+                }
+            }
+        })
+    }
 
     return (
         <div className="all-topic-res-contianer">
@@ -154,18 +174,19 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                 {
                     (loading) ?
                         <div className="loading-div" ref={loadingDivRef}></div>
-                        : (searchResult?.length !== 0) ?
+                        : ((searchResult && searchResult?.length !== 0) || (allRes && allRes?.flat().length !== 0)) ?
                             allRes?.map((item: any, idx: any) => {
-                                console.log("allRes", allRes);
-                                
-                                // setCurrentResTypeDiv("expand-on-foucs-empty")
                                 return (
-                                    <div ref={(a) => contentSectionDivRef.current[idx] = a} key={idx} tabIndex={0} className="expand-on-foucs-empty" >
+                                    <div ref={(a) => { contentSectionDivRef.current[idx] = a }} key={idx} tabIndex={0} className="expand-on-foucs-empty" onLoad={() => handleOnLoad()}>
                                         <span className="section-name"><span>{allTypes[idx]}</span><span className="arrow">&#9660;</span></span>
                                         <div className="content-section" >
                                             {
                                                 item.map((res: any, id: any) => {
+                                                    console.log(id,":", res);
+                                                    
                                                     if ((searchResult === undefined && allRes && allRes[idx].length != 0) || searchResult?.includes(res.resID)) {
+                                                        console.log(res.resID,":", searchResult?.includes(res.resID));
+                                                        
                                                         switch (res.resType) {
                                                             case "PDFs":
                                                                 // resID
@@ -174,7 +195,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                 // rate: 5
                                                                 onClickHandlers.body = (info: any) => { };
                                                                 return (
-                                                                    <a key={id} href={res.link || res.bookRefrence} target="_blank" onLoad={() => { contentSectionDivRef.current[idx].className = "expand-on-foucs" }}>
+                                                                    <a key={id} href={res.link || res.bookRefrence} target="_blank"  >
                                                                         <ResCard key={id}
                                                                             cardID={res.resID}
                                                                             cardPhoto={PdfSVG}
@@ -195,7 +216,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                 // videoName: "???????
                                                                 onClickHandlers.body = (info: any) => { };
                                                                 return (
-                                                                    <a key={id} href={res.link} target="_blank" onLoad={() => { contentSectionDivRef.current[idx].className = "expand-on-foucs" }}>
+                                                                    <a key={id} href={res.link} target="_blank">
                                                                         <ResCard key={id}
                                                                             cardID={res.resID}
                                                                             cardPhoto={res.videoImage}
@@ -220,8 +241,8 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                         cardTitle={res.QName || "Q N"}
                                                                         cardRate={res.topicRate}
                                                                         info={res}
-                                                                        onClickHandlers={{ ...onClickHandlers }} 
-                                                                        onLoad={() => { contentSectionDivRef.current[idx].className = "expand-on-foucs" }}/>
+                                                                        onClickHandlers={{ ...onClickHandlers }} />
+
                                                                 )
                                                                 break;
                                                             case "Resources":
@@ -232,16 +253,14 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                 // websiteName: "???????"
                                                                 onClickHandlers.body = (info: any) => { };
                                                                 return (
-                                                                    <a key={id} href={res.link} target="_blank">
-                                                                        <ResCard key={id}
-                                                                            cardID={res.resID}
-                                                                            cardPhoto={res.websiteImage}
-                                                                            cardTitle={res.websiteName}
-                                                                            cardRate={res.topicRate}
-                                                                            info={res}
-                                                                            onClickHandlers={{ ...onClickHandlers }} 
-                                                                            onLoad={() => { contentSectionDivRef.current[idx].className = "expand-on-foucs" }}/>
-                                                                    </a>
+                                                                    <ResCard key={id}
+                                                                        cardID={res.resID}
+                                                                        cardPhoto={res.websiteImage}
+                                                                        cardTitle={res.websiteName}
+                                                                        cardRate={res.topicRate}
+                                                                        info={res}
+                                                                        onClickHandlers={{ ...onClickHandlers }}
+                                                                    />
                                                                 )
                                                                 break;
                                                             case "Laws":
@@ -251,6 +270,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                 // resType: "Laws"
                                                                 // topicRate: 0
                                                                 onClickHandlers.body = showRes;
+                                                                // console.log("hi-from-laws", contentSectionDivRef.current[idx]);
                                                                 return (
                                                                     <ResCard key={id}
                                                                         cardID={res.resID}
@@ -258,8 +278,8 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                         cardTitle={res.lawName}
                                                                         cardRate={res.topicRate}
                                                                         info={res}
-                                                                        onClickHandlers={{ ...onClickHandlers }} 
-                                                                        onLoad={() => { contentSectionDivRef.current[idx].className = "expand-on-foucs" }}/>
+                                                                        onClickHandlers={{ ...onClickHandlers }}
+                                                                    />
                                                                 )
                                                                 break;
                                                             default:
