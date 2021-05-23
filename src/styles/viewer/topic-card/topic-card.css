@@ -127,7 +127,7 @@
   border-right: 2.5rem solid rgba(20, 20, 20, 0.85);
   border-bottom: 2.5rem solid transparent;
   border-left: 2.5rem solid transparent;
-  z-index: 50;
+  z-index: 2;
 }
 
 .top-part-container .topic-rate-container .topic-rate-content {
@@ -152,9 +152,10 @@
 }
 
 .top-part-container .icons-contianer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
   margin: 0;
   padding: 0;
   display: none;
@@ -173,32 +174,20 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  overflow: hidden;
   -webkit-box-flex: 50%;
       -ms-flex: 50%;
           flex: 50%;
-  height: 200%;
   margin: 0;
   padding: 0;
 }
 
 .top-part-container .icons-contianer .delete-icon {
-  position: absolute;
+  position: relative;
   left: 15%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-}
-
-.top-part-container .icons-contianer .edit-icon {
-  position: absolute;
-  left: 85%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-.top-part-container .icons-contianer .edit-icon svg {
-  width: 45% !important;
-  height: 45% !important;
+  height: 200%;
 }
 /*# sourceMappingURL=topic-card.css.map */

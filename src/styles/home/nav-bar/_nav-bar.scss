@@ -14,6 +14,8 @@
 	display: grid;
 	grid-template-columns: 20% 60% 20%;
 	grid-template-rows: 100%;
+
+	z-index: 100;
 }
 
 .logo, .search-bar, .bar-options {

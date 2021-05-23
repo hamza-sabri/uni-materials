@@ -216,7 +216,6 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	}
 
 	let allCards = () => {
-		// addNewSetOfTopicsToDisplay(allTopics);
 		return (
 			(searchResult?.length !== 0 && topicsFound) ?
 				topicsToDisplay.map((topic: any, index) => {
