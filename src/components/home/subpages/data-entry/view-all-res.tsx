@@ -129,7 +129,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
     function RatingHtmlComp({submitRating}: any) {
         let commentRef = useRef<HTMLInputElement>(null);
         let rateVal = 1;
-        let setVal = (val: number) => { console.log("hi", val); rateVal = val }
+        let setVal = (val: number) => { rateVal = val }
 
         return (
             <div className="popup-rate-container">
@@ -157,9 +157,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         const MySwal = withReactContent(Swal);
         let response;
         const requestParams = { materialID: matID, topicID: topicID, resorseID: cardID };
-
-        console.log("requestParams", requestParams);
-
         const requestBody = { "resRate": 1, "rateMessage": "" }
         let submitRating = async (ratingVal:number, comment:string) => {
             requestBody.resRate = ratingVal;
@@ -247,11 +244,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                         <div className="content-section" >
                                             {
                                                 item.map((res: any, id: any) => {
-                                                    console.log(id, ":", res);
-
                                                     if ((searchResult === undefined && allRes && allRes[idx].length != 0) || searchResult?.includes(res.resID)) {
-                                                        console.log(res.resID, ":", searchResult?.includes(res.resID));
-
                                                         switch (res.resType) {
                                                             case "PDFs":
                                                                 // resID
@@ -265,7 +258,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                             cardID={res.resID}
                                                                             cardPhoto={PdfSVG}
                                                                             cardTitle={res.fileName || title || "Book Chapter"}
-                                                                            cardRate={res.rate}
+                                                                            cardRate={res.rate || 0}
                                                                             info={res}
                                                                             onClickHandlers={{ ...onClickHandlers }}
                                                                         />
@@ -286,7 +279,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                             cardID={res.resID}
                                                                             cardPhoto={res.videoImage}
                                                                             cardTitle={res.videoName}
-                                                                            cardRate={res.topicRate}
+                                                                            cardRate={res.rate || 0}
                                                                             info={res}
                                                                             onClickHandlers={{ ...onClickHandlers }} />
                                                                     </a>
@@ -304,7 +297,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                         cardID={res.resID}
                                                                         cardPhoto={photo}
                                                                         cardTitle={res.QName || "Q N"}
-                                                                        cardRate={res.topicRate}
+                                                                        cardRate={res.rate || 0}
                                                                         info={res}
                                                                         onClickHandlers={{ ...onClickHandlers }} />
 
@@ -322,7 +315,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                         cardID={res.resID}
                                                                         cardPhoto={res.websiteImage}
                                                                         cardTitle={res.websiteName}
-                                                                        cardRate={res.topicRate}
+                                                                        cardRate={res.rate || 0}
                                                                         info={res}
                                                                         onClickHandlers={{ ...onClickHandlers }}
                                                                     />
@@ -335,13 +328,12 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                 // resType: "Laws"
                                                                 // topicRate: 0
                                                                 onClickHandlers.body = showRes;
-                                                                // console.log("hi-from-laws", contentSectionDivRef.current[idx]);
                                                                 return (
                                                                     <ResCard key={id}
                                                                         cardID={res.resID}
                                                                         cardPhoto={photo}
                                                                         cardTitle={res.lawName}
-                                                                        cardRate={res.topicRate}
+                                                                        cardRate={res.rate || 0}
                                                                         info={res}
                                                                         onClickHandlers={{ ...onClickHandlers }}
                                                                     />

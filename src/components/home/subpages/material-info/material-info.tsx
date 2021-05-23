@@ -14,6 +14,10 @@ import { allTopicRes, updateTopic } from '../../../../constants/pages-route';
 import './../../../../styles/materials-info/materials-info.css';
 import Swal from 'sweetalert2';
 
+interface LooseObject {
+    [key: string]: any
+}
+
 export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: string }> }) {
 	const materialID = match.params.matID;
 	const TOPIC_SEGEMENT_LENGTH = 11; // how many topic in each page (initial viwed topics count and how many to add each load more click).
@@ -44,10 +48,12 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		// maxNumToDisplay: can take the value of allTopics.length if there is no search operation is done(empty search bar)
 		// otherwise it will take the value of the length of the search result length.
 		for (var i = 0; newTopics.length < (nextTopicsIndex + length) && newTopics.length < maxNumToDisplay; i++) {
+			let topicObj: LooseObject = Object.entries(allTopics)[i][1] as LooseObject;
+			topicObj.cardID = Object.entries(allTopics)[i][0];
 			if (searchResult && searchResult.includes(Object.entries(allTopics)[i][0])) {
-				newTopics.push(Object.entries(allTopics)[i][1]);
+				newTopics.push(Object.assign({}, topicObj));
 			} else if (!searchResult) {
-				newTopics.push(Object.entries(allTopics)[i][1])
+				newTopics.push(Object.assign({}, topicObj))
 			}
 		}
 		setTopicsToDisplay(newTopics);
@@ -219,13 +225,13 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		return (
 			(searchResult?.length !== 0 && topicsFound) ?
 				topicsToDisplay.map((topic: any, index) => {
-					return <TopicCard key={index} IDs
-						cardID={Object.keys(allTopics)[index]}
+					return <TopicCard key={index}
+						cardID={topic.cardID}
 						cardTitle={topic.topicName || material.materialName}
 						cardPhoto={topic.topicPhoto || material.materialPhoto}
 						cardRate={topic.topicRate || material.totalRate}
 						description={topic.description || material.materialDesc || "No Description"}
-						onClickHandlers={onClickHandlers}
+						onClickHandlers={{...onClickHandlers}}
 						routeTo={allTopicRes} />
 				})
 				: <p>No Topics Found</p>

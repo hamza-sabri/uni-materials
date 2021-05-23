@@ -47,8 +47,8 @@ export default function ResCard({ cardID, cardPhoto, cardTitle, cardRate, info, 
 
 		let handleOnClick = (e: any) => {
 			let path = e.nativeEvent.composedPath();
-			console.log("path", path);
-			console.log("onClickHandlers", onClickHandlers);
+			// console.log("path", path);
+			// console.log("onClickHandlers", onClickHandlers);
 			
 			if (onClickHandlers && onClickHandlers.edit && path.includes(editBtnRef.current)) {
 				// handle onClick for editBtn
@@ -70,6 +70,9 @@ export default function ResCard({ cardID, cardPhoto, cardTitle, cardRate, info, 
 				console.log('nothing');
 			}
 		}
+
+		console.log("cardID", cardID);
+		
 
 		return (
 			// HTODO: Make component
