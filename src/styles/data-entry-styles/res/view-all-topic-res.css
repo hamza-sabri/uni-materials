@@ -159,6 +159,16 @@
   display: none;
 }
 
+.all-topic-res-contianer .resource-section p {
+  position: relative;
+  top: 50%;
+  left: 90%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-weight: 900;
+  font-size: 32px;
+}
+
 .all-topic-res-contianer::-webkit-scrollbar {
   visibility: hidden;
   display: none;

@@ -238,7 +238,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                 {
                     (loading) ?
                         <div className="loading-div" ref={loadingDivRef}></div>
-                        : ((searchResult && searchResult?.length !== 0) || (allRes && allRes?.flat().length !== 0)) ?
+                        : ((searchResult && searchResult?.length !== 0) || (searchResult===undefined && allRes && allRes?.flat().length !== 0)) ?
                             allRes?.map((item: any, idx: any) => {
                                 return (
                                     <div ref={(a) => { contentSectionDivRef.current[idx] = a }} key={idx} tabIndex={0} className="expand-on-foucs-empty" onLoad={() => handleOnLoad()}>
