@@ -161,8 +161,6 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         const requestParams = { materialID: matID, topicID: topicID, resorseID: cardID };
         const requestBody = { "resRate": 1, "rateMessage": "" }
         let submitRating = async (ratingVal:number, comment:string) => {
-            console.log("comment", comment);
-            
             requestBody.resRate = ratingVal;
             requestBody.rateMessage = comment;
             response = await APIsCaller({api: rateRes, requestBody, requestParams});
