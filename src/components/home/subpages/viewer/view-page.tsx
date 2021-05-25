@@ -16,7 +16,6 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 	const MySwal = withReactContent(Swal);
 
 
-
 	const createCardsList = (routeTo: string): cardInterface[] => {
 		const result: cardInterface[] = [];
 		for (let [key, value] of Object.entries(materialsTable)) {
@@ -74,9 +73,13 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 
 	// For search logic
 	useEffect(() => {
-		console.log("data", data);
-		if(data.length != 0)
-			setDtaToSearchIn(data.map(item => { return { key: item?.cardTitle, value: item?.cardID } }));
+		// console.log("data", data);
+		if (data.length != 0) {
+			let tempData:any = [];
+			// add the matrial twice once with key of matiral name and the other using the matrial number.
+			data.forEach((item:any) => { tempData.push({ key: item?.cardTitle, value: item?.cardID }); tempData.push({key: materialsTable[item?.cardID].materialNumber, value: item?.cardID}) })
+			setDtaToSearchIn(tempData);
+		}
 	}, [data]);
 
 	// For search logic
@@ -139,7 +142,6 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 	}
 
 	const defualtValues = () => {
-
 		const temp: cardInterface[] = [];
 		userSchedule?.forEach((val: any) => {
 			const currentMat = materialsTable[val];
