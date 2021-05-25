@@ -13,7 +13,6 @@ export default function SearchArea() {
 
 	let buildTrieTree = () => {
 		trie = new TrieSearch();
-		console.log("dataToSearchIn", dataToSearchIn);
 		if (dataToSearchIn) {
 			dataToSearchIn.forEach((item: any) => { trie.map(item.key.replaceAll(' ', ''), item.value); })
 		}
@@ -25,7 +24,6 @@ export default function SearchArea() {
 
 		if (term || term != "") {
 			let res = trie.search(term);
-			console.log("res", res);
 			setSearchResult(res);
 			setSearchInputClassName("expand-search-bar-section");
 		} else {

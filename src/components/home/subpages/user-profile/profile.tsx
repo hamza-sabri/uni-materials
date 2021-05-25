@@ -17,7 +17,7 @@ export default function Profile() {
 	const emptyRef = useRef<HTMLDivElement>(null);
 	const emptyWrapperRef = useRef<HTMLDivElement>(null);
 	const [hadShcedule, setHadShcedule] = useState<boolean>(false)
-	const [dataToSearch, setDataToSearch] = useState<{key:any, value:any}[] | undefined>(undefined);
+	const [dataToSearch, setDataToSearch] = useState<{key:any, value:any}[] | undefined>([]);
 	// replace the empty div with a loading container
 
 	useEffect(() => {
@@ -36,8 +36,6 @@ export default function Profile() {
 			loop: true,
 			animationData: emptyProfileAnim
 		});
-
-		setDataToSearch(()=>[]);
 	}, []);
 
 
@@ -79,12 +77,14 @@ export default function Profile() {
 	const createCardsList = (routeTo: string): cardInterface[] => {
 		const result: cardInterface[] = [];
 		const subjects: string[] = user.userProfile.schedule;
+		dataToSearch?.splice(0, dataToSearch.length);
+
 		 // search logic
 		for (let [key, val] of Object.entries(materialsTable) as [any, any]) {
 			// search logic
-			dataToSearch?.push({key: val.materialName, value: key},{key:val.materialNumber, value: key})
 			const data: any = val;
 			if (!subjects?.includes(key)) continue;
+			dataToSearch?.push({key: val.materialName, value: key},{key:val.materialNumber, value: key})
 			result.push({
 				cardPhoto: data.materialPhoto,
 				cardRate: data.totalRate,
@@ -93,15 +93,16 @@ export default function Profile() {
 				routeTo: `${routeTo}/${key}`
 			});
 		}
+		
 		setHadShcedule(result.length > 0);
 		// search logic
 		return result;
 	};
 
 	useEffect(()=>{
-		if(dataToSearch)
+		if(dataToSearch && dataToSearch.length)
 			setDtaToSearchIn(dataToSearch);
-	}, [JSON.stringify(dataToSearch)])
+	}, [dataToSearch?.length])
 
 	return (
 		<div>

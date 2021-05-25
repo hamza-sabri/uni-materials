@@ -127,7 +127,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
     }
 
     function RatingHtmlComp({submitRating}: any) {
-        let commentRef = useRef<HTMLInputElement>(null);
+        let commentRef = useRef<HTMLTextAreaElement>(null);
         let rateVal = 1;
         let setVal = (val: number) => { rateVal = val }
 
@@ -146,7 +146,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                     <label htmlFor="star1" title="text">1 star</label>
                 </div>
                 <div className="rate-comment-container">
-                    <input ref={commentRef} className="rate-comment" placeholder="Comment about this resource" type="text" />
+                    <textarea ref={commentRef} className="rate-comment" placeholder="Comment about this resource" />
                 </div>
                 <button className="confirm-btn" type="submit" onClick={() => {if(commentRef.current){ submitRating(rateVal, commentRef.current.value)}}}>Submit Rating</button>
             </div >
@@ -168,9 +168,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                     'Thank you For Feedback',
                     response.data.message,
                     'success'
-                ).then(()=>{
-                    window.location.reload(false);
-                })
+                )
             } else {
                 Swal.fire({
                     icon: 'error',

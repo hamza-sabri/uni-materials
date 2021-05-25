@@ -227,7 +227,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 						cardID={topic.cardID}
 						cardTitle={topic.topicName || material.materialName}
 						cardPhoto={topic.topicPhoto || material.materialPhoto}
-						cardRate={topic.topicRate || material.totalRate}
+						cardRate={topic.topicRate || 0}
 						description={topic.description || material.materialDesc || "No Description"}
 						onClickHandlers={{...onClickHandlers}}
 						routeTo={allTopicRes} />

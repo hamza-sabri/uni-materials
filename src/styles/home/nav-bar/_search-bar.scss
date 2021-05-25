@@ -43,12 +43,16 @@
 	width: 50%;
 	height: 40%;
 
+	.search-input-field {
+		border-bottom: 0.5px solid #c8c3c3;
+	}
+
 	&:hover,
 	&:focus-within {
 		width: 80%;
 		border: none;
 		.search-input-field {
-			border-bottom: 0.5px solid rgb(2, 58, 241);
+			border-bottom:1px solid rgb(2, 58, 241);
 		}
 	}
 }
@@ -58,7 +62,7 @@
 	width: 80%;
 
 	.search-input-field {
-		border-bottom: 0.5px solid rgb(2, 58, 241);
+		border-bottom: 1px solid rgb(2, 58, 241);
 	}
 }
 

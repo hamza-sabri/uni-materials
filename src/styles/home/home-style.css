@@ -82,13 +82,17 @@
   height: 40%;
 }
 
+.search-bar-section .search-input-field {
+  border-bottom: 0.5px solid #c8c3c3;
+}
+
 .search-bar-section:hover, .search-bar-section:focus-within {
   width: 80%;
   border: none;
 }
 
 .search-bar-section:hover .search-input-field, .search-bar-section:focus-within .search-input-field {
-  border-bottom: 0.5px solid #023af1;
+  border-bottom: 1px solid #023af1;
 }
 
 .expand-search-bar-section {
@@ -97,7 +101,7 @@
 }
 
 .expand-search-bar-section .search-input-field {
-  border-bottom: 0.5px solid #023af1;
+  border-bottom: 1px solid #023af1;
 }
 
 .option-wrpper {

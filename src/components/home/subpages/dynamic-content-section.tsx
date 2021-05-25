@@ -43,8 +43,6 @@ export default function DynamicContentSection() {
 
 	useEffect(() => {
 		history.listen(() => {
-			console.log("history sends you his regards");
-			console.log("DCS-searchInputRef", clearSearchBarBtnRef);
 			clearSearchBarBtnRef.current?.click();
 		})
 	}, []);

@@ -5,7 +5,7 @@
 
 .popup-rate-container {
     width: 100%;
-    height: 100%;
+    height: 200%;
 
     display: flex;
     justify-content: center;
@@ -13,11 +13,6 @@
     flex-direction: column;
 
     .rate {
-        // position: relative;
-        // left: 50%;
-        // transform: translateX(-75%);
-
-        // float: left;
         height: 46px;
         padding: 0 10px;
     }
@@ -54,41 +49,42 @@
 
     .rate-comment-container {
         flex-grow: 1;
-        height: 100%;
+        padding: 0;
+        margin: 0;
 
         .rate-comment {
-            height: 100%;
+            border-radius: 10px;
+            padding: 10px;
+
             width: 250px;
             border: none;
+
+            border: 1px solid #c8c3c3;
         }
 
         &:hover,
         &:focus-within {
             .rate-comment {
-                border-bottom: 0.5px solid rgb(2, 58, 241);
+                border: 1px solid rgb(2, 58, 241);
             }
-        }
-
-        .rate-comment:not([value=""]) {
-            border-bottom: 0.5px solid rgb(2, 58, 241);
         }
     }
 
     .confirm-btn {
         border: 0;
-        border-radius: .25em;
+        border-radius: 0.25em;
         background: initial;
         background-color: #2778c4;
         color: #fff;
         font-size: 1.0625em;
 
-        margin: .9em;
-        padding: .625em 1.1em;
+        margin: 0.9em;
+        padding: 0.625em 1.1em;
         box-shadow: none;
         font-weight: 500;
 
-        &:hover{
-            background-image: linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1));
+        &:hover {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
         }
     }
 }
