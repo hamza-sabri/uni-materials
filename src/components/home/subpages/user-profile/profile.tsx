@@ -90,7 +90,8 @@ export default function Profile() {
 				cardRate: data.totalRate,
 				cardTitle: data.materialName,
 				cardID: key,
-				routeTo: `${routeTo}/${key}`
+				routeTo: `${routeTo}/${key}`,
+				matNum: data.materialNumber
 			});
 		}
 		

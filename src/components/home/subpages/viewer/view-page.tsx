@@ -25,7 +25,8 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 				cardRate: data.totalRate,
 				cardTitle: data.materialName,
 				cardID: key,
-				routeTo: `${routeTo}/${key}`
+				routeTo: `${routeTo}/${key}`,
+				matNum: data.materialNumber
 			});
 		}
 		return result;
@@ -40,6 +41,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 				cardRate: data.totalRate,
 				cardTitle: data.materialName,
 				cardID: key,
+				matNum: data.materialNumber
 			});
 		}
 		return result;
@@ -99,7 +101,6 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 
 	const saveShcedule = async () => {
 
-		console.log(`userSchedule`, userSchedule);
 		const { isConfirmed } = await MySwal.fire({
 			title: 'Materials',
 			html: <VeiwSelected />,
@@ -148,7 +149,8 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 				cardPhoto: currentMat.materialPhoto,
 				cardRate: currentMat.totalRate,
 				cardTitle: currentMat.materialName,
-				cardID: val
+				cardID: val,
+				matNum: currentMat.materialNumber
 			})
 		});
 		setSelected(() => temp);
@@ -182,6 +184,7 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 			cardRate: temp.totalRate,
 			cardTitle: temp.materialName,
 			cardID: matID,
+			matNum: temp.materialNumber
 		}
 		setSelected((selectedSoFar) => {
 
