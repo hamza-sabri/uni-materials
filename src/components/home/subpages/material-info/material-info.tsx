@@ -223,9 +223,6 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		return (
 			(searchResult?.length !== 0 && topicsFound) ?
 				topicsToDisplay.map((topic: any, index) => {
-					console.log("topic", topic);
-					console.log("topic.topicDes", topic.topicDes);
-					
 					return <TopicCard key={index}
 						cardID={topic.cardID}
 						cardTitle={topic.topicName || material.materialName}
