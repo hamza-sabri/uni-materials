@@ -5,8 +5,10 @@ import { DynamicContentContext } from '../contexts/home-context/dynamic-content-
 import { addResMethods, updateTopic } from '../constants/pages-route';
 
 export default function AddManuallyPage({ match }: { match: matchType<any> }) {
+	console.log("match", match);
+	
 	let inputs = [ 'Material Name', 'Material Image', 'Material Number' ];
-	let descriptionInput = 'Describe the Material';
+	let descriptionInput = 'Describe the Topic';
 	let values: string[] = [];
 	const { materialsTable } = useContext(DynamicContentContext);
 	const { id } = match.params;

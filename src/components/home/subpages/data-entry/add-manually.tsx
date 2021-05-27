@@ -47,7 +47,7 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 			loop: true,
 			animationData: floattingLaptop
 		});
-	}, [materialsTable, resRoute]);
+	}, [inputLottie.current, materialsTable, resRoute]);
 
 	const inputHandler = (e: any, index: number) => {
 		const value: string = e.target.value || '';
