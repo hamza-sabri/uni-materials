@@ -40,6 +40,8 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 			e.stopPropagation();
 			if (onClickHandlers && onClickHandlers.edit && path.includes(editBtnRef.current)) {
 				// handle onClick for editBtn
+				console.log("description", description);
+				
 				e.preventDefault()
 				onClickHandlers.edit(history, cardID, cardTitle, cardPhoto, description);
 				// history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: description })

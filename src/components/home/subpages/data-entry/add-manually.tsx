@@ -19,10 +19,11 @@ type cardCreateorInterface = {
 	resRoute: string;
 	topicID?: string;
 	ResID?: string;
+	description?: string;
 	setResRoute: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function CardCreateor({ inputs, descriptionInput, values, localMaterialID, topicID, ResID, rate, resRoute, setResRoute }: cardCreateorInterface) {
+export default function CardCreateor({ inputs, descriptionInput, values, localMaterialID, topicID, ResID, rate, resRoute, setResRoute, description }: cardCreateorInterface) {
 	const inputLottie = useRef(null);
 	const materialName = useRef<HTMLPreElement>(null);
 	const previewer = useRef<HTMLImageElement>(null);
@@ -32,8 +33,8 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 	const addResButtonRef = useRef<HTMLDivElement>(null);
 	const { materialsTable, setMaterialsTable } = useContext(DynamicContentContext);
 
-	useEffect (() => {
-		if(topicID) {
+	useEffect(() => {
+		if (topicID) {
 			addResButtonRef.current!.style.display = 'flex';
 		}
 	});
@@ -62,7 +63,7 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		results.forEach((result, index) => (result === '' || !result) ? emptyIndex = index : '')
 		if (emptyIndex !== -1) Swal.fire('Ops!', `Sorry but the "${inputs[emptyIndex]}" is required`, 'error');
 		else {
-			if(ResID != undefined) {}
+			if (ResID != undefined) { }
 			else if (topicID != undefined) { updateTopicDocument(); }
 			else if (inputs[0].includes('Topic')) submitTopic();
 			else if (values.length !== 0) updateDocument();
@@ -158,7 +159,8 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 	}
 
 	const MaterialInputs = () => {
-
+		console.log("description", description);
+		
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => {
@@ -166,8 +168,8 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} type={hint.includes("Number") ? "number" : "text"} />
 				})}
 				{
-					descriptionInput ? <textarea placeholder={descriptionInput} ref={textAreaRef}
-						defaultValue={(localMaterialID) ? materialsTable[localMaterialID].materialDesc : ''}
+					(descriptionInput || description) ? <textarea placeholder={descriptionInput} ref={textAreaRef}
+						defaultValue={description ? description : (localMaterialID) ? materialsTable[localMaterialID].materialDesc : ''}
 						onFocus={() => {
 							textAreaRef.current!.style.overflowY = 'scroll';
 						}} onBlur={() => {
