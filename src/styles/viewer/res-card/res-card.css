@@ -1,0 +1,190 @@
+.res-card {
+  -webkit-box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+          box-shadow: 2px 4px 8px 0 rgba(51, 51, 51, 0.4);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  width: 260px;
+  height: 220px;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.res-card img {
+  min-height: 100%;
+  min-width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  z-index: 0;
+}
+
+.res-card:hover {
+  cursor: pointer;
+}
+
+.res-card:hover .res-top-part-container {
+  height: 20%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+.res-card:hover .res-rate-container {
+  display: none;
+}
+
+.res-card:hover .res-icons-contianer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.res-card .res-name-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 0;
+}
+
+.res-card .res-name-container pre {
+  width: 90%;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.res-name-card-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  bottom: 0.6rem;
+  width: 100%;
+  height: 2rem;
+  padding: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.res-top-part-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 45%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.res-top-part-container .res-rate-container {
+  width: 0;
+  height: 0;
+  float: left;
+  border-top: 2.5rem solid rgba(20, 20, 20, 0.85);
+  border-right: 2.5rem solid rgba(20, 20, 20, 0.85);
+  border-bottom: 2.5rem solid transparent;
+  border-left: 2.5rem solid transparent;
+  z-index: 2;
+}
+
+.res-top-part-container .res-rate-container .res-rate-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-self: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  top: -30px;
+  right: -20px;
+}
+
+.res-top-part-container .res-rate-container .res-rate-content span {
+  color: white;
+}
+
+.res-top-part-container .res-icons-contianer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 0;
+  display: none;
+  background: black;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.95)), color-stop(68%, rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 68%, rgba(0, 0, 0, 0) 100%);
+}
+
+.res-top-part-container .res-icons-contianer .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.res-top-part-container .res-icons-contianer .delete-icon {
+  position: relative;
+  left: 15%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  height: 200%;
+}
+/*# sourceMappingURL=res-card.css.map */

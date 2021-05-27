@@ -11,7 +11,6 @@ export default function UpdateTopic() {
     const [resRoute, setResRoute] = useState<string>(basicTopicRoute);
 
     let inputs = ["Topic Name", "Topic Image URL"];
-    let descriptionInput = description;
     let values = [name, photo];
     let id = materialID;
     let rate = 5;
@@ -19,7 +18,7 @@ export default function UpdateTopic() {
 
     return (
         <div className="dynamic-subpage">
-            <CardCreateor {...{ inputs, descriptionInput, values, localMaterialID: id, topicID, rate, resRoute, setResRoute }} />
+            <CardCreateor {...{ inputs, description, values, localMaterialID: id, topicID, rate, resRoute, setResRoute }} />
         </div>
     );
 }

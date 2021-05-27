@@ -4,7 +4,7 @@ import { cardInterface } from '../../../../interfaces/cards/cards';
 import '../../../../styles/viewer/card/mateiral-card.css';
 import triangle from '../../../../assets/home/triangle.svg';
 
-export default function MaterialCard({ cardPhoto, cardTitle, cardRate, cardID, routeTo, submitHandler, option }: cardInterface) {
+export default function MaterialCard({ cardPhoto, cardTitle, cardRate, cardID, routeTo, submitHandler, option, matNum }: cardInterface) {
 	const starRef = useRef<HTMLDivElement>(null);
 	const addRef = useRef<HTMLDivElement>(null);
 	
@@ -30,7 +30,9 @@ export default function MaterialCard({ cardPhoto, cardTitle, cardRate, cardID, r
 					<span>{cardRate}</span>
 					<img src={triangle} alt="background" />
 				</div>
-				<pre className="material-name-container">{cardTitle}</pre>
+				<div className="material-name-container">{cardTitle}
+				{matNum?<span>({matNum})</span>:<div/>}
+				</div>
 			</div>
 		);
 	};

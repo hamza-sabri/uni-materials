@@ -1,4 +1,4 @@
-import  { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Avatar from './avatar';
 import lottie from 'lottie-web';
 import '../../../../styles/dynamic-content/user-profile/user-profile.css';
@@ -12,11 +12,12 @@ import { materialInfoRoute, scheduleRoute } from '../../../../constants/pages-ro
 import MaterialCard from '../viewer/material-card';
 
 export default function Profile() {
-	const { unisDataList, user, setUser, materialsTable } = useContext(DynamicContentContext);
+	const { unisDataList, user, setUser, materialsTable, searchResult, setDtaToSearchIn } = useContext(DynamicContentContext);
 	const loadingRef = useRef<HTMLDivElement>(null);
 	const emptyRef = useRef<HTMLDivElement>(null);
 	const emptyWrapperRef = useRef<HTMLDivElement>(null);
 	const [hadShcedule, setHadShcedule] = useState<boolean>(false)
+	const [dataToSearch, setDataToSearch] = useState<{key:any, value:any}[] | undefined>([]);
 	// replace the empty div with a loading container
 
 	useEffect(() => {
@@ -35,12 +36,11 @@ export default function Profile() {
 			loop: true,
 			animationData: emptyProfileAnim
 		});
-		
 	}, []);
 
 
-	const LoadingProfile = ()=>{
-		
+	const LoadingProfile = () => {
+
 		return (
 			<div className="user-profile-loading">
 				<div className="profile-loading" ref={loadingRef} />
@@ -48,56 +48,72 @@ export default function Profile() {
 		)
 	}
 
-	const ShowMaterials = ()=>{
+	const ShowMaterials = () => {
 		const cardsList = createCardsList(materialInfoRoute);
-		
-	    return (
+
+		return (
 			<div className="wrapper">
-			<div className="cards-viewer" style={{overflow:"scroll"}}>
-			<div className="space" />
-			{
-			cardsList?.map((card, index) => <MaterialCard key={index} {...card!} />)}
-			<div className="down-space" />
+				<div className="cards-viewer" style={{ overflow: "scroll" }}>
+					<div className="space" />
+					{
+						cardsList?.map((card, index) => {
+							if (searchResult === undefined || (searchResult && searchResult.includes(card.cardID))){ return <MaterialCard key={index} {...card!} />}
+							else{ return null}
+						})}
+					<div className="down-space" />
+				</div>
 			</div>
-			</div>
-			)
+		)
 	}
 
-	useEffect(()=>{
+	useEffect(() => {
 		console.log(emptyWrapperRef.current);
-		if(hadShcedule && emptyWrapperRef.current !== null)
-		emptyWrapperRef.current.style.display = "none";
-		
+		if (hadShcedule && emptyWrapperRef.current !== null)
+			emptyWrapperRef.current.style.display = "none";
 
-	},[emptyWrapperRef, hadShcedule])
 
-	const createCardsList = (routeTo:string): cardInterface[] => {
+	}, [emptyWrapperRef, hadShcedule])
+
+	const createCardsList = (routeTo: string): cardInterface[] => {
 		const result: cardInterface[] = [];
-		const subjects:string[] = user.userProfile.schedule;
-		for (let [ key, value ] of Object.entries(materialsTable)) {
-			const data: any = value;
-			if(!subjects?.includes(key)) continue;
+		const subjects: string[] = user.userProfile.schedule;
+		dataToSearch?.splice(0, dataToSearch.length);
+
+		 // search logic
+		for (let [key, val] of Object.entries(materialsTable) as [any, any]) {
+			// search logic
+			const data: any = val;
+			if (!subjects?.includes(key)) continue;
+			dataToSearch?.push({key: val.materialName, value: key},{key:val.materialNumber, value: key})
 			result.push({
 				cardPhoto: data.materialPhoto,
 				cardRate: data.totalRate,
 				cardTitle: data.materialName,
 				cardID: key,
-				routeTo: `${routeTo}/${key}`
+				routeTo: `${routeTo}/${key}`,
+				matNum: data.materialNumber
 			});
 		}
-		setHadShcedule(result.length>0);
+		
+		setHadShcedule(result.length > 0);
+		// search logic
 		return result;
 	};
 
+	useEffect(()=>{
+		if(dataToSearch && dataToSearch.length)
+			setDtaToSearchIn(dataToSearch);
+	}, [dataToSearch?.length])
+
 	return (
 		<div>
-			{!user.userProfile? <LoadingProfile />: 
-			<Avatar data={user} unisDataList={unisDataList} setUser={setUser} />}
+			{!user.userProfile ? <LoadingProfile /> :
+				<Avatar data={user} unisDataList={unisDataList} setUser={setUser} />}
 			<div className="empty-warpper" ref={emptyWrapperRef}>
-				<div  className="empty-lottie" ref={emptyRef}/>
-				<div className="create-schedule" onClick={()=>{history.push(scheduleRoute)}}>create schedule</div>
+				<div className="empty-lottie" ref={emptyRef} />
+				<div className="create-schedule" onClick={() => { history.push(scheduleRoute) }}>create schedule</div>
 			</div>
-			{user.userProfile? <ShowMaterials />: <div/>}
+			{user.userProfile ? <ShowMaterials /> : <div />}
 		</div>
 	);
 }

@@ -1,5 +1,5 @@
 import { getErrorStatusCode } from '../../constants/status-codes';
-import { createResRoute, getAllResRoute, deleteResRoute, updateResRoute } from '../../constants/urls';
+import { createResRoute, getAllResRoute, deleteResRoute, updateResRoute, rateResRoute } from '../../constants/urls';
 import { responseInterface } from '../../interfaces/responses';
 import { AxiosInstance } from 'axios';
 
@@ -34,7 +34,6 @@ const deleteRes = async (axios: AxiosInstance, requestParams: any): Promise<resp
 };
 
 const updateRes = async (axios: AxiosInstance, requestBody: any, requestParams: any ): Promise<responseInterface> => {
-	console.log(requestParams, requestBody);
 	try {
 		const { status, data } = await axios.put(updateResRoute, requestBody, {  params: requestParams });
 		return { data, status };
@@ -44,4 +43,15 @@ const updateRes = async (axios: AxiosInstance, requestBody: any, requestParams: 
 	}
 };
 
-export { createNewRes, getAllRes, deleteRes, updateRes };
+const rateRes = async (axios: AxiosInstance, requestBody: any, requestParams: any ): Promise<responseInterface> => {
+	try {
+		const { status, data } = await axios.put(rateResRoute, requestBody, {  params: requestParams });
+		return { data, status };
+	} catch (err) {
+		console.log(JSON.stringify(err));
+		return { status: getErrorStatusCode(err.message), data: err };
+	}
+};
+
+
+export { createNewRes, getAllRes, deleteRes, updateRes, rateRes };

@@ -1,0 +1,104 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.popup-rate-container {
+  width: 100%;
+  height: 200%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.popup-rate-container .rate {
+  height: 46px;
+  padding: 0 10px;
+}
+
+.popup-rate-container .rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+
+.popup-rate-container .rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+}
+
+.popup-rate-container .rate:not(:checked) > label:before {
+  content: "★ ";
+}
+
+.popup-rate-container .rate > input:checked ~ label {
+  color: #ffc700;
+}
+
+.popup-rate-container .rate:not(:checked) > label:hover,
+.popup-rate-container .rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+
+.popup-rate-container .rate > input:checked + label:hover,
+.popup-rate-container .rate > input:checked + label:hover ~ label,
+.popup-rate-container .rate > input:checked ~ label:hover,
+.popup-rate-container .rate > input:checked ~ label:hover ~ label,
+.popup-rate-container .rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.popup-rate-container .rate-comment-container {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.popup-rate-container .rate-comment-container .rate-comment {
+  border-radius: 10px;
+  padding: 10px;
+  width: 250px;
+  border: none;
+  border: 1px solid #c8c3c3;
+}
+
+.popup-rate-container .rate-comment-container:hover .rate-comment, .popup-rate-container .rate-comment-container:focus-within .rate-comment {
+  border: 1px solid #023af1;
+}
+
+.popup-rate-container .confirm-btn {
+  border: 0;
+  border-radius: 0.25em;
+  background: initial;
+  background-color: #2778c4;
+  color: #fff;
+  font-size: 1.0625em;
+  margin: 0.9em;
+  padding: 0.625em 1.1em;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  font-weight: 500;
+}
+
+.popup-rate-container .confirm-btn:hover {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.1)));
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+}
+/*# sourceMappingURL=rating.css.map */

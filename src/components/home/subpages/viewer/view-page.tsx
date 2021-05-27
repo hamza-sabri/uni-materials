@@ -12,35 +12,36 @@ import { APIsCaller } from '../../../../requestes/apis-caller';
 import { updateUserProfile } from '../../../../requestes/user-requestes/user';
 import { BAD_REQUEST, OK } from '../../../../constants/status-codes';
 export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }) {
-	const { user, materialsTable, setUser } = useContext(DynamicContentContext);
+	const { user, materialsTable, setUser, setDtaToSearchIn, searchResult } = useContext(DynamicContentContext);
 	const MySwal = withReactContent(Swal);
-	
 
-	
-	const createCardsList = (routeTo:string): cardInterface[] => {
+
+	const createCardsList = (routeTo: string): cardInterface[] => {
 		const result: cardInterface[] = [];
-		for (let [ key, value ] of Object.entries(materialsTable)) {
+		for (let [key, value] of Object.entries(materialsTable)) {
 			const data: any = value;
 			result.push({
 				cardPhoto: data.materialPhoto,
 				cardRate: data.totalRate,
 				cardTitle: data.materialName,
 				cardID: key,
-				routeTo: `${routeTo}/${key}`
+				routeTo: `${routeTo}/${key}`,
+				matNum: data.materialNumber
 			});
 		}
 		return result;
 	};
 
-	const scheduleCardList = ()=>{
+	const scheduleCardList = () => {
 		const result: cardInterface[] = [];
-		for (let [ key, value ] of Object.entries(materialsTable)) {
+		for (let [key, value] of Object.entries(materialsTable)) {
 			const data: any = value;
 			result.push({
 				cardPhoto: data.materialPhoto,
 				cardRate: data.totalRate,
 				cardTitle: data.materialName,
 				cardID: key,
+				matNum: data.materialNumber
 			});
 		}
 		return result;
@@ -48,8 +49,8 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 
 	const urlHandler = (): cardInterface[] => {
 		const url: string | undefined = match?.url;
-		if(!url)return scheduleCardList();
-		
+		if (!url) return scheduleCardList();
+
 		switch (url) {
 			case updatematerialsRoute: return createCardsList(manualEntryRoute);
 			case cretateTopics: return createCardsList(updateTopic);
@@ -58,18 +59,39 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 		}
 	};
 
-	const [data, setData]  = useState<(cardInterface | undefined)[]>(urlHandler());
-	const [selected, setSelected]  = useState<(cardInterface | undefined)[]>();
+	const [data, setData] = useState<(cardInterface | undefined)[]>([]);
+	const [selected, setSelected] = useState<(cardInterface | undefined)[]>();
 	const [userSchedule, setUserSchedule] = useState<(string | undefined)[]>(user?.userProfile?.schedule);
-	const [adding, setAdding ] = useState<boolean>(false); 
+	const [adding, setAdding] = useState<boolean>(false);
 
-	useEffect(()=>{
-		console.log(user)
+	useEffect(() => {
+		// console.log(user)
 
 		defualtValues();
 	}, [userSchedule])
 
-	const SaveFAB = ()=>{
+
+	// For search logic
+	useEffect(() => {
+		// console.log("data", data);
+		if (data.length != 0) {
+			let tempData:any = [];
+			// add the matrial twice once with key of matiral name and the other using the matrial number.
+			data.forEach((item:any) => { tempData.push({ key: item?.cardTitle, value: item?.cardID }); tempData.push({key: materialsTable[item?.cardID].materialNumber, value: item?.cardID}) })
+			setDtaToSearchIn(tempData);
+		}
+	}, [data]);
+
+	// For search logic
+	useEffect(() => {
+		setData(urlHandler());
+
+		return () => {
+			setDtaToSearchIn(undefined);
+		}
+	}, []);
+
+	const SaveFAB = () => {
 		return (
 			<div className="save-button" onClick={saveShcedule}>
 				<img alt="save" src={saveIcon} />
@@ -77,82 +99,83 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 		)
 	}
 
-	const saveShcedule = async()=>{
-	
-		console.log(`userSchedule`, userSchedule);
-		const {isConfirmed} = await MySwal.fire({
-			title:'Materials',
-			html: <VeiwSelected />, 
-			icon:"info", 
-			confirmButtonText:"Create",
-			width:"70vw",
-			confirmButtonColor:"#766ffa",
-	})
-	if(isConfirmed) await saveToFirebase()
+	const saveShcedule = async () => {
+
+		const { isConfirmed } = await MySwal.fire({
+			title: 'Materials',
+			html: <VeiwSelected />,
+			icon: "info",
+			confirmButtonText: "Create",
+			width: "70vw",
+			confirmButtonColor: "#766ffa",
+		})
+		if (isConfirmed) await saveToFirebase()
 	}
 
-	const saveToFirebase = async ()=>{
+	const saveToFirebase = async () => {
 		MySwal.fire('');
 		MySwal.showLoading();
-		try{
+		try {
 			const requestBody = {
 				schedule: userSchedule
 			}
 			console.log(requestBody);
-			const {status} = await APIsCaller({api:updateUserProfile, requestBody});
+			const { status } = await APIsCaller({ api: updateUserProfile, requestBody });
 			// TODO fix it very very very soooooooooooooooon
-			if(status === OK || status === BAD_REQUEST) {
-				const newUser = {...user};
+			if (status === OK || status === BAD_REQUEST) {
+				const newUser = { ...user };
 				newUser.userProfile.schedule = userSchedule;
 				setUser(newUser);
-				Swal.fire("Congrats","Your Schedule has been updated!", "success");
-			}else Swal.fire("Ops!","Something went wrong", "error");
-		}catch(err){
-			Swal.fire("Ops!","Something went wrong", "error");
+				Swal.fire("Congrats", "Your Schedule has been updated!", "success");
+			} else Swal.fire("Ops!", "Something went wrong", "error");
+		} catch (err) {
+			Swal.fire("Ops!", "Something went wrong", "error");
 		}
 	}
 
-	const VeiwSelected = ()=>{
-		
+	const VeiwSelected = () => {
+
 		return (
 			<div className='schedule-alert'>
-			{selected?.map((card, index) => <MaterialCard key={index} {...card!}  submitHandler={removeCardFromSchedule} option="-"/>)}
+				{selected?.map((card, index) => <MaterialCard key={index} {...card!} submitHandler={removeCardFromSchedule} option="-" />)}
 			</div>)
 	}
 
-	const defualtValues = ()=>{
-		
-		const temp:cardInterface[] = [];
-		userSchedule?.forEach((val:any) =>{
+	const defualtValues = () => {
+		const temp: cardInterface[] = [];
+		userSchedule?.forEach((val: any) => {
 			const currentMat = materialsTable[val];
-			temp.push({cardPhoto: currentMat.materialPhoto,
-					   cardRate: currentMat.totalRate,
-					   cardTitle: currentMat.materialName,
-					   cardID: val})
+			temp.push({
+				cardPhoto: currentMat.materialPhoto,
+				cardRate: currentMat.totalRate,
+				cardTitle: currentMat.materialName,
+				cardID: val,
+				matNum: currentMat.materialNumber
+			})
 		});
 		setSelected(() => temp);
 		console.log(adding)
-		if(selected && !adding){
-			if(selected?.length === 0)Swal.clickCancel();
+		if (selected && !adding) {
+			if (selected?.length === 0) Swal.clickCancel();
 			saveShcedule();
-		} 
+		}
 	}
 
-	const removeCardFromSchedule = (matID:string)=>{
+	const removeCardFromSchedule = (matID: string) => {
 		setAdding(false);
-		const newData = selected?.filter((tempCard) => `${tempCard?.cardID}` !== `${matID}` );
+		const newData = selected?.filter((tempCard) => `${tempCard?.cardID}` !== `${matID}`);
 		const newSchedule = newData!.map((temp) => temp!.cardID);
 		console.log(newData)
 		setSelected(() => newData);
-		setUserSchedule(()=> newSchedule)
+		setUserSchedule(() => newSchedule)
 	}
 
-	const onCardClickHandler = (matID:string)=>{
+	const onCardClickHandler = (matID: string) => {
 		setAdding(true);
 		console.log("am adding");
-		
-		setUserSchedule((mySchedule)=>{
-			if(!mySchedule) return [...[matID]]
+
+		setUserSchedule((mySchedule) => {
+			if (!mySchedule) return [...[matID]]
 			return [...[matID, ...mySchedule]];
 		})
 		const temp = materialsTable[matID];
@@ -161,10 +184,11 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 			cardRate: temp.totalRate,
 			cardTitle: temp.materialName,
 			cardID: matID,
+			matNum: temp.materialNumber
 		}
 		setSelected((selectedSoFar) => {
-		
-			if(selectedSoFar) return [...[cardToAdd, ...selectedSoFar]];
+
+			if (selectedSoFar) return [...[cardToAdd, ...selectedSoFar]];
 			return [...[cardToAdd]];
 		})
 		const newData = data?.filter((tempCard) => tempCard?.cardID !== matID);
@@ -175,9 +199,17 @@ export default function CardsViewer({ match }: { match?: cardsViewerMatch<any> }
 	return (
 		<div className="cards-viewer">
 			<div className="space" />
-			{data?.map((card, index) => <MaterialCard key={index} {...card!} submitHandler={onCardClickHandler} option="+" />)}
+			{/* // For search logic */}
+			{searchResult?.length !== 0 ?
+				data?.map((card, index) => {
+					// For search logic
+					if (searchResult == undefined || searchResult?.includes(card?.cardID)) {
+						return <MaterialCard key={index} {...card!} submitHandler={onCardClickHandler} option="+" />
+					}
+				})
+				: <p> no material Found:(</p>}
 			<div className="down-space" />
-			{match ? <div/>: <SaveFAB />}
+			{match ? <div /> : <SaveFAB />}
 
 		</div>
 	);

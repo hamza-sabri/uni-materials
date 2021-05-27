@@ -1,6 +1,6 @@
 @import "../../shared-styles/shared-effects";
 
-.topic-card {
+.res-card {
     @include floating;
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@
     &:hover {
         cursor: pointer;
 
-        .top-part-container {
+        .res-top-part-container {
             height: 20%;
             justify-content: space-around;
 
@@ -40,11 +40,11 @@
             margin: 0;
         }
 
-        .topic-rate-container {
+        .res-rate-container {
             display: none;
         }
 
-        .icons-contianer {
+        .res-icons-contianer {
             display: flex;
             flex-direction: row;
             // align-items: flex-end;
@@ -54,7 +54,7 @@
         }
     }
 
-    .topic-name-container {
+    .res-name-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -73,7 +73,7 @@
     }
 }
 
-.topic-name-card-container {
+.res-name-card-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,7 +93,7 @@
     background: rgba(0, 0, 0, 0.7);
 }
 
-.top-part-container {
+.res-top-part-container {
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
@@ -107,7 +107,7 @@
 
     overflow: hidden;
 
-    .topic-rate-container {
+    .res-rate-container {
         width: 0;
         height: 0;
         // background-color: green;
@@ -119,9 +119,9 @@
         border-bottom: 2.5rem solid transparent;
         border-left: 2.5rem solid transparent;
 
-        z-index: 50;
+        z-index: 2;
 
-        .topic-rate-content {
+        .res-rate-content {
             display: flex;
             align-items: center;
             justify-self: center;
@@ -137,8 +137,9 @@
         }
     }
 
-    .icons-contianer {
-        display: flex;
+    .res-icons-contianer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
 
         margin: 0;
         padding: 0;
@@ -153,31 +154,23 @@
             justify-content: center;
             align-items: center;
 
-            flex: 50%;
+            overflow: hidden;
 
-            height: 200%;
+            // flex: 33%;
+
+            // height: 200%;
 
             margin: 0;
             padding: 0;
         }
 
         .delete-icon {
-            position: absolute;
+            position: relative;
             left: 15%;
             top: 50%;
             transform: translate(-50%, -50%);
-        }
 
-        .edit-icon {
-            position: absolute;
-            left: 85%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .edit-icon svg {
-            width: 45% !important;
-            height: 45% !important;
+            height: 200%;
         }
     }
 }

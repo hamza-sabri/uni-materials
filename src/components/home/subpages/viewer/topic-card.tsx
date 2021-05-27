@@ -6,6 +6,7 @@ import lottie, { AnimationItem } from 'lottie-web';
 
 import '../../../../styles/viewer/topic-card/topic-card.css';
 import { useHistory } from 'react-router-dom';
+import { on } from 'cluster';
 
 // TODO: Check the card interface
 export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, routeTo, onClickHandlers, description }: any) {
@@ -36,8 +37,11 @@ export default function TopicCard({ cardID, cardPhoto, cardTitle, cardRate, rout
 
 		let handleOnClick = (e: any) => {
 			let path = e.nativeEvent.composedPath();
+			e.stopPropagation();
 			if (onClickHandlers && onClickHandlers.edit && path.includes(editBtnRef.current)) {
 				// handle onClick for editBtn
+				console.log("description", description);
+				
 				e.preventDefault()
 				onClickHandlers.edit(history, cardID, cardTitle, cardPhoto, description);
 				// history.push(updateTopic, { materialID: materialID, topicID: cardID, name: cardTitle, photo: cardPhoto, description: description })

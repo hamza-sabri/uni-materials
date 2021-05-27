@@ -10,10 +10,16 @@ import { DynamicContentContext } from '../../contexts/home-context/dynamic-conte
 import { getUserProfile, isLogedin } from '../../requestes/user-requestes/user';
 
 export default function HomePage() {
-	const [ materialsTable, setMaterialsTable ] = useState<any>({});
-	const [ unisDataList, setUnisDataList ] = useState<any[]>([]);
-	const [ user, setUser ] = useState<any>({});
+	const [materialsTable, setMaterialsTable] = useState<any>({});
+	const [unisDataList, setUnisDataList] = useState<any[]>([]);
+	const [dataToSearchIn, setDtaToSearchIn] = useState<any[] | undefined>([]);
+	const [searchResult, setSearchResult] = useState();
+	const [user, setUser] = useState<any>({});
 	const mounted = useRef<HTMLDivElement>(null);
+
+	let [clearSearchBarBtnRef, setClearSearchBarBtnRef] = useState(useRef<HTMLButtonElement>(null));
+
+
 	// TODO very very very very important
 	// refactor this shit (language)
 	// do a check on the status if its ok or not for all the requests
@@ -33,7 +39,7 @@ export default function HomePage() {
 	return (
 		<div className="home-page" ref={mounted}>
 			<DynamicContentContext.Provider
-				value={{ materialsTable, setMaterialsTable, unisDataList, setUnisDataList, user, setUser }}
+				value={{ materialsTable, setMaterialsTable, unisDataList, setUnisDataList, user, setUser, dataToSearchIn, setDtaToSearchIn, searchResult, setSearchResult, clearSearchBarBtnRef, setClearSearchBarBtnRef }}
 			>
 				<NavBar />
 				<SideBar />
