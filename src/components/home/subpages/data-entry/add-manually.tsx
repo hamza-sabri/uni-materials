@@ -33,6 +33,10 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 	const addResButtonRef = useRef<HTMLDivElement>(null);
 	const { materialsTable, setMaterialsTable } = useContext(DynamicContentContext);
 
+
+	const nameRefInp = useRef<HTMLInputElement>(null);
+	const imgRefInp = useRef<HTMLInputElement>(null);
+
 	useEffect(() => {
 		if (topicID) {
 			addResButtonRef.current!.style.display = 'flex';
@@ -108,6 +112,13 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		if (status === CREATED) {
 			updateMaterialLocally(materialID, requestBody);
 			Swal.fire('Thanks', message, 'success');
+
+			//close enough
+			// materialName.current!.innerHTML = requestBody["materialName"];
+			// previewer.current!.src = requestBody["materialPhoto"];
+			// nameRefInp.current!.value  = requestBody["materialName"];
+			// textAreaRef.current!.value = requestBody["materialDesc"];
+			//--------------------------------------------------------
 		}
 		else Swal.fire('Ops!', message || 'Something went wrong', 'error');
 	}
@@ -124,7 +135,23 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		const { message, topicID } = data;
 		if (status === CREATED || status === OK) {
 			console.log(addResButtonRef.current)
-			setResRoute((currentRoute) => `${currentRoute}/${topicID}`);
+			setResRoute((currentRoute) => {
+				console.log(currentRoute);
+				let temp = currentRoute.substring(0, 14)
+				temp = `${temp}/${localMaterialID}/${topicID}`;
+				console.log('temp', temp)
+				return temp;
+			});
+
+			//adding new code
+			materialName.current!.innerHTML = requestBody["topicName"];
+			previewer.current!.src = requestBody["topicPhoto"];
+			console.log(imgRefInp);
+			nameRefInp.current!.value	= requestBody["topicName"];
+			imgRefInp.current!.value 	= requestBody["topicPhoto"];
+			textAreaRef.current!.value  =  requestBody["topicDes"];
+			//--------------------------------------------------------
+
 			await Swal.fire('Thanks', message, 'success');
 			addResButtonRef.current!.style.display = 'flex';
 
@@ -164,8 +191,8 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => {
-					if (values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} type={hint.includes("Number") ? "number" : "text"} />
-					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} type={hint.includes("Number") ? "number" : "text"} />
+					if (values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} type={hint.includes("Number") ? "number" : "text"} ref={nameRefInp}/>
+					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} type={hint.includes("Number") ? "number" : "text"} ref={index === 0? nameRefInp: imgRefInp}/>
 				})}
 				{
 					(descriptionInput || description) ? <textarea placeholder={descriptionInput} ref={textAreaRef}
