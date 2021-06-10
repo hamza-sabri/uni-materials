@@ -33,6 +33,10 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 	const addResButtonRef = useRef<HTMLDivElement>(null);
 	const { materialsTable, setMaterialsTable } = useContext(DynamicContentContext);
 
+
+	const nameRefInp = useRef<HTMLInputElement>(null);
+	const imgRefInp = useRef<HTMLInputElement>(null);
+
 	useEffect(() => {
 		if (topicID) {
 			addResButtonRef.current!.style.display = 'flex';
@@ -125,6 +129,15 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		if (status === CREATED || status === OK) {
 			console.log(addResButtonRef.current)
 			setResRoute((currentRoute) => `${currentRoute}/${topicID}`);
+
+			//adding new code
+			materialName.current!.innerHTML = requestBody["topicName"];
+			previewer.current!.src = requestBody["topicPhoto"];
+			console.log(imgRefInp);
+			nameRefInp.current!.value = requestBody["topicName"];
+			imgRefInp.current!.value = requestBody["topicPhoto"];
+			//--------------------------------------------------------
+
 			await Swal.fire('Thanks', message, 'success');
 			addResButtonRef.current!.style.display = 'flex';
 
@@ -164,8 +177,8 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		return (
 			<div className="inputs-container">
 				{inputs.map((hint, index) => {
-					if (values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} type={hint.includes("Number") ? "number" : "text"} />
-					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} type={hint.includes("Number") ? "number" : "text"} />
+					if (values!.length > index) return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} defaultValue={values[index]} type={hint.includes("Number") ? "number" : "text"} ref={nameRefInp}/>
+					return <input placeholder={hint} key={index} onChange={(e) => inputHandler(e, index)} type={hint.includes("Number") ? "number" : "text"} ref={index === 0? nameRefInp: imgRefInp}/>
 				})}
 				{
 					(descriptionInput || description) ? <textarea placeholder={descriptionInput} ref={textAreaRef}
