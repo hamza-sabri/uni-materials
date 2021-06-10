@@ -112,6 +112,13 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		if (status === CREATED) {
 			updateMaterialLocally(materialID, requestBody);
 			Swal.fire('Thanks', message, 'success');
+
+			//close enough
+			materialName.current!.innerHTML = requestBody["materialName"];
+			previewer.current!.src = requestBody["materialPhoto"];
+			nameRefInp.current!.value  = requestBody["materialName"];
+			textAreaRef.current!.value = requestBody["materialDesc"];
+			//--------------------------------------------------------
 		}
 		else Swal.fire('Ops!', message || 'Something went wrong', 'error');
 	}
@@ -134,8 +141,9 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 			materialName.current!.innerHTML = requestBody["topicName"];
 			previewer.current!.src = requestBody["topicPhoto"];
 			console.log(imgRefInp);
-			nameRefInp.current!.value = requestBody["topicName"];
-			imgRefInp.current!.value = requestBody["topicPhoto"];
+			nameRefInp.current!.value	= requestBody["topicName"];
+			imgRefInp.current!.value 	= requestBody["topicPhoto"];
+			textAreaRef.current!.value  =  requestBody["topicDes"];
 			//--------------------------------------------------------
 
 			await Swal.fire('Thanks', message, 'success');
