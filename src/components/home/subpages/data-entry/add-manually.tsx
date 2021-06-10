@@ -114,10 +114,10 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 			Swal.fire('Thanks', message, 'success');
 
 			//close enough
-			materialName.current!.innerHTML = requestBody["materialName"];
-			previewer.current!.src = requestBody["materialPhoto"];
-			nameRefInp.current!.value  = requestBody["materialName"];
-			textAreaRef.current!.value = requestBody["materialDesc"];
+			// materialName.current!.innerHTML = requestBody["materialName"];
+			// previewer.current!.src = requestBody["materialPhoto"];
+			// nameRefInp.current!.value  = requestBody["materialName"];
+			// textAreaRef.current!.value = requestBody["materialDesc"];
 			//--------------------------------------------------------
 		}
 		else Swal.fire('Ops!', message || 'Something went wrong', 'error');
