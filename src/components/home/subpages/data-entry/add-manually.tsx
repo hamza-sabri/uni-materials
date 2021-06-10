@@ -135,7 +135,13 @@ export default function CardCreateor({ inputs, descriptionInput, values, localMa
 		const { message, topicID } = data;
 		if (status === CREATED || status === OK) {
 			console.log(addResButtonRef.current)
-			setResRoute((currentRoute) => `${currentRoute}/${topicID}`);
+			setResRoute((currentRoute) => {
+				console.log(currentRoute);
+				let temp = currentRoute.substring(0, 14)
+				temp = `${temp}/${localMaterialID}/${topicID}`;
+				console.log('temp', temp)
+				return temp;
+			});
 
 			//adding new code
 			materialName.current!.innerHTML = requestBody["topicName"];
