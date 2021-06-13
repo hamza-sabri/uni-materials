@@ -15,14 +15,14 @@ import './../../../../styles/materials-info/materials-info.css';
 import Swal from 'sweetalert2';
 
 interface LooseObject {
-    [key: string]: any
+	[key: string]: any
 }
 
 export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: string }> }) {
 	const materialID = match.params.matID;
 	const TOPIC_SEGEMENT_LENGTH = 11; // how many topic in each page (initial viwed topics count and how many to add each load more click).
 
-	const { materialsTable, setDtaToSearchIn, searchResult } = useContext(DynamicContentContext);
+	const { materialsTable, setDtaToSearchIn, searchResult, clearSearchBarBtnRef } = useContext(DynamicContentContext);
 
 	const [allTopics, setAllTopics] = useState([]);
 	const [topicsToDisplay, setTopicsToDisplay] = useState<any[]>([]);
@@ -45,6 +45,8 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		// or for the length of the data you can show detrminded by the value of [maxNumToDisplay]
 		// maxNumToDisplay: can take the value of allTopics.length if there is no search operation is done(empty search bar)
 		// otherwise it will take the value of the length of the search result length.
+		console.log("maxNumToDisplay", maxNumToDisplay, "nextTopicsIndex", nextTopicsIndex);
+
 		for (var i = 0; newTopics.length < (nextTopicsIndex + length) && newTopics.length < maxNumToDisplay; i++) {
 			let topicObj: LooseObject = Object.entries(allTopics)[i][1] as LooseObject;
 			topicObj.cardID = Object.entries(allTopics)[i][0];
@@ -65,7 +67,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 		// else send a request to retrieve them from the database.
 		if (allTopics.length == 0 || allTopics == undefined) {
 			// get topics form localStorage
-			let res = JSON.parse(localStorage.getItem('currentTopics') as any) || [];
+			let res = [] as any; //JSON.parse(localStorage.getItem('currentTopics') as any) || [];
 			// is there is any data stored in localStorage [checked by res.length==0]
 			// see if it belongs to the current opend data by comperaint materialId.
 			if (res.length == 0 || res == undefined || res.id != materialID) {
@@ -138,6 +140,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	useEffect(() => {
 		if (allTopics.length != 0) {
 			if (searchResult != undefined) {
+				setNextTopicsIndex(0);
 				setMaxNumToDisplay(() => searchResult.length);
 			} else {
 				setNextTopicsIndex(0);
@@ -173,6 +176,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 					didOpen: async () => {
 						Swal.showLoading();
 						let res = await APIsCaller({ api: deleteTopic, requestParams });
+						console.log("res", res);
 						Swal.hideLoading();
 						removeFromAllTopics(cardID);
 						if (res.status === 200) {
@@ -200,9 +204,23 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	// 
 	let removeFromAllTopics = (topicID: any) => {
 		delete allTopics[topicID];
-		setAllTopics(() => allTopics);
-		localStorage.setItem('currentTopics', JSON.stringify({ id: materialID, topics: allTopics }) as any)
-		addNewSetOfTopicsToDisplay(allTopics, nextTopicsIndex);
+
+		// reset all realated data.
+		setAllTopics(allTopics);
+		// set search bar context.
+		setDtaToSearchIn(Object.entries(allTopics).map((item: any) => {
+			return { key: item[1].topicName.replace(' ', ''), value: item[0] }
+		}));
+		setNextTopicsIndex(0);
+
+		if (searchResult) {
+			setMaxNumToDisplay(() => Object.entries(allTopics).length - 1);
+			clearSearchBarBtnRef.current?.click();
+		} else {
+			setMaxNumToDisplay(() => Object.entries(allTopics).length);
+		}
+
+		// localStorage.setItem('currentTopics', JSON.stringify({ id: materialID, topics: allTopics }) as any);
 	}
 
 	let editTopicFun = (history: any, cardID: any, cardTitle: any, cardPhoto: any, topicDes: any) => {
@@ -229,7 +247,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 						cardPhoto={topic.topicPhoto || material.materialPhoto}
 						cardRate={topic.topicRate || 0}
 						description={topic.topicDes || material.materialDesc || "No Description"}
-						onClickHandlers={{...onClickHandlers}}
+						onClickHandlers={{ ...onClickHandlers }}
 						routeTo={allTopicRes} />
 				})
 				: <p>No Topics Found</p>
