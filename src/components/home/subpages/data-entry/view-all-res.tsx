@@ -126,7 +126,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         })
     }
 
-    function RatingHtmlComp({submitRating}: any) {
+    function RatingHtmlComp({ submitRating }: any) {
         let commentRef = useRef<HTMLTextAreaElement>(null);
         let rateVal = 1;
         let setVal = (val: number) => { rateVal = val }
@@ -148,7 +148,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                 <div className="rate-comment-container">
                     <textarea ref={commentRef} className="rate-comment" placeholder="Comment about this resource" />
                 </div>
-                <button className="confirm-btn" type="submit" onClick={() => {if(commentRef.current){ submitRating(rateVal, commentRef.current.value)}}}>Submit Rating</button>
+                <button className="confirm-btn" type="submit" onClick={() => { if (commentRef.current) { submitRating(rateVal, commentRef.current.value) } }}>Submit Rating</button>
             </div >
         )
     }
@@ -158,10 +158,10 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
         let response;
         const requestParams = { materialID: matID, topicID: topicID, resorseID: cardID };
         const requestBody = { "resRate": 1, "rateMessage": "" }
-        let submitRating = async (ratingVal:number, comment:string) => {
+        let submitRating = async (ratingVal: number, comment: string) => {
             requestBody.resRate = ratingVal;
             requestBody.rateMessage = comment;
-            response = await APIsCaller({api: rateRes, requestBody, requestParams});
+            response = await APIsCaller({ api: rateRes, requestBody, requestParams });
             MySwal.close()
             if (response.status === 200) {
                 Swal.fire(
@@ -236,7 +236,7 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                 {
                     (loading) ?
                         <div className="loading-div" ref={loadingDivRef}></div>
-                        : ((searchResult && searchResult?.length !== 0) || (searchResult===undefined && allRes && allRes?.flat().length !== 0)) ?
+                        : ((searchResult && searchResult?.length !== 0) || (searchResult === undefined && allRes && allRes?.flat().length !== 0)) ?
                             allRes?.map((item: any, idx: any) => {
                                 return (
                                     <div ref={(a) => { contentSectionDivRef.current[idx] = a }} key={idx} tabIndex={0} className="expand-on-foucs-empty" onLoad={() => handleOnLoad()}>
@@ -311,14 +311,16 @@ export default function ViewAllRes({ match }: { match: infoPageMatch<{ matID: st
                                                                 // websiteName: "???????"
                                                                 onClickHandlers.body = (info: any) => { };
                                                                 return (
-                                                                    <ResCard key={id}
-                                                                        cardID={res.resID}
-                                                                        cardPhoto={res.websiteImage}
-                                                                        cardTitle={res.websiteName}
-                                                                        cardRate={res.rate || 0}
-                                                                        info={res}
-                                                                        onClickHandlers={{ ...onClickHandlers }}
-                                                                    />
+                                                                    <a key={id} href={res.link} target="_blank">
+                                                                        <ResCard key={id}
+                                                                            cardID={res.resID}
+                                                                            cardPhoto={res.websiteImage}
+                                                                            cardTitle={res.websiteName}
+                                                                            cardRate={res.rate || 0}
+                                                                            info={res}
+                                                                            onClickHandlers={{ ...onClickHandlers }}
+                                                                        />
+                                                                    </a>
                                                                 )
                                                                 break;
                                                             case "Laws":

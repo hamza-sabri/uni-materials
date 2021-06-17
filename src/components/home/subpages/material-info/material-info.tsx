@@ -138,6 +138,7 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 	}, [loadMoreDivRef.current])
 
 	useEffect(() => {
+		setMaxNumToDisplay(() => 0);
 		if (allTopics.length != 0) {
 			if (searchResult != undefined) {
 				setNextTopicsIndex(0);
@@ -146,8 +147,9 @@ export default function MaterialInfo({ match }: { match: infoPageMatch<{ matID: 
 				setNextTopicsIndex(0);
 				setMaxNumToDisplay(() => Object.entries(allTopics).length);
 			}
+			// addNewSetOfTopicsToDisplay(allTopics);
 		}
-	}, [searchResult])
+	}, [JSON.stringify(searchResult)])
 
 	useEffect(() => {
 		if (allTopics.length != 0) {
