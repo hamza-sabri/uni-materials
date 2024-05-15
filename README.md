@@ -8,10 +8,6 @@
 - **Centralized Educational Resources**: Consolidates a wide array of academic materials—from lab reports to lecture videos—into one easily accessible platform.
 - **Enhanced Learning Experience**: By offering comprehensive resources, Uni Mat enables students to access the tools they need for academic success.
 - **Community and Connectivity**: Aims to create a more connected and resource-rich academic environment, fostering better study habits and resource sharing among students.
-- **Leadership and Innovation**: As the project lead, I directed the integration of advanced technologies and educational strategies, ensuring that Uni Mat is both effective and user-friendly.
-
-
-As the lead of the graduate team that developed Uni Mat, I've overseen the integration of advanced technologies and educational strategies to ensure that the platform is both powerful and user-friendly.
 
 ## Key Features
 - **Centralized Resource Hub**: Uni Mat brings a vast array of educational materials into one platform, making it simpler for students to find and utilize the resources they need.
