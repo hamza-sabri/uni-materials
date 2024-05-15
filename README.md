@@ -15,8 +15,21 @@
 - **Dynamic and Engaging Animations**: The frontend of Uni Mat uses sophisticated animation tools such as Framer Motion, GSAP, and LottieFiles to deliver a visually engaging experience that enhances user interaction and learning.
 
 ## Technologies
-- **Frontend**: Developed with React and TypeScript, ensuring a robust, scalable, and maintainable codebase. The use of advanced animations makes the user interface intuitive and engaging.
-- **Backend**: Utilizes a combination of Firebase, Node.js, and Express (all in TypeScript) for the main backend services, alongside a Python-based Flask microservice to efficiently handle specific tasks.
+
+### Frontend
+Developed with React and TypeScript, ensuring a robust, scalable, and maintainable codebase. The user interface is enhanced with advanced animations for intuitive and engaging interactions:
+- React
+- TypeScript 
+- Framer Motion
+- GSAP 
+- LottieFiles
+
+### Backend
+Combines Firebase, Node.js, and Express (all in TypeScript) for the main backend services, along with a Python-based Flask microservice to handle specific tasks efficiently:
+- Node.js 
+- Firebase 🔥
+- Flask
+
 
 ## Live Demos
 Watch Uni Mat in action and see how it transforms the student experience:
