@@ -22,7 +22,3 @@
 Watch Uni Mat in action and see how it transforms the student experience:
 - [Demo Video 1](https://drive.google.com/file/d/1LEiixc2uQuyWjNMY0bMMYDtV8tfi1NNc/view?usp=sharing)
 - [Demo Video 2](https://drive.google.com/file/d/1drkrOguzL-1RYAM-9d8nilyFko5pqez-/view?usp=sharing)
-
-## Explore More
-Discover more about Uni Mat and contribute to its development on GitHub:
-- [Visit Uni Mat on GitHub](https://github.com/hamza-sabri/uni-materials)
