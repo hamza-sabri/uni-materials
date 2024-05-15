@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+# Uni Mat (Universities Materials)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+**Uni Mat** is a transformative educational platform that centralizes university resources in Palestine, designed to significantly enhance the educational experience for students. This innovative platform consolidates essential academic materials, from lab reports to lecture videos, into a single, easily accessible location. By providing these resources, Uni Mat aims to empower students with the tools they need to succeed academically and encourage a more connected and resource-rich academic environment.
 
-## Available Scripts
+As the lead of the graduate team that developed Uni Mat, I've overseen the integration of advanced technologies and educational strategies to ensure that the platform is both powerful and user-friendly.
 
-In the project directory, you can run:
+## Key Features
+- **Centralized Resource Hub**: Uni Mat brings a vast array of educational materials into one platform, making it simpler for students to find and utilize the resources they need.
+- **Rich Educational Content**: The platform hosts a diverse collection of materials, including detailed lab reports, summarized lectures, and extensive video tutorials, all curated to support a wide range of learning styles and needs.
+- **Dynamic and Engaging Animations**: The frontend of Uni Mat uses sophisticated animation tools such as Framer Motion, GSAP, and LottieFiles to deliver a visually engaging experience that enhances user interaction and learning.
 
-### `npm start`
+## Technologies
+- **Frontend**: Developed with React and TypeScript, ensuring a robust, scalable, and maintainable codebase. The use of advanced animations makes the user interface intuitive and engaging.
+- **Backend**: Utilizes a combination of Firebase, Node.js, and Express (all in TypeScript) for the main backend services, alongside a Python-based Flask microservice to efficiently handle specific tasks.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Live Demos
+Watch Uni Mat in action and see how it transforms the student experience:
+- [Demo Video 1](https://drive.google.com/file/d/1LEiixc2uQuyWjNMY0bMMYDtV8tfi1NNc/view?usp=sharing)
+- [Demo Video 2](https://drive.google.com/file/d/1drkrOguzL-1RYAM-9d8nilyFko5pqez-/view?usp=sharing)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Explore More
+Discover more about Uni Mat and contribute to its development on GitHub:
+- [Visit Uni Mat on GitHub](https://github.com/hamza-sabri/uni-materials)
