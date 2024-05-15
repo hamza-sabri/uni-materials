@@ -18,17 +18,18 @@
 
 ### Frontend
 Developed with React and TypeScript, ensuring a robust, scalable, and maintainable codebase. The user interface is enhanced with advanced animations for intuitive and engaging interactions:
-- React
-- TypeScript 
-- Framer Motion
+- React <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" width="20px"/>   
+- TypeScript <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" width="20px"/>
+- Framer Motion <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg" width="20px" fill="white"/>
 - GSAP 
 - LottieFiles
 
 ### Backend
 Combines Firebase, Node.js, and Express (all in TypeScript) for the main backend services, along with a Python-based Flask microservice to handle specific tasks efficiently:
-- Node.js 
-- Firebase 🔥
-- Flask
+- Node.js <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original-wordmark.svg"  width="20px"/>
+- Firebase <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg"  width="20px"/>
+- Flask <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"  width="20px"/>
+- Postman <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"  width="20px"/>
 
 
 ## Live Demos
